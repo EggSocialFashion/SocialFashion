@@ -187,6 +187,9 @@ public class PublicacionServicio {
         return listaVerificada;
     }
     
-    
+    public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
+
+        return publicacionRepositorio.findById(idPublicacion);
+    }
     
 }
