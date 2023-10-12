@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -187,6 +189,10 @@ public class PublicacionServicio {
         return listaVerificada;
     }
     
-    
-    
+
+public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
+
+    return publicacionRepositorio.findById(idPublicacion);
+}
+            
 }
