@@ -178,6 +178,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-   
+    @Transactional
+    public Optional<Usuario> buscarUsuarioOptionalId(String id) {
+
+        return usuarioRepositorio.findById(id);
+    }
 
 }
