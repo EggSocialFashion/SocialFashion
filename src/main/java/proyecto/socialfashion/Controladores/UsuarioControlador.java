@@ -51,6 +51,7 @@ public class UsuarioControlador {
         try {
             usuarioServicio.registrar(nombre, email, password, password2);
             modelo.put("exito", "El Usuario ha sido registrado correctamente.");
+           
             return "index.html";
         } catch (Excepciones ex) {
             modelo.put("error", ex.getMessage());
@@ -58,7 +59,6 @@ public class UsuarioControlador {
             modelo.put("email", email);
             return "registro.html";
         }
-
     }
 
     @GetMapping("/buscarpornombre")
