@@ -1,6 +1,5 @@
 package proyecto.socialfashion.Servicios;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,10 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import proyecto.socialfashion.Entidades.Imagen;
 import proyecto.socialfashion.Entidades.Publicacion;
@@ -49,7 +47,7 @@ public class PublicacionServicio {
         } else {
             publicacion.setCategoria(Categoria.MARROQUINERIA);
         }
-
+        publicacion.setEstado(true);
         publicacion.setUsuario(usuario);
 
         Imagen imagen = imagenServicio.guardar(archivo,publicacion);
@@ -97,14 +95,14 @@ public class PublicacionServicio {
         return listaVerificada;
     }
 */
-    @Transactional()
+   
+    @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {
         
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
         listaPublicacion = publicacionRepositorio.findAll();
-
-        // Se crea una collection sort y se ordena por likes de noticia
+/*
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
@@ -113,7 +111,7 @@ public class PublicacionServicio {
 
             }
         });
-        
+        */
         //Creo una nueva lista para verificar que esten en alta 
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         

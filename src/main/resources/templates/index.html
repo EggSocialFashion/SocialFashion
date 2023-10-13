@@ -14,8 +14,10 @@
       <h2> Diseños de autores </h2>
      </div>
     </section>
+  
      <section class="diseños container">
       <h2>Ultimos diseños</h2>
+      <!---
       <div class="swiper mySwiper">
              <div class="swiper-wrapper">
 
@@ -63,13 +65,39 @@
                    </div>
             </div>
         </div>
-      <div class="swiper-wrapper">
-        <div th:each="publicacion : ${publicacionesAlta}" class="swiper-slide">
-        <h4 th:text="${publicacion.titulo}"></h4>
-        <img th:src="@{imagen/publicada/__${publicacionesAlta.idPublicacion}__}" alt="Img de la publicacion">
-        <p th:text="${publicacion.contenido}"></p>
+      
+      ---->
+   
+      <div class="swiper-wrapper" >
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide">
+        <h4 th:text="${publicaciones.titulo}"></h4>
+       <img th:src="@{imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion"> 
+        <p th:text="${publicaciones.contenido}"></p>
         </div>
-    </div>
+        </div>
+     
+    <!---
+        <div class="tarjetaDeMasNoticias">  
+                    <div class="card" style="width: 18rem;" th:each="publicaciones : ${publicacionesAlta}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${publicaciones.titulo}"></h5>
+                            <p class="card-text text-truncate" th:text="${publicaciones.contenido}"></p>
+                        </div>
+                        <a class="btn btn-primary"> Cargar Noticia</a>
+
+
+                    </div>
+                </div>
+           ---->
+      
+      
+      
+      
+      
+      
+      
+      
+      
     </section>
     <section class="icons container">
        <i class="fa-solid fa-house"></i>
