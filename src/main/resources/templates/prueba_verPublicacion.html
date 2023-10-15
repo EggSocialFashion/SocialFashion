@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+
+<body>
+
+    <h1>Detalles de la Publicación</h1>
+    <div>
+        <h2>Título: <span th:text="${publicacion.titulo}"></span></h2>
+        <p>Contenido: <span th:text="${publicacion.contenido}"></span></p>
+        <script>
+            var nombre = /*[[${publicacion.idPublicacion}]]*/ '';
+            console.log(nombre);
+        </script>
+    </div>
+    <h2>Agregar un Comentario</h2>
+    <form th:action="@{/publicacion/__${publicacion.idPublicacion}__/comentario}" method="POST">
+        <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+        <label for="texto">Comentario:</label>
+        <textarea id="texto" name="texto" rows="4" required></textarea>
+        <br>
+        <button type="submit">Enviar Comentario</button>
+    </form>
+</body>
+
+</html>
