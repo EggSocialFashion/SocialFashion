@@ -30,7 +30,7 @@ public class Publicacion {
     private String titulo;
     
     @Basic
-    private String Contenido;
+    private String contenido;
     
     @Temporal(TemporalType.DATE)
     private Date alta;
@@ -57,10 +57,10 @@ public class Publicacion {
 
     }
 
-    public Publicacion(String idPublicacion, String titulo, String Contenido, Date alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
+    public Publicacion(String idPublicacion, String titulo, String contenido, Date alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
-        this.Contenido = Contenido;
+        this.contenido = contenido;
         this.alta = alta;
         this.categoria = categoria;
         this.estado = estado;
@@ -87,11 +87,11 @@ public class Publicacion {
     
 
     public String getContenido() {
-        return Contenido;
+        return contenido;
     }
 
-    public void setContenido(String Contenido) {
-        this.Contenido = Contenido;
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
 
     public Date getAlta() {

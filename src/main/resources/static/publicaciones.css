@@ -29,6 +29,21 @@
 }
 
 .form-h3 {
+  padding: 10PX;
   text-align: center;
   text-shadow: 2px 2px 4px rgb(255, 255, 255);
 }
+
+.boton-publi{
+  background-color: #685aff;
+}
+
+@media (max-width: 670px) {
+ 
+  .form-container{
+    background-color: white;
+  }
+ 
+    
+}
+
