@@ -1,12 +1,10 @@
 package proyecto.socialfashion.Servicios;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,7 @@ public class PublicacionServicio {
     ImagenServicio imagenServicio;
 
     @Transactional
-    public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, Date alta, String categoria, Usuario usuario) throws Excepciones {
+    public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
 
         Publicacion publicacion = new Publicacion();
         publicacion.setTitulo(titulo);
@@ -124,7 +122,7 @@ public class PublicacionServicio {
         
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
-        Date fechaHoy = new Date(); 
+        LocalDateTime fechaHoy = LocalDateTime.now();
         listaPublicacion = publicacionRepositorio.buscarPrimeras10PorFechaDeAlta(fechaHoy);
         
         List<Publicacion> GuardarPrimeras10 = new ArrayList<>();
@@ -145,7 +143,7 @@ public class PublicacionServicio {
 
     }
 
-    public void validar(String titulo, String contenido, Date alta, String categoria, Usuario usuario, Imagen imagen) throws Excepciones {
+    public void validar(String titulo, String contenido, LocalDateTime alta, String categoria, Usuario usuario, Imagen imagen) throws Excepciones {
        
         if (titulo.isEmpty() || titulo.equalsIgnoreCase("")) {
             throw new Excepciones("El titulo no puede estar estar vacio");

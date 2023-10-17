@@ -2,7 +2,7 @@
 package proyecto.socialfashion.Entidades;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,8 +32,8 @@ public class Publicacion {
     @Basic
     private String contenido;
     
-    @Temporal(TemporalType.DATE)
-    private Date alta;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime alta;
      
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
@@ -57,7 +57,7 @@ public class Publicacion {
 
     }
 
-    public Publicacion(String idPublicacion, String titulo, String contenido, Date alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
+    public Publicacion(String idPublicacion, String titulo, String contenido, LocalDateTime alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -94,11 +94,11 @@ public class Publicacion {
         this.contenido = contenido;
     }
 
-    public Date getAlta() {
+    public LocalDateTime getAlta() {
         return alta;
     }
 
-    public void setAlta(Date alta) {
+    public void setAlta(LocalDateTime alta) {
         this.alta = alta;
     }
 
