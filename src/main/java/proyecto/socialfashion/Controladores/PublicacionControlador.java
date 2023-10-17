@@ -26,7 +26,7 @@ import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
 @Controller
-@RequestMapping(value = "/publicacion", method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 public class PublicacionControlador {
     
     @Autowired
@@ -36,7 +36,7 @@ public class PublicacionControlador {
     UsuarioServicio usuarioServicio;
     
     
-    @GetMapping("/publicaciones")
+    @GetMapping("/")
     public String publicaciones(ModelMap modelo){
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest(); 
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
@@ -71,7 +71,7 @@ public class PublicacionControlador {
     
     
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/registro")
+    @PostMapping("/publicacion/registro")
     public String registro(@RequestParam(name ="titulo", required = false) String titulo, @RequestParam(name ="contenido", required = false) String contenido, @RequestParam(name ="categoria", required = false) String categoria, ModelMap modelo, MultipartFile archivo, HttpSession session){
         
         try {

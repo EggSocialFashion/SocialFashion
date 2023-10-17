@@ -128,7 +128,7 @@ public class PublicacionServicio {
         listaPublicacion = publicacionRepositorio.buscarPrimeras10PorFechaDeAlta(fechaHoy);
         
         List<Publicacion> GuardarPrimeras10 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < listaPublicacion.size(); i++) {
             GuardarPrimeras10.add(listaPublicacion.get(i));
         }
         //Creo una nueva lista para verificar que esten en alta 
