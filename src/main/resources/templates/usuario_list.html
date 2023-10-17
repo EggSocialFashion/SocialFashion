@@ -4,14 +4,16 @@
     <body>        
         <!-- <img class="img-fondo" src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="moda">--> 
         <nav th:replace="/template.fragments/navbar :: nav"> </nav>        
-        <div >
+        
+        
+        <div class="container-sm tabla-container">
         <h3 class= "form-h3">Lista de Usuarios</h3>
+        <hr class="hr-usuario_list">
          <div th:if="${error != null}">
             <h5 style="color: red">ERROR!!! :(</h5>
             <p th:text="${error}"></p>
-        </div>
-      </div>    
-        <div class="container-fluid">
+        </div>   
+        <div class="table-responsive">
             <table class="table">
                 <thead >
                     <tr>
@@ -33,13 +35,13 @@
                         <th th:text="${usuario.roles}"></th>
                         <th th:text="${usuario.estado}"></th>
                         <th>
-                            <a th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
+                            <a class="modificar_usuario" th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                         <th>
-                            <a th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
+                            <a class="modificar_usuario" th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                         <th>
-                            <a th:href="@{/usuarios/modificarEstado/__${usuario.idUsuario}__}">Modificar</a>
+                            <a class="modificar_usuario" th:href="@{/usuarios/modificarEstado/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                     </tr>
                 </tbody>
