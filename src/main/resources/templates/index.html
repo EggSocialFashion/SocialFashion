@@ -71,7 +71,7 @@
       <div class="swiper-wrapper" >
         <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide">
         <h4 th:text="${publicaciones.titulo}"></h4>
-       <img th:src="@{imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion"> 
+       <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion"> 
         <p th:text="${publicaciones.contenido}"></p>
         </div>
         </div>
