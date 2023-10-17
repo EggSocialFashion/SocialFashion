@@ -109,20 +109,20 @@ public class PublicacionControlador {
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
             
             //HTML en el que se encuentran las tendencias
-            return"";
+            return"tendencias.html";
             
         } catch (Excepciones ex) {
             modelo.put("Error", ex.getMessage());
             
             //HTML EN EL QUE SE INDIQUE ERROR DE TENDENCIAS
-            return""
+            return"index.html"
         }
     
     
     }
     
-    */
     
+    */
     
     
     

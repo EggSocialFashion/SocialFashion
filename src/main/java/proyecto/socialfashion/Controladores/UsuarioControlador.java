@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class UsuarioControlador {
     @Autowired
     PublicacionServicio publicacionServicio;
     
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
@@ -74,11 +75,13 @@ public class UsuarioControlador {
 
     }
 
+     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/buscarpornombre")
     public String buscarpornombre() {
         return "buscar_nombre.html";
     }
-
+    
+     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/buscarnombre")
     public String buscarnombre(@RequestParam String nombre, ModelMap modelo) throws Excepciones{
         
@@ -94,13 +97,15 @@ public class UsuarioControlador {
         
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/modificar/{idUsuario}")
     public String modificarUsuario(@PathVariable String idUsuario, ModelMap modelo) {
         modelo.put("usuario", usuarioServicio.getOne(idUsuario));
 
         return "usuario_modificar.html";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/modificar/{idUsuario}")
     public String modificar(@PathVariable String idUsuario, String nombre, String email, String password,
             String password2, Roles roles, ModelMap modelo) {
@@ -113,14 +118,16 @@ public class UsuarioControlador {
         }
 
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificarRol/{idUsuario}")
     public String cambiarRol(@PathVariable String idUsuario) {
         usuarioServicio.cambiarRol(idUsuario);
 
         return "redirect:/usuarios/lista";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificarEstado/{idUsuario}")
     public String cambiarEstado(@PathVariable String idUsuario) {
         usuarioServicio.cambiarEstado(idUsuario);
