@@ -15,7 +15,7 @@
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 20px;
-  filter: opacity(0.5);
+  filter: opacity(0.9);
 }
 
 .login_2 {

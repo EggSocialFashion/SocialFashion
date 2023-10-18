@@ -30,9 +30,3 @@ a {
   text-align: center;
   text-shadow: 2px 2px 4px rgb(255, 255, 255);
 }
-
-.mensajeExito {
-  font-size: 24px; /* Cambiar el tamaño de fuente a tu gusto */
-  padding: 20px; /* Cambiar el padding para ajustar el tamaño del mensaje */
-  height: 900px; /* Ajusta la altura según tus preferencias */
-}

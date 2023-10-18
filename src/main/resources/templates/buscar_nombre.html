@@ -13,14 +13,13 @@
 
     <nav th:replace="/template.fragments/navbar :: nav"></nav>
 
-    <div class="m5  formulario-container_buscarNombre">
+    <div class="container-fluid m5 contenedor col-6">
       <form
         class="formulario_nombre"
         th:action="@{/usuarios/buscarnombre}"
         method="POST"
         enctype="multipart/form-data"
       >
-      <img src="../static/img/logo.png" />
         <div th:if="${error != null}">
           <h5 style="color: red">ERROR!!! :(</h5>
           <p th:text="${error}"></p>
@@ -32,19 +31,19 @@
         </div>
 
         <div class="form-group my-3">
-          <h3 class="form_h3 card-title">Buscar Usuario por Nombre</h3>
+          <h3 class="form-h3 card-title">Buscar Usuario por Nombre</h3>
         </div>
         <div class="form-group my-3">
           <input
             type="text"
-            class="form-control_input1"
+            class="form-control_input"
             name="nombre"
             placeholder="Nombre"
             th:value="${nombre}"
           />
         </div>
 
-        <button type="submit" class="btn mt-3 botones_buscarnombre">Buscar</button>
+        <button type="submit" class="btn mt-3 botones">Buscar</button>
       </form>
     </div>
 

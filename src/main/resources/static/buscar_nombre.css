@@ -4,12 +4,6 @@
   padding: 0;
 }
 
-form > img {
-display: none;
-visibility: hidden;
-border-radius: 50%;
-}
-
 .img-fondo {
   display: flex;
   position: absolute;
@@ -24,89 +18,37 @@ border-radius: 50%;
   filter: opacity(0.8);
 }
 
-.formulario-container_buscarNombre {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  
-}
-
 .formulario_nombre {
-  min-width: 60%;
+  position: relative;
   text-align: center;
   padding: 10px;
-  box-shadow: 4px 4px 10px 4px rgb(159, 159, 159);
+  box-shadow: 4px 4px 10px 4px rgb(186, 186, 186);
   border-radius: 10px;
-  background-color: transparent;
+  top: 50px;
 }
 
-.form-control_input1 {
-  padding: 10px;
+.form-control_input {
   border: none;
-  width: 90%;
   background-color: transparent;
-  border-bottom: 1px solid #685aff;
-  font-size: 16px;
+  border-bottom: 3px solid #685aff;
+  color: white;
+  font-size: 30px;
+  box-shadow: 0x 0px 5px 1px rgb(0, 0, 0);
   outline: none;
   text-align: center;
-
 }
 
-.form_h3 {
-  font-size: 24px;
+.form-h3 {
   text-align: center;
-  text-shadow: 2px 2px 4px rgb(208, 208, 208);
+  text-shadow: 2px 2px 4px rgb(255, 255, 255);
 }
 
-.botones_buscarnombre {
+.botones {
   color: white;
-  font-size: 18px;
+  font-size: 25px;
   background-color: #685aff;
 }
 
-.botones_buscarnombre:hover {
+.botones:hover {
   background-color: #4e3eff;
-  color: white;
-}
-
-
-@media (max-width: 670px) {
-  .formulario_nombre{
-    min-width: 352px;
-    background-color: white;
-    box-shadow: 4px 4px 10px 4px rgb(0, 0, 0);
-    height: auto;
-  }
-
-  .form-control_input1{
-    margin: 4px;
-    margin-bottom: 0;
-    border-bottom: 3px solid #685aff;
-    padding: 6px;
-    border-radius: 10px;
-    opacity: 0.8;
-    box-shadow: 0px 2px 4px 0px rgb(187, 187, 187);
-
-  }
-
-  .form_h3 {
-    padding: 20px;
-    color: gray;
-    font-size: 20px;
-  }
-
-  form > img {
-    margin-left: 55px;
-    width: auto;
-    position: absolute;
-    object-fit: cover;
-  
-    display: block;
-    visibility: visible;
-    opacity: 0.05;
-    }
-
-
-    
 }

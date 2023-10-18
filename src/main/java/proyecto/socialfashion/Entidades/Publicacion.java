@@ -2,7 +2,7 @@
 package proyecto.socialfashion.Entidades;
 
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,10 +30,10 @@ public class Publicacion {
     private String titulo;
     
     @Basic
-    private String contenido;
+    private String Contenido;
     
-    
-    private LocalDateTime alta;
+    @Temporal(TemporalType.DATE)
+    private Date alta;
      
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
@@ -56,10 +57,10 @@ public class Publicacion {
 
     }
 
-    public Publicacion(String idPublicacion, String titulo, String contenido, LocalDateTime alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
+    public Publicacion(String idPublicacion, String titulo, String Contenido, Date alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
-        this.contenido = contenido;
+        this.Contenido = Contenido;
         this.alta = alta;
         this.categoria = categoria;
         this.estado = estado;
@@ -86,18 +87,18 @@ public class Publicacion {
     
 
     public String getContenido() {
-        return contenido;
+        return Contenido;
     }
 
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
+    public void setContenido(String Contenido) {
+        this.Contenido = Contenido;
     }
 
-    public LocalDateTime getAlta() {
+    public Date getAlta() {
         return alta;
     }
 
-    public void setAlta(LocalDateTime alta) {
+    public void setAlta(Date alta) {
         this.alta = alta;
     }
 

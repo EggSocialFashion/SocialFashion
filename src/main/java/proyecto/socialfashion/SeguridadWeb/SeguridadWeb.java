@@ -38,7 +38,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/logincheck")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/publicacionesSocialFashion")
+                        .defaultSuccessUrl("/publicacion/publicacionesSocialFashion")
                         .permitAll()
                 .and().logout()
                         .logoutUrl("/logout")

@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="/template.fragments/head :: head"> </head>
-    <body>        
+    <body>
+        
         <!-- <img class="img-fondo" src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="moda">--> 
         <nav th:replace="/template.fragments/navbar :: nav"> </nav>        
-        
-        
-        <div class="container-sm tabla-container">
+        <div >
         <h3 class= "form-h3">Lista de Usuarios</h3>
-        <hr class="hr-usuario_list">
          <div th:if="${error != null}">
             <h5 style="color: red">ERROR!!! :(</h5>
             <p th:text="${error}"></p>
-        </div>   
-        <div class="table-responsive">
+        </div>
+      </div>    
+        <div class="container-fluid">
             <table class="table">
                 <thead >
                     <tr>
@@ -35,13 +34,13 @@
                         <th th:text="${usuario.roles}"></th>
                         <th th:text="${usuario.estado}"></th>
                         <th>
-                            <a class="modificar_usuario" th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
+                            <a th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                         <th>
-                            <a class="modificar_usuario" th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
+                            <a th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                         <th>
-                            <a class="modificar_usuario" th:href="@{/usuarios/modificarEstado/__${usuario.idUsuario}__}">Modificar</a>
+                            <a th:href="@{/usuarios/modificarEstado/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
                     </tr>
                 </tbody>
