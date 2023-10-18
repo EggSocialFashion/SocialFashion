@@ -187,8 +187,9 @@ public class PublicacionServicio {
     
 
 public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
+    Optional<Publicacion> publicacion = publicacionRepositorio.findById(idPublicacion);
 
-    return publicacionRepositorio.findById(idPublicacion);
+    return publicacion;
 }
             
 }

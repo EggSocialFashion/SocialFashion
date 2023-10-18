@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="/template.fragments/head :: head"> </head>
+
+<body>
+    <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+    <h1>Formulario de Denuncia</h1>
+    <form th:action="@{/reportar}" method="POST" ><!--id="denuncia-form"-->
+        <input type="text" name="texto" id="texto" placeholder="Texto de la denuncia">
+        <select id="tipo" name="tipo">
+            <option value="SPAM">SPAM</option>
+            <option value="CONTENIDO_OFENSIVO">CONTENIDO OFENSIVO</option>
+            <option value="INCUMPLIMIENTO_DE_REGLAS">INCUMPLIMIENTO DE REGLAS</option>
+        </select>
+        <select id="tipoObjeto" name="tipoObjeto">
+            <option value="USUARIO">USUARIO</option>
+            <option value="COMENTARIO">COMENTARIO</option>
+            <option value="PUBLICACION">PUBLICACION</option>
+        </select>
+        <input type="text" name="idObjeto" id="idObjeto" value="codigo">
+        <input type="submit" value="Denunciar">
+    </form>
+    <div>
+        <p th:text="${mensaje}"></p>
+    </div>
+<!--
+    <script>
+        document.getElementById("denuncia-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío del formulario para que podamos verificar los valores.
+
+            const texto = document.getElementById("texto").value;
+            const tipo = document.getElementById("tipo").value;
+            const tipoObjeto = document.getElementById("tipoObjeto").value;
+            const idObjeto = document.getElementById("idObjeto").value;
+
+            console.log("Texto:", texto);
+            console.log("Tipo:", tipo);
+            console.log("Tipo Objeto:", tipoObjeto);
+            console.log("ID Objeto:", idObjeto);
+        });
+    </script>
+    -->
+</body>
+</html>

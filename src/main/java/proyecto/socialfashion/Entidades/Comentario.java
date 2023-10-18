@@ -19,7 +19,7 @@ public class Comentario {
 
     private Boolean estado;
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
     @ManyToOne
     @JoinColumn(name = "publicacion_id")
