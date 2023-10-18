@@ -32,8 +32,6 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registrar(String nombre, String email, String password, String password2) throws Excepciones {
 
-        validar(nombre, email, password, password2);
-
         Usuario usuario = new Usuario();
 
         usuario.setNombre(nombre);
@@ -42,7 +40,8 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuario.setRoles(Roles.USER);
         usuario.setEstado(true);
-
+        validar(nombre, email, password, password2, usuario);
+        
         usuarioRepositorio.save(usuario);
 
     }
@@ -51,13 +50,12 @@ public class UsuarioServicio implements UserDetailsService {
     public void actualizar(String idUsuario, String nombre, String email, String password, String password2, Roles rol)
             throws Excepciones {
 
-        validar(nombre, email, password, password2);
-
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
-
+       
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-
+            Usuario usuario1 = getOne(idUsuario);
+            validar(nombre, email, password, password2, usuario1);
             usuario.setNombre(nombre);
             usuario.setEmail(email);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -159,7 +157,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    public void validar(String nombre, String email, String password, String password2) throws Excepciones {
+    public void validar(String nombre, String email, String password, String password2, Usuario usuario ) throws Excepciones {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Excepciones("El nombre no puede estar vacío");
@@ -176,11 +174,19 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Excepciones("Las contraseñas ingresadas deben ser iguales.");
         }
+        
+        List<Usuario>listaUsuario = listarUsuarios();
+        
+        for (Usuario listaUsuarios : listaUsuario) {
+            if (listaUsuarios.getEmail().equalsIgnoreCase(usuario.getEmail())) {
+                throw new Excepciones("Ya existe un usuario registrado con ese Email");
+            }
+        }
+        
     }
 
     @Transactional
     public Optional<Usuario> buscarUsuarioOptionalId(String id) {
-
         return usuarioRepositorio.findById(id);
     }
 

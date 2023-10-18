@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+form > img {
+display: none;
+visibility: hidden;
+border-radius: 50%;
+}
+
 .img-fondo {
   display: flex;
   position: absolute;
@@ -18,37 +24,89 @@
   filter: opacity(0.8);
 }
 
+.formulario-container_buscarNombre {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  
+}
+
 .formulario_nombre {
-  position: relative;
+  min-width: 60%;
   text-align: center;
   padding: 10px;
-  box-shadow: 4px 4px 10px 4px rgb(186, 186, 186);
+  box-shadow: 4px 4px 10px 4px rgb(159, 159, 159);
   border-radius: 10px;
-  top: 50px;
+  background-color: transparent;
 }
 
-.form-control_input {
+.form-control_input1 {
+  padding: 10px;
   border: none;
+  width: 90%;
   background-color: transparent;
-  border-bottom: 3px solid #685aff;
-  color: white;
-  font-size: 30px;
-  box-shadow: 0x 0px 5px 1px rgb(0, 0, 0);
+  border-bottom: 1px solid #685aff;
+  font-size: 16px;
   outline: none;
   text-align: center;
+
 }
 
-.form-h3 {
+.form_h3 {
+  font-size: 24px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgb(255, 255, 255);
+  text-shadow: 2px 2px 4px rgb(208, 208, 208);
 }
 
-.botones {
+.botones_buscarnombre {
   color: white;
-  font-size: 25px;
+  font-size: 18px;
   background-color: #685aff;
 }
 
-.botones:hover {
+.botones_buscarnombre:hover {
   background-color: #4e3eff;
+  color: white;
+}
+
+
+@media (max-width: 670px) {
+  .formulario_nombre{
+    min-width: 352px;
+    background-color: white;
+    box-shadow: 4px 4px 10px 4px rgb(0, 0, 0);
+    height: auto;
+  }
+
+  .form-control_input1{
+    margin: 4px;
+    margin-bottom: 0;
+    border-bottom: 3px solid #685aff;
+    padding: 6px;
+    border-radius: 10px;
+    opacity: 0.8;
+    box-shadow: 0px 2px 4px 0px rgb(187, 187, 187);
+
+  }
+
+  .form_h3 {
+    padding: 20px;
+    color: gray;
+    font-size: 20px;
+  }
+
+  form > img {
+    margin-left: 55px;
+    width: auto;
+    position: absolute;
+    object-fit: cover;
+  
+    display: block;
+    visibility: visible;
+    opacity: 0.05;
+    }
+
+
+    
 }
