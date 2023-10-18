@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="/template.fragments/head :: head"> </head>
+
+<body>
+    <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+        <h1>Detalles de la Publicación</h1>
+        <h2>Título: <span th:text="${publicacion.titulo}"></span></h2>
+                <p>Contenido: <span th:text="${publicacion.contenido}"></span></p>
+                <div class="container d-flex row-12 justify-content-between">
+                    <div class="container col-4 text-center">
+                        <img th:src="@{/imagen/publicacion/__${publicacion.idPublicacion}__}" width="250"/>
+                    </div>
+                    <div class="comentarios-container col-4 mb-4 text-center bg-secondary text-dark">
+                        
+                        <div th:each="comentario : ${comentarios}">
+                            <p th:text="${comentario.texto}" ></p>
+                           
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="container col-4 mb-4 text-center">
+                        <h2>Agregar un Comentario</h2>
+                        <form th:action="@{/publicacion/guardar/__${publicacion.idPublicacion}__}" method="POST">
+                            <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                            <label for="texto"></label>
+                            <textarea id="texto" name="texto" rows="4" required></textarea>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Enviar Comentario</button>
+                        </form>
+                    </div>
+                </div>
+                
+    
+</body>
+
+</html>

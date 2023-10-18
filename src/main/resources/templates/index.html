@@ -10,7 +10,7 @@
         <div class="card-body">
             <h5 class="card-title">Éxito</h5>
             <p class="card-text" th:text="${exito}"></p>
-        </div>
+        </div>    
     </div>
   </div>
 
@@ -32,7 +32,7 @@
      </div>
     </section>
      <section class="diseños container">
-      <h2>Ultimos diseños</h2>
+      <h2>Ultimos diseños</h2>    
       <!--
       <div class="swiper mySwiper">
              <div class="swiper-wrapper">
@@ -79,6 +79,11 @@
                     <img src="../static/Imagenes/img5.jpg" alt="">
                    </div>
             </div>
+
+        </div>      
+      ---->
+      <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
         </div>     
       -->
         <div class="swiper mySwiper">
@@ -100,11 +105,18 @@
                         <a class="btn btn-primary"> Cargar Noticia</a>
 
 
+              <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide">
+                  <h4 th:text="${publicaciones.titulo}"></h4>
+                  <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion"> 
+                  <p th:text="${publicaciones.contenido}"></p>
+              </div>
+          </div>
+      </div>
+
                     </div>
                 </div>
            ----> 
     </section>
-
     <section class="icons container">
        <i class="fa-solid fa-house"></i>
        <i class="fa-solid fa-fire-flame-curved"></i>

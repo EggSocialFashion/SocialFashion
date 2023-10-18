@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
       stretch: 0,
       depth: 300,
       modifier: 1,
-      slideShadows: true,
+      slideShadows: true
     },
-    loop: true,
+    loop: true
   });
 
   swiper.on("slideChange", function () {

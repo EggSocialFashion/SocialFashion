@@ -66,17 +66,17 @@ public class ReporteServicio {
 
         if (TipoObjeto.COMENTARIO.toString().equals(tipoObjeto)) {
             Optional<Comentario> respuestaC = comentarioServicio.buscarComentarioPorId(idObjeto);
-            if (respuestaC.isPresent()) {
+            if (!respuestaC.isPresent()) {
                 return "No se encontró comentario";
             }
         } else if (TipoObjeto.PUBLICACION.toString().equals(tipoObjeto)) {
             Optional<Publicacion> respuestaP = publicacionServicio.buscarPublicacionPorId(idObjeto);
-            if (respuestaP.isPresent()) {
+            if (!respuestaP.isPresent()) {
                 return "No se encontró Publicación";
             }
         } else if (TipoObjeto.USUARIO.toString().equals(tipoObjeto)) {
             Optional<Usuario> respuestaU = usuarioServicio.buscarUsuarioOptionalId(idObjeto);
-            if (respuestaU.isPresent()) {
+            if (!respuestaU.isPresent()) {
                 return "No se encontró Usuario";
             }
         }
@@ -185,4 +185,6 @@ public class ReporteServicio {
         }
     }
 }
+
+
 
