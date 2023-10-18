@@ -1,8 +1,8 @@
 
 package proyecto.socialfashion.Repositorios;
 
-import java.awt.print.Pageable;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +22,7 @@ public interface PublicacionRepositorio extends JpaRepository<Publicacion, Strin
     */
     
     @Query(value = "SELECT p FROM Publicacion p WHERE p.alta <= :fechaHoy ORDER BY p.alta DESC")
-    public List<Publicacion> buscarPrimeras10PorFechaDeAlta(@Param("fechaHoy") Date fechaHoy);
+    public List<Publicacion> buscarPrimeras10PorFechaDeAlta(@Param("fechaHoy") LocalDateTime fechaHoy);
 
     
 }
