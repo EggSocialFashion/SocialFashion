@@ -2,6 +2,7 @@ package proyecto.socialfashion.Servicios;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proyecto.socialfashion.Entidades.Comentario;
+import proyecto.socialfashion.Enumeraciones.Estado;
+import proyecto.socialfashion.Enumeraciones.TipoObjeto;
 import proyecto.socialfashion.Repositorios.ComentarioRepositorio;
 
 @Service
@@ -18,8 +21,9 @@ public class ComentarioServicio {
     private ComentarioRepositorio comentarioRepositorio;
     @Transactional
     public void guardarComentario(Comentario comentario) {
-
-        comentarioRepositorio.save(comentario);
+        Comentario coment = comentario;
+        coment.setEstado(true);
+        comentarioRepositorio.save(coment);
     }
     
     @Transactional
@@ -57,8 +61,12 @@ public class ComentarioServicio {
 
     }
 
-    public List<Comentario> comentarioPorPublicacion(String idPublicacion) {
-        return null;
+    @Transactional
+    public List<Comentario> comentarioPorPublicacion(String idPublicacion){
+        List<Comentario> resultado = comentarioRepositorio.findAll();
+        return resultado.stream()
+            .filter(comentario -> comentario.getEstado()==true && comentario.getIdPublicacion().toString() == idPublicacion)
+            .collect(Collectors.toList());
     }
      
 
