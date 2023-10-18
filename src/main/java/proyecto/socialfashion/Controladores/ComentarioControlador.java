@@ -43,7 +43,7 @@ public class ComentarioControlador {
         this.usuarioServicio = usuarioServicio;
     }
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/publicacion/{idPublicacion}/comentario")
+    @PostMapping("/publicacion/guardar/{idPublicacion}")
     public String guardarComentario(
             @PathVariable String idPublicacion,
             @RequestParam("texto") String texto,Model modelo,HttpSession session) {
@@ -57,18 +57,33 @@ public class ComentarioControlador {
                 Publicacion publicacion = respuesta.get();
                 Comentario comentario = new Comentario(texto, usuario, publicacion);
                 comentarioServicio.guardarComentario(comentario);
-                modelo.addAttribute("mensaje", "Comentario guardado exitosamente");
+                
             } else {
                 modelo.addAttribute("mensaje", "Publicación inexistente");
-                return "prueba_verPublicacion.html";
+                
             }
         } catch (Exception e) {
             modelo.addAttribute("mensaje", e.getMessage());
             e.printStackTrace();
         }
          
-        return "prueba_verPublicacion.html";
+        return  "redirect:/publicacion/"+idPublicacion;
     }
+    
+    @GetMapping("/comentario/{idComentario}")
+    public String mostrarComentario(@PathVariable String idComentario, Model modelo) {
+    Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
+
+    if (respuesta.isPresent()) {
+        Comentario comentario = respuesta.get();
+        modelo.addAttribute("mensaje", comentario);
+        return "prueba_borrarComentario.html"; 
+    } else {
+        modelo.addAttribute("mensaje", "Comentario inexistente");
+        return "error.html";
+    }
+}
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/comentario/{idComentario}")
     public String borrarComentario(
@@ -79,17 +94,17 @@ public class ComentarioControlador {
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             if (respuesta.isPresent()) {
                 Comentario comentario = respuesta.get();
-                if (comentario.getIdUsuario().toString() == usuario.getIdUsuario().toString()) {
+                if (comentario.getIdUsuario().equals(usuario.getIdUsuario())) {
                     comentarioServicio.borrarComentario(comentario.getIdComentario());
                     modelo.addAttribute("mensaje", "Comentario borrado exitosamente");
-                    return "index.html";
+                    return "prueba_verPublicacion.html";
                 } else {
-                    modelo.addAttribute("mensaje", "Usuario Incorrecto");
-                    return "index.html";
+                    modelo.addAttribute("error", "Usuario Incorrecto");
+                    return "prueba_borrarComentario.html";
                 }
             } else {
-                modelo.addAttribute("mensaje", "Comentario inexistente");
-                return "index.html";
+                modelo.addAttribute("error", "Comentario inexistente");
+                return "prueba_borrarComentario.html";
             }
         } catch (Exception e) {
             modelo.addAttribute(e.getMessage());
@@ -102,6 +117,7 @@ public class ComentarioControlador {
 
         Optional<Publicacion> resultado = publicacionServicio.buscarPublicacionPorId(idPublicacion);
         if (resultado.isPresent()) {
+            Publicacion publicacion = resultado.get();
             List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(idPublicacion);
             modelo.addAttribute("comentariosPorPublicacion", comentarios);
         } else {

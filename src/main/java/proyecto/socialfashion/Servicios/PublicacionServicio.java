@@ -1,8 +1,6 @@
 package proyecto.socialfashion.Servicios;
 
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 
 import java.util.List;
@@ -189,8 +187,9 @@ public class PublicacionServicio {
     
 
 public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
+    Optional<Publicacion> publicacion = publicacionRepositorio.findById(idPublicacion);
 
-    return publicacionRepositorio.findById(idPublicacion);
+    return publicacion;
 }
             
 }

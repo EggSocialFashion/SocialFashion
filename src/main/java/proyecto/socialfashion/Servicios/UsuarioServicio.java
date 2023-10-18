@@ -189,6 +189,5 @@ public class UsuarioServicio implements UserDetailsService {
     public Optional<Usuario> buscarUsuarioOptionalId(String id) {
         return usuarioRepositorio.findById(id);
     }
-    
 
 }

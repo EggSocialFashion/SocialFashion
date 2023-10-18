@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,21 +17,33 @@ import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Servicios.ReporteServicio;
 
 @Controller
-@RequestMapping("/reportar")
+@RequestMapping("/")
 public class ReporteControlador {
 
     @Autowired
     private ReporteServicio reporteServicios;
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/publicacion/{idPublicacion}")
-    public String denunciar(@PathVariable String idPublicacion,
-            @RequestBody String texto,
+    @GetMapping("/reportar")
+    public String reportar(Model modelo) {
+        try {
+            return "prueba_reportar.html";
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "prueba_reportar.html";
+
+        }
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PostMapping("/reportar")
+    public String denunciar(@RequestParam String texto,
             @RequestParam String tipo,
             @RequestParam String tipoObjeto,
             @RequestParam String idObjeto,
-            ModelMap modelo, Model model,HttpSession session) {
-            
+            ModelMap modelo, Model model, HttpSession session) {
+
         tipo = tipo.toUpperCase();
         tipoObjeto = tipoObjeto.toUpperCase();
 
@@ -42,23 +54,24 @@ public class ReporteControlador {
                 boolean exito = reporteServicios.guardarReporte(texto, tipo, tipoObjeto, idObjeto, usuario);
                 if (exito) {
                     modelo.addAttribute("mensaje", "Reporte guardado exitosamente");
-                    return "exito";
+                    return "prueba_reportar.html";
                 } else {
                     modelo.addAttribute("mensaje", "Error al guardar el reporte");
                     return "error";
                 }
-        } catch (IllegalArgumentException e) {
-            modelo.addAttribute("mensaje", "Tipo de denuncia o tipo de objeto inválido");
-            return "index.html";
-        } catch (Exception e) {
-            modelo.addAttribute("mensaje", "Error al guardar el reporte");
-            return "index.html";
-        }
+            } catch (IllegalArgumentException e) {
+                modelo.addAttribute("mensaje", "Tipo de denuncia o tipo de objeto inválido");
+                return "prueba_reportar.html";
+            } catch (Exception e) {
+                modelo.addAttribute("mensaje", "Error al guardar el reporte");
+                return "prueba_reportar.html";
+            }
         } else {
             model.addAttribute("mensaje", mensajeValidacion);
-            return "reporte/publicacion"; 
+            return "prueba_reportar.html";
         }
 
     }
 
 }
+

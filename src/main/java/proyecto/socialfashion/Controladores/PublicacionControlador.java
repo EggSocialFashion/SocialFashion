@@ -1,14 +1,9 @@
 package proyecto.socialfashion.Controladores;
 
 
-
 import java.time.LocalDateTime;
 import java.util.List;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
-
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
-
 import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
-
+import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
@@ -38,14 +33,16 @@ import proyecto.socialfashion.Servicios.UsuarioServicio;
 public class PublicacionControlador {
     
     @Autowired
-    PublicacionServicio publicacionServicio;
+    private PublicacionServicio publicacionServicio;
     
     @Autowired
-    UsuarioServicio usuarioServicio;
+    private UsuarioServicio usuarioServicio;
 
     @Autowired
     private PublicacionRepositorio publicacionRepositorio;
 
+    @Autowired
+    private ComentarioServicio comentarioServicio;
     
     
     @GetMapping("/")
@@ -134,26 +131,37 @@ public class PublicacionControlador {
     }
     
     
-
     */
     
-
-     @GetMapping("/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model model) {
-        Optional<Publicacion> respuesta = publicacionRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Publicacion publicacion = respuesta.get();
-            model.addAttribute("publicacion", publicacion);
-            return "prueba_verPublicacion.html";
-        } else {
-            // Manejo de publicación no encontrada
-            return "error"; // Puedes crear una página de error personalizada si lo deseas
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/publicacion/{id}")
+    public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario==null){
+            return "redirecto:login.html";
         }
-    }
+        try {
+            Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
+            
+            if (respuesta.isPresent()) {
+                Publicacion publicacion = respuesta.get();
+                List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
+                model.addAttribute("publicacion", publicacion);
+                model.addAttribute("comentarios", comentarios);
+                return "prueba_verPublicacion.html";
+            } else {
+                model.addAttribute("error", "Error en publicacion");
+                return "error"; 
+            }
+        } catch (Exception e) {
 
-    
-    
-    
-    
-    
+            e.printStackTrace();
+
+            model.addAttribute("error", "Error al cargar la imagen");
+            return "error.html";
+
+        }
+
+    }
+ 
 }

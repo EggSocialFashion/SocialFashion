@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -59,7 +58,8 @@ public class AdminReportesControlador {
         }
     }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/comentarios")    public String reporteComentarios(HttpSession session, ModelMap modelo) {
+    @GetMapping("/comentarios")    
+    public String reporteComentarios(HttpSession session, ModelMap modelo) {
         
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
