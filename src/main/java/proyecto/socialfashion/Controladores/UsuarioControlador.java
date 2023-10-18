@@ -65,6 +65,7 @@ public class UsuarioControlador {
             modelo.addAttribute("usuario", logueado);
             modelo.addAttribute("publicacionesAlta", publicacionesAlta);
             modelo.put("exito", "El Usuario ha sido registrado correctamente.");
+           
             return "index.html";
         } catch (Excepciones ex) {
             modelo.put("error", ex.getMessage());
@@ -72,7 +73,6 @@ public class UsuarioControlador {
             modelo.put("email", email);
             return "registro.html";
         }
-
     }
 
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
