@@ -4,18 +4,37 @@
 <body>
   
   <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+<section>
+  <div th:if="${exito != null}" class="mensajeExito animate__animated animate__fadeInDown animate__faster">
+    <div class="card text-white bg-success mb-3 mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Éxito</h5>
+            <p class="card-text" th:text="${exito}"></p>
+        </div>
+    </div>
+  </div>
 
+  <div
+  th:if="${error != null}"
+  class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
+>
+  <div class="card-body">
+    <h5 class="card-title">Error</h5>
+    <p class="card-text" th:text="${error}"></p>
+  </div>
+</div>
 
+</section>
     <section class="container">
-
-
     <div class="search-txt">
        <i class="fa-brands fa-pinterest"> </i>
       <h2> Diseños de autores </h2>
      </div>
     </section>
+  
      <section class="diseños container">
       <h2>Ultimos diseños</h2>
+      <!---
       <div class="swiper mySwiper">
              <div class="swiper-wrapper">
 
@@ -63,26 +82,47 @@
                    </div>
             </div>
         </div>
-      <div class="swiper-wrapper">
-        <div th:each="publicacion : ${publicacionesAlta}" class="swiper-slide">
-        <h4 th:text="${publicacion.titulo}"></h4>
-        <img th:src="@{imagen/publicada/__${publicacionesAlta.idPublicacion}__}" alt="Img de la publicacion">
-        <p th:text="${publicacion.contenido}"></p>
+      
+      ---->
+   
+      <div class="swiper-wrapper" >
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide">
+        <h4 th:text="${publicaciones.titulo}"></h4>
+       <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion"> 
+        <p th:text="${publicaciones.contenido}"></p>
         </div>
-    </div>
+        </div>
+     
+    <!---
+        <div class="tarjetaDeMasNoticias">  
+                    <div class="card" style="width: 18rem;" th:each="publicaciones : ${publicacionesAlta}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${publicaciones.titulo}"></h5>
+                            <p class="card-text text-truncate" th:text="${publicaciones.contenido}"></p>
+                        </div>
+                        <a class="btn btn-primary"> Cargar Noticia</a>
+
+
+                    </div>
+                </div>
+           ---->
+      
+      
+      
+      
+      
+      
+      
+      
+      
     </section>
     <section class="icons container">
        <i class="fa-solid fa-house"></i>
        <i class="fa-solid fa-fire-flame-curved"></i>
        <i class="fa-solid fa-folder"></i>
-       <a th:href="@{/publicacion/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
+       <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
     </section>
-
-    <div th:if="${exito != null}">
-      <h5 style="color: green">Éxito!!! :)</h5>
-      <h2 th:text="${exito}"></h2>
-    </div>
-
+    
     <div class="container">
       <footer class="py-5">
         <div class="row">
@@ -106,8 +146,7 @@
                 <button class="btn btn-primary" type="button">Subscribe</button>
               </div>
             </form>
-          </div>
-  
+          </div>  
           <div class="container">
             <footer class="py-3 my-4">
               <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -120,7 +159,8 @@
               <p class="text-center text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023 Compañía, Inc.</font></font></p>
             </footer>
           </div>
-         <script src="../static/script/script.js"></script>
+         <script src="../static/script/script.js"></script>         
+         <script src="../static/script/animacionExito.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
