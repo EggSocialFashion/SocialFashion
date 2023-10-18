@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
       strech: 0,
       depth: 300,
       modifier: 1,
-      slideShadows: true,
+      slideShadows: true
     },
-    loop: true,
+    loop: true
   });
 });
