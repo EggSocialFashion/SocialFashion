@@ -2,7 +2,6 @@ package proyecto.socialfashion.Controladores;
 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class PublicacionControlador {
             modelo.put("exito", "Publicacion registrada correctamente!");
             
             //REDIRECCION AL INDEX PRESENTADO
-            return "redirect:/publicacion/publicacionesSocialFashion";
+            return "redirect:/publicacionesSocialFashion";
         } catch (Excepciones ex) {
             
             modelo.put("Error", ex.getMessage());
