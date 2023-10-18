@@ -1,22 +1,35 @@
 package proyecto.socialfashion.Controladores;
 
 
+
 import java.time.LocalDateTime;
 import java.util.List;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
+
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
+
+import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
+
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
@@ -29,6 +42,10 @@ public class PublicacionControlador {
     
     @Autowired
     UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private PublicacionRepositorio publicacionRepositorio;
+
     
     
     @GetMapping("/")
@@ -117,8 +134,23 @@ public class PublicacionControlador {
     }
     
     
+
     */
     
+
+     @GetMapping("/{id}")
+    public String mostrarPublicacion(@PathVariable String id, Model model) {
+        Optional<Publicacion> respuesta = publicacionRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Publicacion publicacion = respuesta.get();
+            model.addAttribute("publicacion", publicacion);
+            return "prueba_verPublicacion.html";
+        } else {
+            // Manejo de publicación no encontrada
+            return "error"; // Puedes crear una página de error personalizada si lo deseas
+        }
+    }
+
     
     
     

@@ -1,8 +1,9 @@
 package proyecto.socialfashion.Controladores;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,21 +23,20 @@ public class ReporteControlador {
     @Autowired
     private ReporteServicio reporteServicios;
 
-
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/{idPublicacion}")
-    @PreAuthorize("isAuthenticated()")
     public String denunciar(@PathVariable String idPublicacion,
             @RequestBody String texto,
             @RequestParam String tipo,
             @RequestParam String tipoObjeto,
             @RequestParam String idObjeto,
-            @AuthenticationPrincipal Usuario usuario, ModelMap modelo, Model model) {
+            ModelMap modelo, Model model,HttpSession session) {
             
         tipo = tipo.toUpperCase();
         tipoObjeto = tipoObjeto.toUpperCase();
 
         String mensajeValidacion = reporteServicios.validarDenuncia(tipo, tipoObjeto, idObjeto);
-        
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (mensajeValidacion == null || mensajeValidacion.isEmpty()) {
             try {
                 boolean exito = reporteServicios.guardarReporte(texto, tipo, tipoObjeto, idObjeto, usuario);

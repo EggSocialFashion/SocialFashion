@@ -183,5 +183,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         return usuarioRepositorio.findById(id);
     }
+    
 
 }
