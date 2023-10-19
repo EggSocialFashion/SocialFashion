@@ -70,9 +70,9 @@ public class ComentarioControlador {
         return  "redirect:/publicacion/"+idPublicacion;
     }
    
-    @GetMapping("/comentario/{id}")
-    public String mostrarComentario(@PathVariable String id, Model modelo) {
-    Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(id);
+    @GetMapping("/comentario/{idComentario}")
+    public String mostrarComentario(@PathVariable String idComentario, Model modelo) {
+    Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
 
     if (respuesta.isPresent()) {
         Comentario comentario = respuesta.get();
