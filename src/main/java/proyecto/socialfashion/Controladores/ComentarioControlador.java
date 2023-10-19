@@ -69,42 +69,53 @@ public class ComentarioControlador {
          
         return  "redirect:/publicacion/"+idPublicacion;
     }
-    
-    @GetMapping("/comentario/{idComentario}")
-    public String mostrarComentario(@PathVariable String idComentario, Model modelo) {
-    Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
+   
+    @GetMapping("/comentario/{id}")
+    public String mostrarComentario(@PathVariable String id, Model modelo) {
+    Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(id);
 
     if (respuesta.isPresent()) {
         Comentario comentario = respuesta.get();
-        modelo.addAttribute("mensaje", comentario);
-        return "prueba_borrarComentario.html"; 
+        if(comentario.getEstado()==true){
+            modelo.addAttribute("comentario", comentario);
+            return "comentario.html"; 
+        }else{
+            modelo.addAttribute("error", "Comentario inexistente");
+            return "redirect:index.html"; 
+        }
+        
     } else {
         modelo.addAttribute("mensaje", "Comentario inexistente");
         return "error.html";
     }
 }
-
+ 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/comentario/{idComentario}")
+    @PostMapping("/comentario/borrar/{idComentario}")
     public String borrarComentario(
             @PathVariable String idComentario,Model modelo,HttpSession session) {
 
         try {
             Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
+
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            if(usuario==null){
+                return "redirecto:login.html";
+            }
             if (respuesta.isPresent()) {
                 Comentario comentario = respuesta.get();
-                if (comentario.getIdUsuario().equals(usuario.getIdUsuario())) {
+                                
+                if (comentario.getIdUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario().toString())) {
                     comentarioServicio.borrarComentario(comentario.getIdComentario());
                     modelo.addAttribute("mensaje", "Comentario borrado exitosamente");
-                    return "prueba_verPublicacion.html";
+                    return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
                 } else {
                     modelo.addAttribute("error", "Usuario Incorrecto");
-                    return "prueba_borrarComentario.html";
+                    return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
                 }
             } else {
                 modelo.addAttribute("error", "Comentario inexistente");
-                return "prueba_borrarComentario.html";
+                return "index.html";
             }
         } catch (Exception e) {
             modelo.addAttribute(e.getMessage());

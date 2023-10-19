@@ -12,7 +12,7 @@ import proyecto.socialfashion.Entidades.Comentario;
 @Repository
 public interface ComentarioRepositorio extends JpaRepository<Comentario, String> {
     
-    @Query("SELECT c FROM Comentario c WHERE c.idPublicacion.idPublicacion = :idPublicacion")
+    @Query("SELECT c FROM Comentario c WHERE c.idPublicacion.idPublicacion = :idPublicacion AND c.estado = true")
     public List<Comentario> buscarComentarioPorPublicacion(@Param("idPublicacion") String idPublicacion);
 
     

@@ -50,8 +50,8 @@ public class AdminReportesControlador {
 
         if (usuario.getRoles() == Roles.ADMIN) {
             List<Reporte> reporteUsuario = reporteServicio.obtenerUsuariosReportadosPendientes();
-            modelo.addAttribute("Reporte Usuarios", reporteUsuario);
-            return "adminUsuarios";
+            modelo.addAttribute("reporteUsuario", reporteUsuario);
+            return "admin_usuario.html";
         } else {
             modelo.addAttribute("mensaje", "Usuario no permitido");
             return "index.html";
@@ -65,8 +65,8 @@ public class AdminReportesControlador {
 
         if (usuario.getRoles() == Roles.ADMIN) {
             List<Reporte> reporteComentarios = reporteServicio.obtenerComentariosReportadosPendientes();
-            modelo.addAttribute("Reporte Comentarios", reporteComentarios);
-            return "adminComentarios";
+            modelo.addAttribute("reporteComentarios", reporteComentarios);
+            return "admin_comentarios.html";
         } else {
             modelo.addAttribute("mensaje", "Usuario no permitido");
             return "index.html";
@@ -79,8 +79,8 @@ public class AdminReportesControlador {
 
         if (usuario.getRoles() == Roles.ADMIN) {
             List<Reporte> reportePublicaciones = reporteServicio.obtenerPublicacionesReportadasPendientes();
-            modelo.addAttribute("reporte Publicaciones", reportePublicaciones);
-            return "adminPublicaciones";
+            modelo.addAttribute("reportePublicaciones", reportePublicaciones);
+            return "admin_publicaciones.html";
         } else {
             modelo.addAttribute("mensaje", "Usuario no permitido");
             return "index.html";

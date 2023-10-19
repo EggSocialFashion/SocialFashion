@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     slidesPerView: "auto",
     coverflowEffect: {
       rotate: 15,
-      strech: 0,
+      stretch: 0,
       depth: 300,
       modifier: 1,
       slideShadows: true
