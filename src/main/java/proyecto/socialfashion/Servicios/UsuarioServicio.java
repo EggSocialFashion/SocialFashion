@@ -88,16 +88,10 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void buscarUsuarioPorNombre(String nombre, ModelMap modelo) throws Excepciones {
+    public List<Usuario> buscarUsuarioPorNombre(String nombre) throws Excepciones {
 
-        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombre);
-
-        if (usuario.getNombre().equals(nombre)) {
-            modelo.put("exito", "El Usuario ha sido encontrado.");
-            
-        } else if (!usuario.getNombre().equals(nombre)) {
-            modelo.put("error", "El Usuario NO se existe.");
-        }
+        List<Usuario> usuario = usuarioRepositorio.buscarPorNombre(nombre);
+        return usuario;
 
     }
 
