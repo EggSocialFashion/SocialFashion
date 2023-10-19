@@ -18,6 +18,7 @@ import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Roles;
 import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
+import proyecto.socialfashion.Repositorios.UsuarioRepositorio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
@@ -28,6 +29,8 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
     
     @Autowired
     PublicacionServicio publicacionServicio;
@@ -77,21 +80,28 @@ public class UsuarioControlador {
 
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/buscarpornombre")
-    public String buscarpornombre() {
+    public String buscarpornombre(ModelMap modelo) {
         return "buscar_nombre.html";
     }
     
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/buscarnombre")
     public String buscarnombre(@RequestParam String nombre, ModelMap modelo) throws Excepciones{
-        
+        //Usuario usuario = usuarioRepositorio.buscarPorNombre(nombre);
         try {
-            usuarioServicio.buscarUsuarioPorNombre(nombre, modelo);
-            modelo.put("exito","El Usuario ha sido encontrado.");
-            return "index.html";
+            
+            List<Usuario> usuariosNom = usuarioServicio.buscarUsuarioPorNombre(nombre);
+            
+            if(usuariosNom.isEmpty() || usuariosNom.size() == 0) {
+                modelo.put("error","El Usuario no ha sido encontrado.");
+            } else {
+                modelo.addAttribute("usuariosNom", usuariosNom);
+                modelo.put("exito","El Usuario ha sido encontrado.");
+            }        
+            return "buscar_nombre.html";
         } catch (Excepciones ex) {
            modelo.put("error", ex.getMessage());
-           modelo.put("nombre", nombre);
+           //modelo.put("nombre", nombre);
            return "buscar_nombre.html";
         }
         
