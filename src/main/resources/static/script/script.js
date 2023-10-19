@@ -14,12 +14,4 @@ document.addEventListener("DOMContentLoaded", function () {
     loop: true
   });
 
-  swiper.on("slideChange", function () {
-    // Obtenemos el ID de la publicación asociada a la diapositiva actual
-    var currentSlide = document.querySelector(".swiper-slide-active");
-    var publicacionId = currentSlide.getAttribute("data-id");
-
-    // Haz algo con el ID de la publicación (por ejemplo, muestra el ID en la consola)
-    console.log("ID de la publicación actual:", publicacionId);
-  });
-});
+})

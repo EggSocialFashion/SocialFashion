@@ -84,33 +84,37 @@ public class ComentarioControlador {
     }
 }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/comentario/{idComentario}")
-    public String borrarComentario(
-            @PathVariable String idComentario,Model modelo,HttpSession session) {
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+@PostMapping("/comentario/borrar/{idComentario}")
+public String borrarComentario(
+        @PathVariable String idComentario,Model modelo,HttpSession session) {
 
-        try {
-            Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
-            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            if (respuesta.isPresent()) {
-                Comentario comentario = respuesta.get();
-                if (comentario.getIdUsuario().equals(usuario.getIdUsuario())) {
-                    comentarioServicio.borrarComentario(comentario.getIdComentario());
-                    modelo.addAttribute("mensaje", "Comentario borrado exitosamente");
-                    return "prueba_verPublicacion.html";
-                } else {
-                    modelo.addAttribute("error", "Usuario Incorrecto");
-                    return "prueba_borrarComentario.html";
-                }
+    try {
+        Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario==null){
+            return "redirecto:login.html";
+        }
+        if (respuesta.isPresent()) {
+            Comentario comentario = respuesta.get();
+if (comentario.getIdUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario().toString())) {
+                comentarioServicio.borrarComentario(comentario.getIdComentario());
+                modelo.addAttribute("mensaje", "Comentario borrado exitosamente");
+                return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
             } else {
-                modelo.addAttribute("error", "Comentario inexistente");
-                return "prueba_borrarComentario.html";
+                modelo.addAttribute("error", "Usuario Incorrecto");
+                return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
             }
-        } catch (Exception e) {
-            modelo.addAttribute(e.getMessage());
+        } else {
+            modelo.addAttribute("error", "Comentario inexistente");
             return "index.html";
         }
+} catch (Exception e) {
+        modelo.addAttribute(e.getMessage());
+        return "index.html";
     }
+}
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/comentarios/{idPublicacion}")
     public String publicacionComentarios(@PathVariable String idPublicacion,ModelMap modelo, Model model) {

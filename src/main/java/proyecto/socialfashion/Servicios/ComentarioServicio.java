@@ -33,7 +33,6 @@ public class ComentarioServicio {
             Comentario comentario = comentarioOptional.get();
             comentario.setEstado(false);
             comentarioRepositorio.save(comentario);
-            
         }
     }
     @Transactional
