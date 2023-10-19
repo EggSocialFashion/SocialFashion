@@ -5,6 +5,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+p {
+  color: white;
+  font-weight: bold;
+}
 .navbar_logo {
   width: 36px;
   border-radius: 50%;
@@ -64,12 +68,25 @@
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 250px;
+  width: 496px;
   margin-top: 120px;
 }
 
+.like-button {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.heart-icon {
+  fill: white; /* Color blanco por defecto */
+}
+
+.like-button.active .heart-icon {
+  fill: red; /* Cambia a rojo al hacer clic */
+}
+
 .swiper-slide img {
-  height: 400px;
+  height: 700px;
   border-radius: 12px;
   display: block;
   width: 100%;
@@ -80,12 +97,13 @@
   display: flex;
   justify-content: space-between;
 }
-
 .icons i {
   font-size: 25px;
-  color: black;
-  height: 40px;
-  width: 40px;
+
+  color: white;
+  height: 60px;
+  width: 60px;
+
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -93,7 +111,7 @@
 }
 
 .icons i:hover {
-  color: rgb(255, 0, 179);
+  color: black;
   background-color: #fefefe;
   box-shadow: 0 0 20px rgba(1, 0, 0, 2);
   cursor: pointer;
