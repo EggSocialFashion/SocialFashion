@@ -111,7 +111,7 @@ public class ComentarioControlador {
                     return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
                 } else {
                     modelo.addAttribute("error", "Usuario Incorrecto");
-                    return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
+                    return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion();
                 }
             } else {
                 modelo.addAttribute("error", "Comentario inexistente");
