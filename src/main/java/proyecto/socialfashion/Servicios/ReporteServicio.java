@@ -107,10 +107,12 @@ public class ReporteServicio {
 
     @Transactional
     public List<Reporte> obtenerUsuariosReportadosPendientes() {
-        List<Reporte> reportes = reporteRepositorio.findAll();
-        return reportes.stream()
-                .filter(reporte -> reporte.getEstado() == Estado.PENDIENTE && reporte.getTipoObjeto() == TipoObjeto.PUBLICACION)
+        List<Reporte> aux = reporteRepositorio.findAll();
+        List<Reporte> reporte = aux.stream()
+                .filter(reportes -> reportes.getEstado() == Estado.PENDIENTE && reportes.getTipoObjeto() == TipoObjeto.USUARIO)
                 .collect(Collectors.toList());
+        System.out.print(reporte.size());
+        return reporte;
 
 
     }

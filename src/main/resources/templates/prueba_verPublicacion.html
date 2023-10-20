@@ -15,7 +15,11 @@
                         
                         <div th:each="comentario : ${comentarios}">
                             <p th:text="${comentario.texto}" ></p>
-                           
+                            <form th:action="@{'/comentario/borrar/' + ${comentario.idComentario}}" method="post">
+                                <input type="hidden" name="idPublicacion" th:value="${publicacion.idPublicacion}" />
+                                <button type="submit" class="btn btn-danger">Borrar Comentario</button>
+                            </form>
+
                         </div>
                     </div>
                                        
