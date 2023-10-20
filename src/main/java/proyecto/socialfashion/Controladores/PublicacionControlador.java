@@ -132,7 +132,6 @@ public class PublicacionControlador {
     
     
     */
-    
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
