@@ -48,6 +48,7 @@ input {
   border: none;
   width: 90%;
   color: white;
+  text-shadow: 2px 2px 1px rgb(165, 165, 165);
   font-weight: bold;
   background-color: transparent;
   border-bottom: 1px solid #685aff;
