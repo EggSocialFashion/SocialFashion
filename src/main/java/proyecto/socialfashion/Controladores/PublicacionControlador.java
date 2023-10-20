@@ -125,12 +125,8 @@ public class PublicacionControlador {
             
             //HTML EN EL QUE SE INDIQUE ERROR DE TENDENCIAS
             return"index.html"
-        }
-    
-    
-    }
-    
-    
+        }        
+    }        
     */
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
