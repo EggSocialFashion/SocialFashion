@@ -98,6 +98,14 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
+    public List<Usuario> verPerfil(String idUsuario) {
+        List<Usuario> usuarios = usuarioRepositorio.buscarPorId(idUsuario);
+    
+        return usuarios;
+        
+    }
+
+    @Transactional
     public void cambiarRol(String idUsuario) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
 

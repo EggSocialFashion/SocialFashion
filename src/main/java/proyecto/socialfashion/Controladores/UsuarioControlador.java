@@ -44,6 +44,37 @@ public class UsuarioControlador {
         return "usuario_list.html";
     }
 
+     
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/perfil/{idUsuario}")
+    public String vistaPerfil(String idUsuario, ModelMap modelo) {
+        /*  
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+
+        Usuario usuarioPerfil = usuarioServicio.getOne(idUsuario);
+        modelo.addAttribute("usuarioPerfil", usuarioPerfil);
+
+        //usuarioServicio.verPerfil(idUsuario);
+        return "usuario_perfil.html";
+        */
+        List<Usuario> usuarios = usuarioServicio.verPerfil(idUsuario);
+        modelo.addAttribute("usuarios", usuarios);
+        System.out.println(idUsuario);
+        
+        return "usuario_perfil.html";  
+
+    
+/*
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/perfil")
+    public String verPerfil(@PathVariable String idUsuario) {
+        usuarioServicio.verPerfil(idUsuario);
+
+        return "usuario_perfil.html";
+    }
+*/
+}
     @GetMapping("/registrar")
     public String registrar() {
         return "registro.html";
