@@ -132,13 +132,12 @@ public class PublicacionControlador {
     
     
     */
-    
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if(usuario==null){
-            return "redirecto:login.html";
+            return "redirect:login.html";
         }
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
