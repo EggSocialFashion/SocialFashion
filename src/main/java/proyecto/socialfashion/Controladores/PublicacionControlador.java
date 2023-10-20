@@ -138,7 +138,7 @@ public class PublicacionControlador {
     public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if(usuario==null){
-            return "redirecto:login.html";
+            return "redirect:login.html";
         }
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
