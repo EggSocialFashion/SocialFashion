@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Borrar Comentario</title>
+  </head>
+  <body>
+    <h1>Borrar Comentario</h1>
+    <form method="post" th:action="@{'/comentario/' + ${comentarioId}}">
+      <input type="text" name="idComentario" th:value="${idComentario}" />
+      <input type="submit" value="Borrar Comentario" />
+    </form>
+    <div th:if="${mensaje}">
+      <p th:text="${mensaje}"></p>
+    </div>
+    <div th:if="${error}">
+      <p th:text="${error}"></p>
+    </div>
+  </body>
+</html>
