@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import proyecto.socialfashion.Entidades.Imagen;
 import proyecto.socialfashion.Entidades.Publicacion;
+import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Repositorios.ImagenRepositorio;
 
@@ -39,8 +40,29 @@ public class ImagenServicio {
         }
         return null;
     }
+
+    public Imagen guardarFotoPerfil(MultipartFile archivo, Usuario usuario) throws Excepciones {
+        
+        if (archivo != null) {
+            try {
+                
+                Imagen imagen = new Imagen();
+                imagen.setMime(archivo.getContentType());
+                imagen.setNombre(archivo.getName());
+                imagen.setContenido(archivo.getBytes());
+                imagen.setUsuario(usuario);
+                
+                return imagenRepositorio.save(imagen);
+                
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+        return null;
+    }
     
-    public Imagen actualizar(MultipartFile archivo, String idImagen) throws Excepciones{
+    public Imagen actualizar(MultipartFile archivo, String idImagen, Usuario usuario) throws Excepciones{
     
            if(archivo != null){
             try {
@@ -58,6 +80,7 @@ public class ImagenServicio {
                 imagen.setNombre(archivo.getName());
                 
                 imagen.setContenido(archivo.getBytes());
+                imagen.setUsuario(usuario);
                 
                 return imagenRepositorio.save(imagen);
             } catch (Exception e) {

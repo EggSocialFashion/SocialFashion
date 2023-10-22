@@ -1,24 +1,27 @@
 package proyecto.socialfashion.Controladores;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Roles;
 import proyecto.socialfashion.Excepciones.Excepciones;
-import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
-import proyecto.socialfashion.Repositorios.UsuarioRepositorio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
@@ -29,8 +32,6 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
-    @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
     
     @Autowired
     PublicacionServicio publicacionServicio;
@@ -46,35 +47,35 @@ public class UsuarioControlador {
 
      
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/perfil/{idUsuario}")
-    public String vistaPerfil(String idUsuario, ModelMap modelo) {
-        /*  
+    @GetMapping("/perfil/{id}")
+    public String mostrarPerfilUsuario(@PathVariable String id, Model model,HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
+        if(usuario==null){
+            return "redirect:login.html";
+        }
+        try {
+            Optional<Usuario> respuesta = usuarioServicio.buscarUsuarioPorId(id);
+            
+            if (respuesta.isPresent()) {
+                Usuario usuarioPerfil = respuesta.get();  
+                model.addAttribute("usuarioPerfil", usuarioPerfil);
+                System.out.println(usuarioPerfil);    
+                return "usuario_perfil.html";
+            } else {
+                model.addAttribute("error", "Error en perfil de usuario");
+                return "error"; 
+            }
+        } catch (Exception e) {
 
-        Usuario usuarioPerfil = usuarioServicio.getOne(idUsuario);
-        modelo.addAttribute("usuarioPerfil", usuarioPerfil);
+            e.printStackTrace();
 
-        //usuarioServicio.verPerfil(idUsuario);
-        return "usuario_perfil.html";
-        */
-        List<Usuario> usuarios = usuarioServicio.verPerfil(idUsuario);
-        modelo.addAttribute("usuarios", usuarios);
-        System.out.println(idUsuario);
-        
-        return "usuario_perfil.html";  
+            model.addAttribute("error", "Error al cargar el usuario");
+            return "error.html";
 
-    
-/*
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/perfil")
-    public String verPerfil(@PathVariable String idUsuario) {
-        usuarioServicio.verPerfil(idUsuario);
+        }
 
-        return "usuario_perfil.html";
     }
-*/
-}
+
     @GetMapping("/registrar")
     public String registrar() {
         return "registro.html";
@@ -90,10 +91,10 @@ public class UsuarioControlador {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            String password2, ModelMap modelo, HttpSession session) {
+            String password2, ModelMap modelo, HttpSession session, MultipartFile archivo) {
 
         try {
-            usuarioServicio.registrar(nombre, email, password, password2);
+            usuarioServicio.registrar(archivo, nombre, email, password, password2);
             Usuario logueado = (Usuario) session.getAttribute("usuariosession");
             List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
             modelo.addAttribute("usuario", logueado);
@@ -148,14 +149,14 @@ public class UsuarioControlador {
     
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/modificar/{idUsuario}")
-    public String modificar(@PathVariable String idUsuario, String nombre, String email, String password,
+    public String modificar(MultipartFile archivo, @PathVariable String idUsuario, String nombre, String email, String password,
             String password2, Roles roles, ModelMap modelo) {
         try {
-            usuarioServicio.actualizar(idUsuario, nombre, email, password, password2, roles);
+            usuarioServicio.actualizar(archivo, idUsuario, nombre, email, password, password2, roles);
             return "redirect:../lista";
         } catch (Excepciones ex) {
             modelo.put("error", ex.getMessage());
-            return "usuario_modificar.html";
+            return "index.html";
         }
 
     }
