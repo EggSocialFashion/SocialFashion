@@ -17,8 +17,8 @@ public class ComentarioServicio {
 
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
-    @Autowired
-    private PublicacionServicio publicacionServicio;;
+    
+    
     @Transactional
     public void guardarComentario(Comentario comentario) {
         Comentario coment = comentario;
@@ -41,6 +41,7 @@ public class ComentarioServicio {
 
         return comentario;
     }
+    /*
     @Transactional
     public void cambiarEstado(String idUsuario) {
         Optional<Comentario> respuesta = comentarioRepositorio.findById(idUsuario);
@@ -60,7 +61,7 @@ public class ComentarioServicio {
         }
 
     }
-
+ */
     
     @Transactional
     public List<Comentario> comentarioPorPublicacion(String idPublicacion){

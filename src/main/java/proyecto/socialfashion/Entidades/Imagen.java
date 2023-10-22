@@ -21,6 +21,8 @@ public class Imagen {
     private String nombre;
     @OneToOne
     private Publicacion publicacion;
+    @OneToOne
+    private Usuario usuario;
     @Lob @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
 
@@ -87,6 +89,14 @@ public class Imagen {
 
     public void setPublicacion(Publicacion publicacion) {
         this.publicacion = publicacion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     
