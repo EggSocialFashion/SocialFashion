@@ -22,8 +22,9 @@
                         <th>Email</th>
                         <th>Rol</th>
                         <th>Estado</th>
-                        <th>Cambiar Rol</th>
                         <th>Modificar</th>
+                        <th>Ver Perfil</th>
+                        <th>Cambiar Rol</th>
                         <th>Cambiar Estado</th>
                     </tr>
                 </thead>
@@ -35,11 +36,14 @@
                         <th th:text="${usuario.roles}"></th>
                         <th th:text="${usuario.estado}"></th>
                         <th>
-                            <a class="modificar_usuario" th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
-                        </th>
-                        <th>
                             <a class="modificar_usuario" th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
+                        <th>
+                            <a class="modificar_usuario" th:href="@{/usuarios/perfil/__${usuario.idUsuario}__}">Ver Perfil</a>
+                        </th>
+                        <th>
+                            <a class="modificar_usuario" th:href="@{/usuarios/modificarRol/__${usuario.idUsuario}__}">Modificar</a>
+                        </th>  
                         <th>
                             <a class="modificar_usuario" th:href="@{/usuarios/modificarEstado/__${usuario.idUsuario}__}">Modificar</a>
                         </th>

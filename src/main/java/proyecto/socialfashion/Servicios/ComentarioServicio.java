@@ -17,8 +17,8 @@ public class ComentarioServicio {
 
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
-    @Autowired
-    private PublicacionServicio publicacionServicio;;
+    
+    
     @Transactional
     public void guardarComentario(Comentario comentario) {
         Comentario coment = comentario;
@@ -33,14 +33,15 @@ public class ComentarioServicio {
             Comentario comentario = comentarioOptional.get();
             comentario.setEstado(false);
             comentarioRepositorio.save(comentario);
-            
         }
     }
     @Transactional
-    public Optional<Comentario> buscarComentarioPorId(String id) {
+    public Optional<Comentario> buscarComentarioPorId(String idComentario) {
+        Optional<Comentario> comentario = comentarioRepositorio.findById(idComentario);
 
-        return comentarioRepositorio.findById(id);
+        return comentario;
     }
+    /*
     @Transactional
     public void cambiarEstado(String idUsuario) {
         Optional<Comentario> respuesta = comentarioRepositorio.findById(idUsuario);
@@ -60,7 +61,7 @@ public class ComentarioServicio {
         }
 
     }
-
+ */
     
     @Transactional
     public List<Comentario> comentarioPorPublicacion(String idPublicacion){
