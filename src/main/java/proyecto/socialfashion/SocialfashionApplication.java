@@ -6,5 +6,4 @@ public class SocialfashionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SocialfashionApplication.class, args);
 	}
-
 }

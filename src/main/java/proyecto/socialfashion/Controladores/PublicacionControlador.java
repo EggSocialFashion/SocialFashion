@@ -1,6 +1,5 @@
 package proyecto.socialfashion.Controladores;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +30,10 @@ import proyecto.socialfashion.Servicios.UsuarioServicio;
 @Controller
 @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 public class PublicacionControlador {
-    
+
     @Autowired
     private PublicacionServicio publicacionServicio;
-    
+
     @Autowired
     private UsuarioServicio usuarioServicio;
 
@@ -43,125 +42,183 @@ public class PublicacionControlador {
 
     @Autowired
     private ComentarioServicio comentarioServicio;
-    
-    
+
     @GetMapping("/")
-    public String publicaciones(ModelMap modelo){
-        List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest(); 
+    public String publicaciones(ModelMap modelo, HttpSession session) {
+        List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
-        //HTML con la pagina en donde se encuentran las publicaciones
-        return"index.html";
+        modelo.addAttribute("logueado", logueado);
+        // HTML con la pagina en donde se encuentran las publicaciones
+        return "index.html";
     }
-    
-    
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacionesSocialFashion")
-    public String publicacionesParaRegistados(HttpSession session, ModelMap modelo){
+    public String publicacionesParaRegistados(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
+        List<Usuario> usuarios = usuarioServicio.diseniadores();
         modelo.addAttribute("usuario", logueado);
+        modelo.addAttribute("usuarios",usuarios);
+        modelo.addAttribute("logueado", logueado);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
-        //HTML con la pagina en donde se encuentran las publicaciones
-        return"index.html";
-            
+        // HTML con la pagina en donde se encuentran las publicaciones
+        return "index.html";
+
     }
-    
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/registrarPubli")
-    public String registrarPublicacion(HttpSession session, ModelMap modelo){ 
-            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-            modelo.addAttribute("usuario", logueado);
-            
+    public String registrarPublicacion(HttpSession session, ModelMap modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", logueado);
+
         return "publicaciones.html";
-        
+
     }
-    
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/registro")
-    public String registro(@RequestParam(name ="titulo", required = false) String titulo, @RequestParam(name ="contenido", required = false) String contenido, @RequestParam(name ="categoria", required = false) String categoria, ModelMap modelo, MultipartFile archivo, HttpSession session){
-        
-        try {
-          
-           Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-           publicacionServicio.CrearPublicacion(archivo, titulo , contenido, LocalDateTime.now() , categoria, logueado);
+    public String registro(@RequestParam(name = "titulo", required = false) String titulo,
+            @RequestParam(name = "contenido", required = false) String contenido,
+            @RequestParam(name = "categoria", required = false) String categoria, ModelMap modelo,
+            MultipartFile archivo, HttpSession session) {
 
-           
+        try {
+
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            publicacionServicio.CrearPublicacion(archivo, titulo, contenido, LocalDateTime.now(), categoria, logueado);
+
             modelo.put("exito", "Publicacion registrada correctamente!");
-            
-            //REDIRECCION AL INDEX PRESENTADO
+
+            // REDIRECCION AL INDEX PRESENTADO
             return "redirect:/publicacionesSocialFashion";
         } catch (Excepciones ex) {
-            
+
             modelo.put("Error", ex.getMessage());
             modelo.put("imagen", archivo);
             modelo.put("nombre", contenido);
             modelo.put("email", categoria);
-            
-            //Agg html en el que este el formulario. IDEM ANTERIOR o Que redireccione a una pagina error
+
+            // Agg html en el que este el formulario. IDEM ANTERIOR o Que redireccione a una
+            // pagina error
             return "error.html";
         }
-        
+
     }
-    
-  
+
     /*
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/tendencias")
-    public String Tendencias(ModelMap modelo){
-    
-        try {
-            
-           ArrayList<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
-            modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            
-            //HTML en el que se encuentran las tendencias
-            return"tendencias.html";
-            
-        } catch (Excepciones ex) {
-            modelo.put("Error", ex.getMessage());
-            
-            //HTML EN EL QUE SE INDIQUE ERROR DE TENDENCIAS
-            return"index.html"
-        }
-    
-    
-    }
-    
-    
-    */
-    
+     * @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+     * 
+     * @GetMapping("/tendencias")
+     * public String Tendencias(ModelMap modelo){
+     * 
+     * try {
+     * 
+     * ArrayList<Publicacion>listaPorTendencias = (ArrayList<Publicacion>)
+     * publicacionServicio.listaPublicacionOrdenadasPorLikes();
+     * modelo.addAttribute("listaPorTendencias", listaPorTendencias);
+     * 
+     * //HTML en el que se encuentran las tendencias
+     * return"tendencias.html";
+     * 
+     * } catch (Excepciones ex) {
+     * modelo.put("Error", ex.getMessage());
+     * 
+     * //HTML EN EL QUE SE INDIQUE ERROR DE TENDENCIAS
+     * return"index.html"
+     * }
+     * 
+     * 
+     * }
+     * 
+     * 
+     */
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
+    public String mostrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario==null){
-            return "redirecto:login.html";
+        if (usuario == null) {
+            return "redirect:login.html";
         }
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
-            
+
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
-                List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
-                model.addAttribute("publicacion", publicacion);
-                model.addAttribute("comentarios", comentarios);
-                return "prueba_verPublicacion.html";
+                if (publicacion.isEstado() == true) {
+                    List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
+                    modelo.addAttribute("publicacion", publicacion);
+                    modelo.addAttribute("comentarios", comentarios);
+                } else {
+                    modelo.addAttribute("error", "La publicacion no existe");
+                }
             } else {
-                model.addAttribute("error", "Error en publicacion");
-                return "error"; 
+                modelo.addAttribute("error", "La publicacion no existe");
+            }
+        } catch (Exception ex) {
+            modelo.addAttribute("error", ex.getMessage());
+            return "error.html";
+        }
+        return "prueba_verPublicacion.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/filtrarPorTipo")
+    public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos, HttpSession session, Model model) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // se controla si est alogueado, sino manda a loqueo
+        if (logueado == null) {
+            return "loguin.html";
+        }
+        try {
+            if (tipos.size() == 0 || tipos.isEmpty() || tipos == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            }
+            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorTipo(tipos);
+            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            } else {
+                 model.addAttribute("logueado", logueado);
+                model.addAttribute("publicacionesAlta", publicacionesAlta);
+                return "index.html";
             }
         } catch (Exception e) {
-
-            e.printStackTrace();
-
-            model.addAttribute("error", "Error al cargar la imagen");
-            return "error.html";
-
+            model.addAttribute("error", e.getMessage());
+            return "index.html";
+        }
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PostMapping("/filtrarPorDiseniador")
+    public String filtrarPorTipoDiseniador(@RequestParam(name = "usuarios", required = false) List<String> usuarios, 
+                HttpSession session, Model model){
+       Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // se controla si est alogueado, sino manda a loqueo
+        if (logueado == null) {
+            return "loguin.html";
+        }
+        try {
+            if (usuarios.size() == 0 || usuarios.isEmpty() || usuarios == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            }
+            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorDiseniador(usuarios);
+            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            } else {
+                model.addAttribute("logueado", logueado);
+                model.addAttribute("publicacionesAlta", publicacionesAlta);
+                return "index.html";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "index.html";
         }
 
-    }
- 
+    } 
+
 }
