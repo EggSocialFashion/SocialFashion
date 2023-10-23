@@ -44,9 +44,11 @@ public class PublicacionControlador {
     private ComentarioServicio comentarioServicio;
 
     @GetMapping("/")
-    public String publicaciones(ModelMap modelo) {
+    public String publicaciones(ModelMap modelo, HttpSession session) {
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
+        modelo.addAttribute("logueado", logueado);
         // HTML con la pagina en donde se encuentran las publicaciones
         return "index.html";
     }
@@ -56,7 +58,10 @@ public class PublicacionControlador {
     public String publicacionesParaRegistados(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
+        List<Usuario> usuarios = usuarioServicio.diseniadores();
         modelo.addAttribute("usuario", logueado);
+        modelo.addAttribute("usuarios",usuarios);
+        modelo.addAttribute("logueado", logueado);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
         // HTML con la pagina en donde se encuentran las publicaciones
         return "index.html";
@@ -158,5 +163,62 @@ public class PublicacionControlador {
         }
         return "prueba_verPublicacion.html";
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/filtrarPorTipo")
+    public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos, HttpSession session, Model model) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // se controla si est alogueado, sino manda a loqueo
+        if (logueado == null) {
+            return "loguin.html";
+        }
+        try {
+            if (tipos.size() == 0 || tipos.isEmpty() || tipos == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            }
+            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorTipo(tipos);
+            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            } else {
+                 model.addAttribute("logueado", logueado);
+                model.addAttribute("publicacionesAlta", publicacionesAlta);
+                return "index.html";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "index.html";
+        }
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PostMapping("/filtrarPorDiseniador")
+    public String filtrarPorTipoDiseniador(@RequestParam(name = "usuarios", required = false) List<String> usuarios, 
+                HttpSession session, Model model){
+       Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // se controla si est alogueado, sino manda a loqueo
+        if (logueado == null) {
+            return "loguin.html";
+        }
+        try {
+            if (usuarios.size() == 0 || usuarios.isEmpty() || usuarios == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            }
+            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorDiseniador(usuarios);
+            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
+                model.addAttribute("error", "No se encontraron publicaciones");
+                return "index.html";
+            } else {
+                model.addAttribute("logueado", logueado);
+                model.addAttribute("publicacionesAlta", publicacionesAlta);
+                return "index.html";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "index.html";
+        }
+
+    } 
 
 }
