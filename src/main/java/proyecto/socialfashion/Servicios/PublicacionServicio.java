@@ -123,15 +123,30 @@ public class PublicacionServicio {
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
         LocalDateTime fechaHoy = LocalDateTime.now();
+        
         listaPublicacion = publicacionRepositorio.buscarPrimeras10PorFechaDeAlta(fechaHoy);
         
+        
+        //Creo una nueva lista para verificar que esten en alta 
+        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
+        int contador = 0;
         List<Publicacion> GuardarPrimeras10 = new ArrayList<>();
+        for (Publicacion publicacion : listaVerificada) {
+            GuardarPrimeras10.add(publicacion);
+                contador++;
+            
+            if (contador == 10) {
+                // Si ya hemos agregado 10 publicaciones válidas, salimos del bucle
+                break;
+            }
+        }
+        /*
         for (int i = 0; i < listaPublicacion.size(); i++) {
             GuardarPrimeras10.add(listaPublicacion.get(i));
         }
-        //Creo una nueva lista para verificar que esten en alta 
-        List<Publicacion> listaVerificada = VerificarEstado(GuardarPrimeras10);
-        return listaVerificada;
+                 */
+        return GuardarPrimeras10;
+
     }
     
 
@@ -191,5 +206,50 @@ public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
 
     return publicacion;
 }
+
+@Transactional
+    public List<Publicacion> listaPublicacionPorTipo(List<String> tipos) {
+        
+        //Creo lista para guardar las publicaciones
+        List<Publicacion> listaPublicacion = new ArrayList<>();
+        //busco publicaciones cargadas
+        listaPublicacion = publicacionRepositorio.findAll();
+        //Creo una nueva lista de publicaciones de alta
+        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
+        List<Publicacion> listaFiltroTipo = new ArrayList<>();
+
+        //Comparo para verificar si son iguales a los tipos que traigo
+        for (Publicacion publicacion : listaVerificada) {
+            for (String tipo : tipos) {
+                if(publicacion.getCategoria().name().equals(tipo)){
+                    listaFiltroTipo.add(publicacion);
+                }
+                
+            }
+        }
+        return listaFiltroTipo;
+    }
+    @Transactional
+    public List<Publicacion> listaPublicacionPorDiseniador(List<String> usuarios) {
+        
+        //Creo lista para guardar las publicaciones
+        List<Publicacion> listaPublicacion = new ArrayList<>();
+        //busco publicaciones cargadas
+        listaPublicacion = publicacionRepositorio.findAll();
+        //Creo una nueva lista de publicaciones de alta
+        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
+        List<Publicacion> listaFiltroDiseniador = new ArrayList<>();
+
+        //Comparo para verificar si son iguales a los tipos que traigo
+        for (Publicacion publicacion : listaVerificada) {
+            for (String usuario : usuarios) {
+                if(publicacion.getUsuario().getIdUsuario().toString().equals(usuario)){
+                    listaFiltroDiseniador.add(publicacion);
+                }
+                
+            }
+        }
+        return listaFiltroDiseniador;
+    }
             
 }
