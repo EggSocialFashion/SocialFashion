@@ -42,6 +42,12 @@
       </head>
 <body>
   
+  <img
+  class="img-fondo"
+  src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  alt="moda"
+/>
+
     <nav
     class="navbar container-fluid bg-dark border-bottom border-body"
     data-bs-theme="dark"
@@ -145,42 +151,63 @@
   
 
 
-<div class="container-fluid contenedor-perfil col-12">
-
-<div class="card-perfil container mt-5 col-3">
-<img class="card-perfil-img m-5 " src="https://media.c5n.com/p/23e83bbc00263816974509a0e7ca37e0/adjuntos/326/imagenes/000/045/0000045267/1200x675/smart/foto-perfil-facebook.png" alt="">
-<h4>Mi Perfil</h4>
-<p>Nombre:</p>
-<p>Apellido</p>
-<p>Email:</p>
-<div class="">
-<p class="">Me Gustas</p>
-<svg class="row" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+<div class="flex-container">
+<div class="item-card-perfil ">
+  <div class="contenedor-de-datos-perfil">
+  <div class="card-pefil-img-container">
+  <img class="card-perfil-img" src="https://media.c5n.com/p/23e83bbc00263816974509a0e7ca37e0/adjuntos/326/imagenes/000/045/0000045267/1200x675/smart/foto-perfil-facebook.png" alt="">
+  </div>
+ 
+  <div class="item-card-informacionContacto-container">
+  <h4>Mi Perfil</h4>
+<p class="item_parrafo">Nombre: Gustavo Rivero</p>
+<p class="item_parrafo">Email:  gustirivero@hotmail.com</p>
+</div>
+<div class="corazon-container">
+<svg class="corazon-perfil" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
   </svg>
+<p class="parrafo-corazon">Likes</p>
 </div>
-<div>
-<button>Modificar</button>
-<button>Guardar</button>
+
+<div class="button-container">
+  <button>Modificar</button>
+  </div>
 </div>
-<a href=""></a>
 
 </div>
 
-<div class="card-perfil-publicacion container col-3">
-<h1>Titulo Publicacion</h1>
-<img class="img-perfil-publicacion" src="../static/Imagenes/img1.jpg" alt="">
-<svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+<div class="item-card-perfil-publicacion">
+
+  <h4> Titulo Publicacion</h4>
+<div class="img-publicacion-container">
+<img class="img-publicacion" src="../static/Imagenes/img1.jpg" alt="">
+
+<div class="coment-container">    
+ <p class="coment-img">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet sint quisquam consequatur non quam. Sint ipsum aut ducimus optio in quisquam ut ex esse, expedita quaerat, nihil ad, recusandae velit!</p>
+</div>
+<div class="corazon-container-publicacion like-button">
+  <svg class="corazon-publicacion" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
   </svg>
-<p>Comentario:</p>
-<div>
-    <a href="">Eliminar</a>
-    <a href="">Modificar</a>
-</div>
+ </div>
+ </div>
+
+
+
+ <div class="button-container-publicacion">
+  <button>Modificar</button>
+ </div>
+
 
 </div>
-</div>
+
+
+
+
+
+
+
 
 
          <script src="../static/script/script.js"></script> 
