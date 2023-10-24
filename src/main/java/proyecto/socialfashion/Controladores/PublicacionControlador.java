@@ -2,6 +2,7 @@ package proyecto.socialfashion.Controladores;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,8 +85,12 @@ public class PublicacionControlador {
     public String registro(@RequestParam(name ="titulo", required = false) String titulo, @RequestParam(name ="contenido", required = false) String contenido, @RequestParam(name ="categoria", required = false) String categoria, ModelMap modelo, MultipartFile archivo, HttpSession session){
         
         try {
+            
           
            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+           if(logueado  == null){
+            return "redirect:login.html";
+        }
            publicacionServicio.CrearPublicacion(archivo, titulo , contenido, LocalDateTime.now() , categoria, logueado);
 
            
@@ -106,39 +111,34 @@ public class PublicacionControlador {
         
     }
     
-  
-    /*
+ 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/tendencias")
-    public String Tendencias(ModelMap modelo){
-    
-        try {
+    public String Tendencias(ModelMap modelo, HttpSession session){
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+         if(usuario == null){
+            return "redirect:login.html";
+        }
+         
+       
             
-           ArrayList<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
+           List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
             
             //HTML en el que se encuentran las tendencias
             return"tendencias.html";
-            
-        } catch (Excepciones ex) {
-            modelo.put("Error", ex.getMessage());
-            
-            //HTML EN EL QUE SE INDIQUE ERROR DE TENDENCIAS
-            return"index.html"
-        }
-    
+
     
     }
-    
-    
-    */
+
+
     
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, Model model,HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario==null){
-            return "redirecto:login.html";
+        if(usuario == null){
+            return "redirect:login.html";
         }
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);

@@ -2,6 +2,8 @@ package proyecto.socialfashion.Servicios;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +27,7 @@ public class PublicacionServicio {
     @Autowired
     ImagenServicio imagenServicio;
 
-    @Transactional
+    @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
 
         Publicacion publicacion = new Publicacion();
@@ -56,14 +58,14 @@ public class PublicacionServicio {
               
     }
 
-    @Transactional()
+    @Transactional(readOnly = true)
     public Publicacion getOne(String idPublicacion) {
         return publicacionRepositorio.getOne(idPublicacion);
     }
     
-    //Trabajar en este servicio
-/*
-    @Transactional()
+   
+
+    @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorLikes() {
 
         List<Publicacion> listaPublicacion = new ArrayList<>();
@@ -73,26 +75,18 @@ public class PublicacionServicio {
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
-                for (Publicacion likes1 : publicacion1) {
-                    
-                }
-                
-                for (Publicacion likes2 : publicacion2) {
-                    
-                }
-                List<int> likes1 = publicacion1.getLikes();
-                int likes2 = publicacion2.getLikes();
+                int likes1 = publicacion1.getLikes().size();
+                int likes2 = publicacion1.getLikes().size();
                 return Integer.compare(likes2, likes1);
-
             }
         });
         
-       //Creo una nueva lista para verificar que esten en alta 
+       //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         
         return listaVerificada;
     }
-*/
+
    
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {
@@ -100,7 +94,8 @@ public class PublicacionServicio {
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
         listaPublicacion = publicacionRepositorio.findAll();
-/*
+        
+        //Ordeno las publicaciones por fecha de Alta con el coleccionsSort
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
@@ -109,15 +104,15 @@ public class PublicacionServicio {
 
             }
         });
-        */
-        //Creo una nueva lista para verificar que esten en alta 
+        
+        //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         
 
         return listaVerificada;
     }
     
-    @Transactional()
+    @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionGuest() {
         
         //Creo lista para guardar las publicaciones
@@ -126,9 +121,19 @@ public class PublicacionServicio {
         listaPublicacion = publicacionRepositorio.buscarPrimeras10PorFechaDeAlta(fechaHoy);
         
         List<Publicacion> GuardarPrimeras10 = new ArrayList<>();
-        for (int i = 0; i < listaPublicacion.size(); i++) {
+        //En el caso que la cantidad de publicaciones sea menor a 10
+        if (listaPublicacion.size() < 10){
+            for (int i = 0; i < listaPublicacion.size(); i++) {
             GuardarPrimeras10.add(listaPublicacion.get(i));
+            }
+        } else {
+            //En el caso que la lista de publicaciones sea mayor a 10
+            for (int i = 0; i < 10; i++) {
+            GuardarPrimeras10.add(listaPublicacion.get(i));
+            }
+            
         }
+       
         //Creo una nueva lista para verificar que esten en alta 
         List<Publicacion> listaVerificada = VerificarEstado(GuardarPrimeras10);
         return listaVerificada;
@@ -185,11 +190,11 @@ public class PublicacionServicio {
         return listaVerificada;
     }
     
-
-public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
+    @Transactional(readOnly = true)
+    public Optional<Publicacion> buscarPublicacionPorId(String idPublicacion) {
     Optional<Publicacion> publicacion = publicacionRepositorio.findById(idPublicacion);
 
     return publicacion;
-}
+    }
             
 }
