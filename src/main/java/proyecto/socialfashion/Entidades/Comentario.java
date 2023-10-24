@@ -14,7 +14,9 @@ public class Comentario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String idComentario;
+
     private String texto;
+
     private Boolean estado;
     @ManyToOne
     @JoinColumn(name = "id_usuario")
