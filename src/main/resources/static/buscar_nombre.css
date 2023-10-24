@@ -5,11 +5,13 @@
 }
 
 form > img {
-display: none;
-visibility: hidden;
-border-radius: 50%;
+  display: none;
+  visibility: hidden;
+  border-radius: 50%;
 }
-
+input {
+  font-size: 20px;
+}
 .img-fondo {
   display: flex;
   position: absolute;
@@ -17,7 +19,6 @@ border-radius: 50%;
   height: 100vh;
   object-fit: cover;
 }
-
 .navbar_logo {
   width: 36px;
   border-radius: 50%;
@@ -29,7 +30,6 @@ border-radius: 50%;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  
 }
 
 .formulario_nombre {
@@ -45,12 +45,14 @@ border-radius: 50%;
   padding: 10px;
   border: none;
   width: 90%;
+  color: white;
+  text-shadow: 2px 2px 1px rgb(165, 165, 165);
+  font-weight: bold;
   background-color: transparent;
   border-bottom: 1px solid #685aff;
   font-size: 16px;
   outline: none;
   text-align: center;
-
 }
 
 .form_h3 {
@@ -70,16 +72,15 @@ border-radius: 50%;
   color: white;
 }
 
-
 @media (max-width: 670px) {
-  .formulario_nombre{
+  .formulario_nombre {
     min-width: 352px;
     background-color: white;
     box-shadow: 4px 4px 10px 4px rgb(0, 0, 0);
     height: auto;
   }
 
-  .form-control_input1{
+  .form-control_input1 {
     margin: 4px;
     margin-bottom: 0;
     border-bottom: 3px solid #685aff;
@@ -87,7 +88,6 @@ border-radius: 50%;
     border-radius: 10px;
     opacity: 0.8;
     box-shadow: 0px 2px 4px 0px rgb(187, 187, 187);
-
   }
 
   .form_h3 {
@@ -101,12 +101,9 @@ border-radius: 50%;
     width: auto;
     position: absolute;
     object-fit: cover;
-  
+
     display: block;
     visibility: visible;
     opacity: 0.05;
-    }
-
-
-    
+  }
 }

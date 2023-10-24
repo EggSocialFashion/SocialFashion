@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "animate__fadeInDown",
       "animate__faster"
     );
-    // Espera 5 segundos y luego oculta el mensaje de éxito con una animación de salida
+
     setTimeout(function () {
       mensajeExito.classList.add("animate__fadeOutUp");
       setTimeout(function () {
