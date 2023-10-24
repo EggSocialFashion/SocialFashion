@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar_logo {
+  width: 36px;
+  border-radius: 50%;
+  filter: opacity(0.8);
+}
+
+.login_2 > img {
+  width: 132px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  filter: opacity(0.5);
+}
+
+.login_2 {
+  position: relative; /* Ajusta este valor según tus necesidades */
+  margin-top: 24px;
+  height: auto;
+  min-width: 352px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  text-align: center;
+  z-index: 150;
+}
+
+.login-form-2 {
+  display: grid;
+  gap: 20px;
+}
+
+.login-form-2 > input,
+.login-form-2 > button {
+  height: 42px;
+  width: 100%;
+  outline: none;
+  padding: 0;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+.login-form-2 > input {
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid #685aff;
+  box-shadow: 0px 2px 4px 0px rgb(54, 54, 54);
+  opacity: 0.8;
+  font-size: 16px;
+  text-align: center;
+}
+
+.login-form-2 > input:hover {
+  border-bottom: 3px solid #4e3eff;
+}
+
+.login-form-2 > input:hover {
+  height: 50px;
+}
+
+.login-form-2 > button {
+  cursor: pointer;
+  height: 46px;
+  background: #685aff;
+  color: #f9f9f9;
+  border: none;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.login-form-2 > button:hover {
+  background: #4e3eff;
+}

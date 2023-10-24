@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/template.fragments/head :: head"> </head>
+<body>
+  <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+    <div style="padding: 30px; align-content: center; width: 80%">
+      <h2>Página de ERROR</h2>
+      <br/>
+      <div th:if="${error != null}" class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster">
+        <div class="card-body">
+          <h5 class="card-title">Error</h5>
+          <p class="card-text" th:text="${error}"></p>
+      </div>
+    </div>
+
+    <div th:if="${exito != null}" class="mensajeExito animate__animated animate__fadeInDown animate__faster">
+      <div class="card text-white bg-success mb-3 mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Éxito</h5>
+            <p class="card-text" th:text="${exito}"></p>
+        </div>
+      </div>
+    </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+      <script src="../static/script/script.js"></script> 
+      <script src="../static/script/animacionesError.js"></script>            
+      <script src="../static/script/like.js"></script>     
+      <script src="../static/script/animacionExito.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
