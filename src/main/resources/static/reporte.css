@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.error-card {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+.success-card {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.form-container {
+  display: inline-block;
+  text-align: left;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 3);
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  background-color: #685aff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #6052fa;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 400px) {
+  .form-container {
+    padding: 10px;
+  }
+}

@@ -78,11 +78,11 @@ p {
 }
 
 .heart-icon {
-  fill: white; /* Color blanco por defecto */
+  fill: white;
 }
 
 .like-button.active .heart-icon {
-  fill: red; /* Cambia a rojo al hacer clic */
+  fill: red;
 }
 
 .swiper-slide img {
