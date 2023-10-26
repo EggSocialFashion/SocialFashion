@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
-  text-align: center;
 }
 
 .message-container {
@@ -29,23 +28,25 @@ body {
   color: #fff;
 }
 
-.form-container {
-  display: inline-block;
+.form-containerr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: left;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 3);
+  margin: 20px auto; /* Añadimos margen superior e inferior y centrado horizontalmente */
+  max-width: 1000px;
 }
 
-input[type="text"],
-select {
+.input-field {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-
-input[type="submit"] {
+.btn {
   margin-top: 10px;
   background-color: #685aff;
   color: #fff;
@@ -55,13 +56,13 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+.btn:hover {
   background-color: #6052fa;
+  color: white;
 }
 
-/* Media query for smaller screens */
 @media screen and (max-width: 400px) {
-  .form-container {
+  .form-containerr {
     padding: 10px;
   }
 }

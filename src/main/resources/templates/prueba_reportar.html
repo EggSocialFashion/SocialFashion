@@ -9,7 +9,7 @@
     <div class="message-container">
       <div
         th:if="${error != null}"
-        class="card text-white bg-danger mb-3 mt-3 mensajeError"
+        class="card error-card mb-3 mt-3 mensajeError"
       >
         <div class="card-body">
           <h5 class="card-title">Error</h5>
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div th:if="${exito != null}" class="mensajeExito">
+      <div th:if="${exito != null}" class="success-card mensajeExito">
         <div class="card text-white bg-success mb-3 mt-3">
           <div class="card-body">
             <h5 class="card-title">Éxito</h5>
@@ -27,31 +27,37 @@
       </div>
     </div>
 
-    <div class="form-container">
+    <div class="form-containerr">
       <h1>Formulario de Denuncia</h1>
       <form th:action="@{/reportar}" method="POST">
         <textarea
           name="texto"
           id="texto"
+          class="input-field"
           placeholder="Texto de la denuncia"
           style="resize: vertical; width: 100%; font-size: 23px"
         ></textarea>
-        <select id="tipo" name="tipo">
+        <select id="tipo" name="tipo" class="input-field">
           <option value="SPAM">SPAM</option>
           <option value="CONTENIDO_OFENSIVO">CONTENIDO OFENSIVO</option>
           <option value="INCUMPLIMIENTO_DE_REGLAS">
             INCUMPLIMIENTO DE REGLAS
           </option>
         </select>
-        <select id="tipoObjeto" name="tipoObjeto">
+        <select id="tipoObjeto" name="tipoObjeto" class="input-field">
           <option value="USUARIO">USUARIO</option>
           <option value="COMENTARIO">COMENTARIO</option>
           <option value="PUBLICACION">PUBLICACION</option>
         </select>
-        <input type="text" name="idObjeto" id="idObjeto" placeholder="codigo" />
-        <input type="submit" value="Denunciar" />
+        <input
+          type="text"
+          name="idObjeto"
+          id="idObjeto"
+          class="input-field"
+          placeholder="Código"
+        />
+        <input type="submit" value="Denunciar" class="btn" />
       </form>
-
       <div>
         <p th:text="${mensaje}"></p>
       </div>
