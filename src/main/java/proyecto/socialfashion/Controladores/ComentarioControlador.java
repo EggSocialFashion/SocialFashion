@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,10 +81,7 @@ public class ComentarioControlador {
             Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
             // se verifica usuario
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            // sino esta logueado se manda al index
-            if (usuario == null) {
-                return "redirecto:login.html";
-            }
+            
             if (respuesta.isPresent()) {
                 // se obtiene el comentario a borrar
                 Comentario comentario = respuesta.get();
@@ -137,12 +133,7 @@ public class ComentarioControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/comentario/{idComentario}")
     public String buscarComentario(@PathVariable String idComentario, Model modelo, HttpSession session) {
-        // se verifica usuario
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        // sino esta logueado se manda al index
-        if (usuario == null) {
-            return "redirecto:login.html";
-        }
+        
         try {
             // se busca si exsite la publicacipon
             Optional<Comentario> resultado = comentarioServicio.buscarComentarioPorId(idComentario);
