@@ -160,7 +160,7 @@ public class PublicacionControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/publicacion/{id}")
+    @PostMapping("/publicacion/borrar/{id}")
     public String borrarPublicacion(@PathVariable String id, Model modelo) {
       
         try {
