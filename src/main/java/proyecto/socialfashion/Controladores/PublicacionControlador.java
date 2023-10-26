@@ -22,7 +22,6 @@ import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
-import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
@@ -36,9 +35,6 @@ public class PublicacionControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-
-    @Autowired
-    private PublicacionRepositorio publicacionRepositorio;
 
     @Autowired
     private ComentarioServicio comentarioServicio;
@@ -164,6 +160,30 @@ public class PublicacionControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PostMapping("/publicacion/{id}")
+    public String borrarPublicacion(@PathVariable String id, Model modelo) {
+      
+        try {
+            Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
+
+            if (respuesta.isPresent()) {
+                Publicacion publicacion = respuesta.get();
+                if (publicacion.isEstado() == true) {
+                    publicacionServicio.BajaPublicacion(id);
+                } else {
+                    modelo.addAttribute("error", "La publicacion no existe");
+                }
+            } else {
+                modelo.addAttribute("error", "La publicacion no existe");
+            }
+        } catch (Exception ex) {
+            modelo.addAttribute("error", ex.getMessage());
+            return "error.html";
+        }
+        return "usuario_perfil.html";
+    }
+    /*
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/filtrarPorTipo")
     public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos,  Model model) {
         
@@ -209,5 +229,5 @@ public class PublicacionControlador {
         }
 
     } 
-
+ */
 }
