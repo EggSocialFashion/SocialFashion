@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
+import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
@@ -82,10 +83,7 @@ public class ComentarioControlador {
             Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
             // se verifica usuario
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            // sino esta logueado se manda al index
-            if (usuario == null) {
-                return "redirecto:login.html";
-            }
+            
             if (respuesta.isPresent()) {
                 // se obtiene el comentario a borrar
                 Comentario comentario = respuesta.get();
@@ -139,10 +137,7 @@ public class ComentarioControlador {
     public String buscarComentario(@PathVariable String idComentario, Model modelo, HttpSession session) {
         // se verifica usuario
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        // sino esta logueado se manda al index
-        if (usuario == null) {
-            return "redirecto:login.html";
-        }
+        
         try {
             // se busca si exsite la publicacipon
             Optional<Comentario> resultado = comentarioServicio.buscarComentarioPorId(idComentario);
