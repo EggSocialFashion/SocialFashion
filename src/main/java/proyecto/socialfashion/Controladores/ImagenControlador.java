@@ -25,30 +25,19 @@ public class ImagenControlador {
     
     @GetMapping("/publicacion/{idPublicacion}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String idPublicacion){
-        Publicacion publicacion = publicacionServicio.getOne(idPublicacion);
-        
-        byte [] imagen= publicacion.getImagen().getContenido();
-        
+        Publicacion publicacion = publicacionServicio.getOne(idPublicacion);        
+        byte [] imagen= publicacion.getImagen().getContenido();        
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        
-        
-        
-    return new ResponseEntity<>(imagen,headers,HttpStatus.OK);
-    
+        headers.setContentType(MediaType.IMAGE_JPEG);                        
+        return new ResponseEntity<>(imagen,headers,HttpStatus.OK);    
     }
 
     @GetMapping("/usuarios/{idUsuario}")
     public ResponseEntity<byte[]> imagenPerfil(@PathVariable String idUsuario){
-        Usuario usuario = usuarioServicio.getOne(idUsuario);
-        
-        byte [] imagen= usuario.getImagen().getContenido();
-        
+        Usuario usuario = usuarioServicio.getOne(idUsuario);        
+        byte [] imagen= usuario.getImagen().getContenido();        
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        
-        
-        
+        headers.setContentType(MediaType.IMAGE_JPEG);                        
     return new ResponseEntity<>(imagen,headers,HttpStatus.OK);
     
     }

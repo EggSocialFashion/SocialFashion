@@ -54,35 +54,30 @@ p {
 .diseños {
   padding: 50px 0 150px 0;
 }
-
 .diseños h2 {
   display: grid;
   place-items: center;
   font-family: "Times New Roman", Times, serif;
 }
-
 .swiper {
   width: 100%;
 }
-
 .swiper-slide {
   background-position: center;
   background-size: cover;
   width: 496px;
   margin-top: 120px;
 }
-
 .like-button {
   cursor: pointer;
   font-size: 24px;
 }
-
 .heart-icon {
-  fill: white; /* Color blanco por defecto */
+  fill: white;
+  align-self: flex-start;
 }
-
 .like-button.active .heart-icon {
-  fill: red; /* Cambia a rojo al hacer clic */
+  fill: red;
 }
 
 .swiper-slide img {
@@ -91,7 +86,6 @@ p {
   display: block;
   width: 100%;
 }
-
 .icons {
   padding: 0 350px 50px 350px;
   display: flex;
@@ -99,17 +93,14 @@ p {
 }
 .icons i {
   font-size: 25px;
-
-  color: white;
+  color: #1702fc;
   height: 60px;
   width: 60px;
-
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .icons i:hover {
   color: black;
   background-color: #fefefe;
@@ -134,7 +125,10 @@ p {
     padding: 30px;
   }
 }
-
 .mensajeExito {
   font-size: 20px;
+}
+
+#subti {
+  text-align: center;
 }
