@@ -2,7 +2,9 @@ package proyecto.socialfashion.Entidades;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 import proyecto.socialfashion.Enumeraciones.Categoria;
@@ -40,10 +43,10 @@ public class Publicacion {
     @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
     
-    /*
-    @OneToMany
-    private List<Comentario> comentarios;
-    */
+   
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
+   
     
     @OneToOne
     @JoinColumn(name = "id_Imagen")
@@ -53,7 +56,7 @@ public class Publicacion {
 
     }
 
-    public Publicacion(String idPublicacion, String titulo, String contenido, LocalDateTime alta, Categoria categoria, boolean estado, Usuario usuario, Imagen imagen) {
+    public Publicacion(String idPublicacion, String titulo, String contenido, LocalDateTime alta, Categoria categoria, boolean estado, Usuario usuario, List<Like> likes, Imagen imagen) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -61,8 +64,11 @@ public class Publicacion {
         this.categoria = categoria;
         this.estado = estado;
         this.usuario = usuario;
+        this.likes = likes;
         this.imagen = imagen;
     }
+
+ 
 
 
     public String getIdPublicacion() {
@@ -114,15 +120,16 @@ public class Publicacion {
         this.estado = estado;
     }
 
-/*
-    public List<Comentario> getComentarios() {
-        return comentarios;
+    public List<Like> getLikes() {
+        return likes;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
-*/
+
+
+
 
     public Usuario getUsuario() {
         return usuario;

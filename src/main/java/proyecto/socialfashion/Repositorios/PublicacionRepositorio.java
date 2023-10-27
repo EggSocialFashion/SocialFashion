@@ -12,17 +12,9 @@ import proyecto.socialfashion.Entidades.Publicacion;
 
 @Repository
 public interface PublicacionRepositorio extends JpaRepository<Publicacion, String> {
-    
-   /*
-    @Query("SELECT p FROM Publicacion p WHERE p.Contenido = :contenido")
-    public Publicacion buscarPorContenido(@Param("contenido")String contenido);
-    
-    @Query("SELECT p FROM Publicacion p WHERE p.alta = :fechaAlta")
-    public Publicacion buscarPorFechaDeAlta(@Param("fechaAlta")Date fechaAlta);
-    */
-    
-    @Query(value = "SELECT p FROM Publicacion p WHERE p.alta <= :fechaHoy ORDER BY p.alta DESC")
-    public List<Publicacion> buscarPrimeras10PorFechaDeAlta(@Param("fechaHoy") LocalDateTime fechaHoy);
+
+    @Query(value = "SELECT p FROM Publicacion p WHERE p.alta <= :fechaHoy AND p.estado = 1 ORDER BY p.alta DESC")
+    public List<Publicacion> buscarPublicacionPorFechaDeAlta(@Param("fechaHoy") LocalDateTime fechaHoy);
 
     
 }
