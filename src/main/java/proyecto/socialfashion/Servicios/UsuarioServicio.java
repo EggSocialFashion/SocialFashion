@@ -1,4 +1,3 @@
-
 package proyecto.socialfashion.Servicios;
 
 import java.util.ArrayList;
@@ -246,10 +245,8 @@ public class UsuarioServicio implements UserDetailsService {
     for (Publicacion publicacion : auxPublicacion) {
         disenadoresUnicos.add(publicacion.getUsuario());
     }
-
     // Convertir el conjunto de diseñadores únicos de nuevo a una lista
     List<Usuario> diseniadores = new ArrayList<>(disenadoresUnicos);
-
     return diseniadores;
 }
 
