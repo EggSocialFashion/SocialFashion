@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const categoriaCheckboxes = document.querySelectorAll(".categoria");
     const diseinadoresSelect = document.getElementById("usuarios");
-    const diseinadores = document.querySelectorAll(".swiper-slide");
+    const swiperContainer = document.querySelector(".mySwiper .swiper-wrapper"); // Contenedor del carrusel
+
+    // Copia de seguridad de todos los elementos originales en el carrusel
+    const originalDiseinadores = Array.from(swiperContainer.children);
 
     // Función para mostrar u ocultar elementos en función de las selecciones
     function filtrarLista() {
@@ -13,7 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .filter((option) => option.selected)
         .map((option) => option.value);
 
-      diseinadores.forEach((diseinador) => {
+      // Eliminar todos los elementos del carrusel
+      while (swiperContainer.firstChild) {
+        swiperContainer.removeChild(swiperContainer.firstChild);
+      }
+
+      // Filtrar y agregar elementos de nuevo en función de las selecciones
+      originalDiseinadores.forEach((diseinador) => {
         const categoria = diseinador.getAttribute("data-tipo");
         const usuario = diseinador.getAttribute("data-usuario");
 
@@ -21,10 +30,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const usuarioCoincide = diseinadoresSeleccionados.length === 0 || diseinadoresSeleccionados.includes(usuario);
 
         if (categoriaCoincide && usuarioCoincide) {
-          diseinador.style.display = "block";
-        } else {
-          diseinador.style.display = "none";
+          swiperContainer.appendChild(diseinador.cloneNode(true));
         }
+      });
+      
+      // Después de filtrar los elementos, re-inicializa el carrusel Swiper
+      if (swiper) {
+        swiper.destroy();
+      }
+
+      var swiper = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        timeline: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+          rotate: 20,
+          stretch: 20,
+          depth: 300,
+          modifier: 1,
+          slideShadows: true,
+        },
+        loop: true,
       });
     }
 
@@ -34,4 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     diseinadoresSelect.addEventListener("change", filtrarLista);
+
+    // Inicializar el carrusel al cargar la página
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      timeline: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 20,
+        stretch: 20,
+        depth: 300,
+        modifier: 1,
+        slideShadows: true,
+      },
+      loop: true,
+    });
   });
