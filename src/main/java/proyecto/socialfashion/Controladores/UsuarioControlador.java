@@ -65,7 +65,7 @@ public class UsuarioControlador {
                 Usuario usuarioPerfil = respuesta.get();
                 model.addAttribute("usuarioPerfil", usuarioPerfil);
                 System.out.println(usuarioPerfil);
-                return "perfilDeUsuario.html";
+                return "usuario_perfil.html";
             } else {
                 model.addAttribute("error", "Error en perfil de usuario");
                 return "error";
