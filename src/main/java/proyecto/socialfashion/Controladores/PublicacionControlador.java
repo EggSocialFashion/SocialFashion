@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import proyecto.socialfashion.Entidades.Comentario;
+import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
+import proyecto.socialfashion.Servicios.LikeServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
@@ -43,6 +45,9 @@ public class PublicacionControlador {
 
     @Autowired
     private ComentarioServicio comentarioServicio;
+    
+    @Autowired 
+    private LikeServicio likeServicio;
 
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
@@ -58,9 +63,14 @@ public class PublicacionControlador {
     @GetMapping("/publicacionesSocialFashion")
     public String publicacionesParaRegistados(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+         if(logueado == null){
+            return "redirect:login.html";
+        }
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
         List<Usuario> usuarios = usuarioServicio.diseniadores();
-        modelo.addAttribute("usuario", logueado);
+        List<Like> likes = likeServicio.likesUsuarios(logueado);
+        
+        modelo.addAttribute("likes", likes); 
         modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("logueado", logueado);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);

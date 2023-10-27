@@ -5,6 +5,7 @@ package proyecto.socialfashion.Entidades;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -46,8 +47,7 @@ public class Publicacion {
     private Usuario usuario;
     
    
-    @OneToMany
-    @JoinColumn(name = "id_likes")
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes;
    
     

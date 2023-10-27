@@ -85,6 +85,10 @@ p {
   fill: red; /* Cambia a rojo al hacer clic */
 }
 
+.like-button.desactive .heart-icon {
+  fill: white;
+}
+
 .swiper-slide img {
   height: 700px;
   border-radius: 12px;

@@ -119,7 +119,7 @@ public class PublicacionServicio {
         List<Publicacion> listaPublicacion = new ArrayList<>();
         LocalDateTime fechaHoy = LocalDateTime.now();
         
-        listaPublicacion = publicacionRepositorio.buscarPrimeras10PorFechaDeAlta(fechaHoy);
+        listaPublicacion = publicacionRepositorio.buscarPublicacionPorFechaDeAlta(fechaHoy);
         
         
         //Creo una nueva lista para verificar que esten en alta 
