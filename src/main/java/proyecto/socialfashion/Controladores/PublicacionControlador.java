@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -186,53 +187,22 @@ public class PublicacionControlador {
         }
         return "usuario_perfil.html";
     }
-    /*
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/filtrarPorTipo")
-    public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos,  Model model) {
-        
-        try {
-            if (tipos.size() == 0 || tipos.isEmpty() || tipos == null) {
-                model.addAttribute("error", "No se encontraron publicaciones");
-                return "index.html";
-            }
-            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorTipo(tipos);
-            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
-                model.addAttribute("error", "No se encontraron publicaciones");
-                return "index.html";
-            } else {
-                model.addAttribute("publicacionesAlta", publicacionesAlta);
-                return "index.html";
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "index.html";
-        }
-    }
-    
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/filtrarPorDiseniador")
-    public String filtrarPorTipoDiseniador(@RequestParam(name = "usuarios", required = false) List<String> usuarios, 
-                Model model){
-        
-        try {
-            if (usuarios.size() == 0 || usuarios.isEmpty() || usuarios == null) {
-                model.addAttribute("error", "No se encontraron publicaciones");
-                return "index.html";
-            }
-            List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionPorDiseniador(usuarios);
-            if (publicacionesAlta.size() == 0 || publicacionesAlta.isEmpty() || publicacionesAlta == null) {
-                model.addAttribute("error", "No se encontraron publicaciones");
-                return "index.html";
-            } else {
-                model.addAttribute("publicacionesAlta", publicacionesAlta);
-                return "index.html";
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "index.html";
+
+     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+     @GetMapping("/publicaciones/usuario")
+    public String publicacionesPorUusario(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        try{
+            List<Publicacion> publicacionesUsuario = publicacionServicio.listadoPublicacionesPorUsuario(usuario);
+            modelo.addAttribute("publicacionesUsuario",publicacionesUsuario);
+            return "perfilDeUsuario.html";
+
+        }catch (Exception e) {
+            modelo.addAttribute("error",e.getMessage());
+            return "perfilDeUsuario.html";
+
         }
 
-    } 
- */
+    }
+
 }

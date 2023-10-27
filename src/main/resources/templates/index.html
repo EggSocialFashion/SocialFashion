@@ -15,7 +15,6 @@
                 </div>
             </div>
 
-
             <div
                 th:if="${error != null}"
                 class="card text-white bg-danger mb-3 mt-3 mensajeError"
@@ -76,14 +75,15 @@
                 </div>
             </div>
 
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
-                         th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
-                        <h4 th:text="${publicaciones.titulo}"></h4>
-                        <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-                            <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
-                        </a>
+           <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
+              th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
+              <h4 th:text="${publicaciones.titulo}"></h4>
+              <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+              <img onchange="initSwipper()" th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+              </a>
+              
                         <!---
                         <th:block th:with="hasLike=false">
                             <div th:each="like : ${likes}"> 

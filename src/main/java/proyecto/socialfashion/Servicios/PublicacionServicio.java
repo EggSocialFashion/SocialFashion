@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,6 +222,27 @@ public class PublicacionServicio {
         }
         return listaFiltroTipo;
     }
+
+
+    @Transactional
+    public List<Publicacion> listadoPublicacionesPorUsuario(Usuario usuario){
+        //Creo lista para guardar las publicaciones
+        List<Publicacion> listaPublicacion = new ArrayList<>();
+        //busco publicaciones cargadas
+        listaPublicacion = publicacionRepositorio.findAll();
+        //Creo una nueva lista de publicaciones de alta
+        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
+        List<Publicacion> listaFiltroUsuario = new ArrayList<>();
+        //Comparo para verificar si son iguales a los tipos que traigo
+        for (Publicacion publicacion : listaVerificada) {
+            
+                if(publicacion.getUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario())){
+                    listaFiltroUsuario.add(publicacion);
+                }
+        }
+        return listaFiltroUsuario;
+    }
+
     
     @Transactional
     public List<Publicacion> listaPublicacionPorDiseniador(List<String> usuarios) {
