@@ -2,11 +2,13 @@
 package proyecto.socialfashion.Servicios;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +37,9 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio imagenServicio;
+
+    @Autowired
+    private PublicacionServicio publicacionServicio;
 
     @Transactional
     public void registrar(MultipartFile archivo, String nombre, String email, String password, String password2) throws Excepciones {
@@ -229,5 +234,24 @@ public class UsuarioServicio implements UserDetailsService {
     public Optional<Usuario> buscarUsuarioOptionalId(String id) {
         return usuarioRepositorio.findById(id);
     }
+
+    @Transactional
+    public List<Usuario> diseniadores() {
+    //busco las publicaciones dadas de alta
+    List<Publicacion> auxPublicacion = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
+
+    // Usar un conjunto para almacenar diseñadores únicos
+    Set<Usuario> disenadoresUnicos = new HashSet<>();
+
+    for (Publicacion publicacion : auxPublicacion) {
+        disenadoresUnicos.add(publicacion.getUsuario());
+    }
+
+    // Convertir el conjunto de diseñadores únicos de nuevo a una lista
+    List<Usuario> diseniadores = new ArrayList<>(disenadoresUnicos);
+
+    return diseniadores;
+}
+
 
 }

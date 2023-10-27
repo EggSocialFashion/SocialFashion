@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Roles;
@@ -31,39 +30,45 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-    
-    
+
     @Autowired
     PublicacionServicio publicacionServicio;
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
+        try {
 
+            if (usuarios == null) {
+                modelo.addAttribute("error", "Ocurrió un error al cargar el listado");
+            } else {
+                modelo.addAttribute("usuarios", usuarios);
+            }
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
         return "usuario_list.html";
     }
 
-     
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/perfil/{id}")
-    public String mostrarPerfilUsuario(@PathVariable String id, Model model,HttpSession session) {
+    public String mostrarPerfilUsuario(@PathVariable String id, Model model, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario==null){
+        if (usuario == null) {
             return "redirect:login.html";
         }
         try {
             Optional<Usuario> respuesta = usuarioServicio.buscarUsuarioPorId(id);
-            
+
             if (respuesta.isPresent()) {
-                Usuario usuarioPerfil = respuesta.get();  
+                Usuario usuarioPerfil = respuesta.get();
                 model.addAttribute("usuarioPerfil", usuarioPerfil);
-                System.out.println(usuarioPerfil);    
+                System.out.println(usuarioPerfil);
                 return "usuario_perfil.html";
             } else {
                 model.addAttribute("error", "Error en perfil de usuario");
-                return "error"; 
+                return "error";
             }
         } catch (Exception e) {
 
@@ -80,9 +85,9 @@ public class UsuarioControlador {
     public String registrar() {
         return "registro.html";
     }
-    
+
     @GetMapping("/login")
-    public String login(@RequestParam (required = false) String error, ModelMap modelo){
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
             modelo.put("Error", "Usuario o Contraseña invalidos!");
         }
@@ -100,7 +105,7 @@ public class UsuarioControlador {
             modelo.addAttribute("usuario", logueado);
             modelo.addAttribute("publicacionesAlta", publicacionesAlta);
             modelo.put("exito", "El Usuario ha sido registrado correctamente.");
-           
+
             return "index.html";
         } catch (Excepciones ex) {
             modelo.put("error", ex.getMessage());
@@ -110,46 +115,56 @@ public class UsuarioControlador {
         }
     }
 
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/buscarpornombre")
     public String buscarpornombre(ModelMap modelo) {
         return "buscar_nombre.html";
     }
-    
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/buscarnombre")
-    public String buscarnombre(@RequestParam String nombre, ModelMap modelo) throws Excepciones{
-        //Usuario usuario = usuarioRepositorio.buscarPorNombre(nombre);
+    public String buscarnombre(@RequestParam String nombre, ModelMap modelo) throws Excepciones {
+        // Usuario usuario = usuarioRepositorio.buscarPorNombre(nombre);
         try {
-            
+            if (nombre.isEmpty()) {
+                modelo.addAttribute("error", "Debe ingresar un nombre");
+            }
             List<Usuario> usuariosNom = usuarioServicio.buscarUsuarioPorNombre(nombre);
-            
-            if(usuariosNom.isEmpty() || usuariosNom.size() == 0) {
-                modelo.put("error","El Usuario no ha sido encontrado.");
+
+            if (usuariosNom.isEmpty() || usuariosNom.size() == 0) {
+                modelo.put("error", "El Usuario no ha sido encontrado.");
             } else {
                 modelo.addAttribute("usuariosNom", usuariosNom);
-                modelo.put("exito","El Usuario ha sido encontrado.");
-            }        
+                modelo.put("exito", "El Usuario ha sido encontrado.");
+            }
             return "buscar_nombre.html";
         } catch (Excepciones ex) {
-           modelo.put("error", ex.getMessage());
-           //modelo.put("nombre", nombre);
-           return "buscar_nombre.html";
+            modelo.put("error", ex.getMessage());
+            // modelo.put("nombre", nombre);
+            return "buscar_nombre.html";
         }
-        
+
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/modificar/{idUsuario}")
-    public String modificarUsuario(@PathVariable String idUsuario, ModelMap modelo) {
-        modelo.put("usuario", usuarioServicio.getOne(idUsuario));
+    public String modificarUsuario(@PathVariable String idUsuario, ModelMap modelo, HttpSession session) {
 
-        return "usuario_modificar.html";
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario.getIdUsuario().toString().equals(idUsuario)) {
+            modelo.put("usuario", usuarioServicio.getOne(idUsuario));
+            return "usuario_modificar.html";
+        } else {
+            modelo.addAttribute("error", "Usuario Incorrecto");
+            return "index.html";
+        }
+
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/modificar/{idUsuario}")
-    public String modificar(MultipartFile archivo, @PathVariable String idUsuario, String nombre, String email, String password,
+    public String modificar(MultipartFile archivo, @PathVariable String idUsuario, String nombre, String email,
+            String password,
             String password2, Roles roles, ModelMap modelo) {
         try {
             usuarioServicio.actualizar(archivo, idUsuario, nombre, email, password, password2, roles);
@@ -160,20 +175,30 @@ public class UsuarioControlador {
         }
 
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificarRol/{idUsuario}")
-    public String cambiarRol(@PathVariable String idUsuario) {
-        usuarioServicio.cambiarRol(idUsuario);
+    public String cambiarRol(@PathVariable String idUsuario, Model modelo) {
+        try {
+            usuarioServicio.cambiarRol(idUsuario);
+            return "redirect:/usuarios/lista";
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "redirect:/usuarios/lista";
+        }
 
-        return "redirect:/usuarios/lista";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificarEstado/{idUsuario}")
-    public String cambiarEstado(@PathVariable String idUsuario) {
-        usuarioServicio.cambiarEstado(idUsuario);
+    public String cambiarEstado(@PathVariable String idUsuario, Model modelo) {
+        try {
+            usuarioServicio.cambiarEstado(idUsuario);
 
-        return "redirect:/usuarios/lista";
+            return "redirect:/usuarios/lista";
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "redirect:/usuarios/lista";
+        }
     }
 }

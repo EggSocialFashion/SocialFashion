@@ -4,15 +4,26 @@
 
 <body>
     <nav th:replace="/template.fragments/navbar :: nav"> </nav>
-                    
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Comentario</h5>
+    <div class="container p-3 d-flex justify-content-center align-items-center">
+    <div class="card text-white bg-secondary mb-3 " style="max-width: 18rem;">
+        <div class="card-header">Comentario </div>
+        <div class="card-body">
+            <p class="text-danger">ID:</p>
+              <p class="card-text" th:text="${comentario.idComentario}"></p>
+            <p class="text-danger">Activo:</p>
+              <p class="card-text" th:text="${comentario.estado}"></p>
+            <p class="text-danger">Texto:</p>
               <p class="card-text" th:text="${comentario.texto}"></p>
-            </div>
-          </div>
-                
-    
-</body>
+             
+        </div>
+       
+    </div>
+</div>
+<script src="../static/script/script.js"></script> 
+<script src="../static/script/animacionesError.js"></script>            
+<script src="../static/script/like.js"></script>     
+<script src="../static/script/animacionExito.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body> 
 
 </html>
