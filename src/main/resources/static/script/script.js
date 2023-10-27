@@ -1,3 +1,4 @@
+/*
 document.addEventListener("DOMContentLoaded", function () {
   var swiper;
   swiper = new Swiper(".mySwiper", {
@@ -15,4 +16,4 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     loop: true,
   });
-});
+});*/

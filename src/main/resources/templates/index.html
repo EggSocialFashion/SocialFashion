@@ -80,7 +80,7 @@
               th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
               <h4 th:text="${publicaciones.titulo}"></h4>
               <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-              <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+              <img onchange="initSwipper()" th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
               </a>
               
               <div th:if="${logueado !=null}" class="like-button" onclick="toggleLike(this)">
