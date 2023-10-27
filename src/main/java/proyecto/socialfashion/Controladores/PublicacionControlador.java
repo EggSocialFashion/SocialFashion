@@ -24,7 +24,6 @@ import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Excepciones.Excepciones;
-import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.LikeServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
@@ -41,9 +40,6 @@ public class PublicacionControlador {
     private UsuarioServicio usuarioServicio;
 
     @Autowired
-    private PublicacionRepositorio publicacionRepositorio;
-
-    @Autowired
     private ComentarioServicio comentarioServicio;
     
     @Autowired 
@@ -53,6 +49,8 @@ public class PublicacionControlador {
     public String publicaciones(ModelMap modelo, HttpSession session) {
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        List<Usuario> usuarios = usuarioServicio.diseniadores();
+        modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
         modelo.addAttribute("logueado", logueado);
         // HTML con la pagina en donde se encuentran las publicaciones
@@ -141,12 +139,8 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+    public String mostrarPublicacion(@PathVariable String id, Model modelo) {
 
-        if(usuario == null){
-            return "redirect:login.html";
-        }
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -170,13 +164,33 @@ public class PublicacionControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/filtrarPorTipo")
-    public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos, HttpSession session, Model model) {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        // se controla si est alogueado, sino manda a loqueo
-        if (logueado == null) {
-            return "loguin.html";
+    @PostMapping("/publicacion/borrar/{id}")
+    public String borrarPublicacion(@PathVariable String id, Model modelo) {
+      
+        try {
+            Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
+
+            if (respuesta.isPresent()) {
+                Publicacion publicacion = respuesta.get();
+                if (publicacion.isEstado() == true) {
+                    publicacionServicio.BajaPublicacion(id);
+                } else {
+                    modelo.addAttribute("error", "La publicacion no existe");
+                }
+            } else {
+                modelo.addAttribute("error", "La publicacion no existe");
+            }
+        } catch (Exception ex) {
+            modelo.addAttribute("error", ex.getMessage());
+            return "error.html";
         }
+        return "usuario_perfil.html";
+    }
+    /*
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/filtrarPorTipo")
+    public String filtrarPorTipo(@RequestParam(name = "tipo", required = false) List<String> tipos,  Model model) {
+        
         try {
             if (tipos.size() == 0 || tipos.isEmpty() || tipos == null) {
                 model.addAttribute("error", "No se encontraron publicaciones");
@@ -187,7 +201,6 @@ public class PublicacionControlador {
                 model.addAttribute("error", "No se encontraron publicaciones");
                 return "index.html";
             } else {
-                 model.addAttribute("logueado", logueado);
                 model.addAttribute("publicacionesAlta", publicacionesAlta);
                 return "index.html";
             }
@@ -200,12 +213,8 @@ public class PublicacionControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/filtrarPorDiseniador")
     public String filtrarPorTipoDiseniador(@RequestParam(name = "usuarios", required = false) List<String> usuarios, 
-                HttpSession session, Model model){
-       Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        // se controla si est alogueado, sino manda a loqueo
-        if (logueado == null) {
-            return "loguin.html";
-        }
+                Model model){
+        
         try {
             if (usuarios.size() == 0 || usuarios.isEmpty() || usuarios == null) {
                 model.addAttribute("error", "No se encontraron publicaciones");
@@ -216,7 +225,6 @@ public class PublicacionControlador {
                 model.addAttribute("error", "No se encontraron publicaciones");
                 return "index.html";
             } else {
-                model.addAttribute("logueado", logueado);
                 model.addAttribute("publicacionesAlta", publicacionesAlta);
                 return "index.html";
             }
@@ -226,5 +234,5 @@ public class PublicacionControlador {
         }
 
     } 
-
+ */
 }

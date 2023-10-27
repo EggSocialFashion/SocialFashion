@@ -1,6 +1,7 @@
 package proyecto.socialfashion.Servicios;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -140,6 +141,7 @@ public class ReporteServicio {
 
     }
 
+
     // lista de comentarios retortados
     @Transactional
     public List<Reporte> obtenerComentariosReportadosPendientes() {
@@ -164,69 +166,7 @@ public class ReporteServicio {
                         && reporte.getTipoObjeto() == TipoObjeto.PUBLICACION)
                 .collect(Collectors.toList());
     }
-    /*
-     * @Transactional
-     * public String procesarReporte(String estado, String idObjeto, String
-     * idReporte, Usuario usuario, Model modelo, Object objeto) {
-     * //valida si es un usuario admin
-     * if (usuario.getRoles() != Roles.ADMIN) {
-     * return "Usuario no permitido";
-     * 
-     * }
-     * //valida si el reporte por id existe
-     * Optional<Reporte> respuestaR = buscarReportePorId(idReporte);
-     * Reporte reporte = new Reporte();
-     * if (respuestaR.isPresent()) {
-     * reporte = respuestaR.get();
-     * estado = estado.toUpperCase();
-     * if (estado.equals(Estado.ACEPTADO.toString())) {
-     * //valida que el bojeto esta dado de alta
-     * if (esEstadoActivo(objeto)) {
-     * desactivarObjeto(objeto);
-     * aceptarReporte(reporte);
-     * return objeto.getClass().getSimpleName() + " dado de baja";
-     * } else {
-     * return objeto.getClass().getSimpleName() + " ya estaba dado de baja";
-     * }
-     * } else if (estado.equals(Estado.DESESTIMADO.toString())) {
-     * desestimarReporte(reporte);
-     * } else {
-     * return "Opción no permitida";
-     * }
-     * } else {
-     * return "Reporte inexistente";
-     * }
-     * return null;
-     * }
-     * 
-     */
-
-    /*
-     * //validación de si el objeto esta activo
-     * private boolean esEstadoActivo(Object objeto) {
-     * if (objeto instanceof Usuario) {
-     * return ((Usuario) objeto).getEstado();
-     * } else if (objeto instanceof Comentario) {
-     * return ((Comentario) objeto).getEstado();
-     * } else if (objeto instanceof Publicacion) {
-     * return ((Publicacion) objeto).isEstado();
-     * }
-     * return false;
-     * }
-     */
-    /*
-     * 
-     * private void desactivarObjeto(Object objeto) {
-     * if (objeto instanceof Usuario) {
-     * usuarioServicio.cambiarEstado(((Usuario) objeto).getIdUsuario());
-     * } else if (objeto instanceof Comentario) {
-     * comentarioServicio.cambiarEstado(((Comentario) objeto).getIdComentario());
-     * } else if (objeto instanceof Publicacion) {
-     * publicacionServicio.BajaPublicacion(((Publicacion)
-     * objeto).getIdPublicacion());
-     * }
-     * }
-     */
+    
     // metodo de validación de si el reporte existe cuando se lo busca
     public String validarDenuncia(String tipo, String tipoObjeto, String idObjeto) {
         // Valida que el tipo sea correcto(SPAM, CONTENIDO_OFENSIVO,
@@ -259,4 +199,71 @@ public class ReporteServicio {
         // si existe devuelve null
         return null;
     }
+
+    // lista de comentarios retortados sin controlar si esta pendiente
+    @Transactional
+    public Map<String, Map<Object, Long>> obtenerConteoComentarios() {
+        List<Reporte> reportes = reporteRepositorio.findAll();
+        
+        // Filtrar los reportes que tengan el tipo de objeto COMENTARIO
+        List<Reporte> comentarios = reportes.stream()
+                .filter(reporte -> reporte.getTipoObjeto() == TipoObjeto.COMENTARIO)
+                .collect(Collectors.toList());
+        
+        // Agrupar los comentarios por idObjeto y contar los estados
+        Map<String, Map<Object, Long>> conteoPorIdObjeto = comentarios.stream()
+                .collect(Collectors.groupingBy(
+                        Reporte::getIdObjeto,
+                        Collectors.groupingBy(
+                                reporte -> reporte.getEstado().toString(), // Convertir el estado a String
+                                Collectors.counting()
+                        )
+                ));
+
+        
+        return conteoPorIdObjeto;
+    }
+
+    // lista de comentarios retortados pendientes o no
+    @Transactional
+    public Map<String,Map<Object,Long>> obtenerConteoPublicaciones() {
+        // genera una lista de reportes
+
+        List<Reporte> reportes = reporteRepositorio.findAll();
+        // mapea que tenga el tipo de objeto sea una publicacion
+        List<Reporte> publicaciones = reportes.stream()
+                .filter(reporte ->  reporte.getTipoObjeto() == TipoObjeto.PUBLICACION)
+                .collect(Collectors.toList());
+        Map<String,Map<Object,Long>> conteoPorIdObjeto = publicaciones.stream()
+                .collect(Collectors.groupingBy(Reporte::getIdObjeto,
+                Collectors.groupingBy(
+                            reporte ->reporte.getEstado().toString(),
+                            Collectors.counting()
+                )
+                ));
+        return conteoPorIdObjeto;
+    }
+    
+// lista de usuarios retortados pendientes o no
+    @Transactional
+    public Map<String,Map<Object,Long>> obtenerConteoUsuarios() {
+        // genera una lista de reportes
+
+        List<Reporte> reportes = reporteRepositorio.findAll();
+        // mapea que tenga el tipo de objeto sea una publicacion
+        List<Reporte> usuarios = reportes.stream()
+                .filter(reporte ->  reporte.getTipoObjeto() == TipoObjeto.USUARIO)
+                .collect(Collectors.toList());
+
+        Map<String,Map<Object,Long>> conteoPorIdObjeto = usuarios.stream()
+                .collect(Collectors.groupingBy(Reporte::getIdObjeto,
+                Collectors.groupingBy(
+                            reporte ->reporte.getEstado().toString(),
+                            Collectors.counting()
+                )
+                ));
+        return conteoPorIdObjeto;
+
+    }
+    
 }
