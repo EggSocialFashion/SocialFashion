@@ -113,16 +113,15 @@ public class PublicacionServicio {
     
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionGuest() {
-        
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
         LocalDateTime fechaHoy = LocalDateTime.now();
         
         listaPublicacion = publicacionRepositorio.buscarPublicacionPorFechaDeAlta(fechaHoy);
         
-        
         //Creo una nueva lista para verificar que esten en alta 
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
+        listaPublicacion.clear();
 
         //En el caso que la cantidad de publicaciones sea menor a 10
         if (listaVerificada.size() < 10){
@@ -130,11 +129,8 @@ public class PublicacionServicio {
         } else {
             //En el caso que la lista de publicaciones sea mayor a 10
             for (int i = 0; i < 10; i++) {
-                listaPublicacion.clear();
                 listaPublicacion.add(listaVerificada.get(i));
-              
             }
-            
             return listaPublicacion;
         }
 

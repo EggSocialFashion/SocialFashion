@@ -57,6 +57,7 @@ public class PublicacionControlador {
         // HTML con la pagina en donde se encuentran las publicaciones
         return "index.html";
     }
+ 
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacionesSocialFashion")
@@ -188,21 +189,5 @@ public class PublicacionControlador {
         return "usuario_perfil.html";
     }
 
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-     @GetMapping("/publicaciones/usuario")
-    public String publicacionesPorUusario(HttpSession session, ModelMap modelo) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        try{
-            List<Publicacion> publicacionesUsuario = publicacionServicio.listadoPublicacionesPorUsuario(usuario);
-            modelo.addAttribute("publicacionesUsuario",publicacionesUsuario);
-            return "perfilDeUsuario.html";
-
-        }catch (Exception e) {
-            modelo.addAttribute("error",e.getMessage());
-            return "perfilDeUsuario.html";
-
-        }
-
-    }
 
 }
