@@ -101,9 +101,9 @@
         
         <div class="swiper-wrapper container-fluid">
          
-          <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide bg-dark" 
+          <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
-          <h4 class="text-white h4-publi" th:text="${publicaciones.titulo}"></h4>
+          <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
              <div class="a-img-corazon-container">
               <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
               <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
