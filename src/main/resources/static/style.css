@@ -81,38 +81,75 @@ box-shadow: 2px 2px 4px 1px rgb(77, 77, 77);
 }
 
 .swiper{
- padding: 100px; 
+ padding: 40px; 
+ width: 100%;
 }
+
+.swiper-wrapper{
+  max-height: 600px;
+}
+
+
 .diseños h2 {
   display: grid;
   place-items: center;
   font-family: "Times New Roman", Times, serif;
 }
-.swiper {
-  width: 100%;
+
+.h4-publi{
+padding: 4px;
 }
+
 .swiper-slide {
   display: flex;
   flex-direction: column;
-  text-align: center;
   align-items: center;
-  padding: 10px;
-  width: 310px;
-  height: auto;
-  position: relative;
+  padding: 4px;
+  max-width: 260px;
   text-align: center;
-  background-position: center;
-  background-size: cover;
-  background-color: transparent;
   border-radius: 10px;
 }
 
-.swiper-slide img {
-  display: block;
-  width: 300px;
-  height: 400px;
-  border-radius: 12px;
+.a-img-corazon-container{
+  display: flex;
 }
+
+.swiper-slide a img {
+  border: 5px solid white;
+  border-radius: 10px;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+
+.container-p-con-texto{
+  margin: 0;
+  position: absolute;
+ align-self: flex-end;
+ background-color: transparent;
+  border: none;
+  border-radius: 4px;
+}
+
+.p-con-texto {
+  margin: 0;
+   width: 251px; /* Ancho del div */
+  height: 100px; /* Altura del div */
+  border-radius: 10px;
+  overflow: hidden; /* Oculta el contenido que se desborda del div */
+  white-space: pre-wrap; /* Permite saltos de línea y preserva espacios en blanco */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos (...) al final del texto desbordado */
+  
+}
+
+.container-corazon {
+  position: absolute;
+  padding: 10px;
+}
+
 .like-button {
   cursor: pointer;
   font-size: 24px;
@@ -134,10 +171,11 @@ box-shadow: 2px 2px 4px 1px rgb(77, 77, 77);
   display: block;
   width: 100%;
 }
+
 .icons {
   padding: 0 250px 10px 250px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .icons i {
   font-size: 25px;
@@ -170,7 +208,7 @@ box-shadow: 2px 2px 4px 1px rgb(77, 77, 77);
   .icons {
     padding: 30px;
   }
-
+}
 .mensajeExito {
   font-size: 20px;
 }
