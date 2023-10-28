@@ -30,19 +30,24 @@
           </div>
         </div>
 
-        <div th:if="${exito != null}" class="mensajeExito animate__animated animate__fadeInDown animate__faster">
+        <div
+          th:if="${exito != null}"
+          class="mensajeExito animate__animated animate__fadeInDown animate__faster"
+        >
           <div class="card text-white bg-success mb-3 mt-3">
-              <div class="card-body">
-                  <h5 class="card-title">Éxito</h5>
-                  <p class="card-text" th:text="${exito}"></p>
-              </div>
+            <div class="card-body">
+              <h5 class="card-title">Éxito</h5>
+              <p class="card-text" th:text="${exito}"></p>
+            </div>
           </div>
         </div>
 
         <div class="form-group my-3">
           <h3 class="card-title">Registro de Usuario</h3>
         </div>
+
         <input
+          class="border-bottom-10"
           type="text"
           name="nombre"
           placeholder="Nombre"
@@ -66,9 +71,11 @@
           placeholder="Repetir Contraseña"
           th:value="${password2}"
         />
+
         <div class="form-group my-3">
-          <input type="file" class="form-control" name="archivo">                    
-      </div>
+          <input type="file" class="form-control" name="archivo" />
+        </div>
+        
         <button type="submit">Registrarme</button>
         <a href="/usuarios/login">¿Ya tengo una cuenta?</a>
       </form>
