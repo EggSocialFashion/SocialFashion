@@ -1,4 +1,3 @@
-
 package proyecto.socialfashion.Servicios;
 
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -247,10 +245,8 @@ public class UsuarioServicio implements UserDetailsService {
     for (Publicacion publicacion : auxPublicacion) {
         disenadoresUnicos.add(publicacion.getUsuario());
     }
-
     // Convertir el conjunto de diseñadores únicos de nuevo a una lista
     List<Usuario> diseniadores = new ArrayList<>(disenadoresUnicos);
-
     return diseniadores;
 }
 

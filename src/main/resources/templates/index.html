@@ -28,85 +28,81 @@
     <section class="container">
     <div class="search-txt">
        <i class="fa-brands fa-pinterest"> </i>
-      <h2> Diseños de autores </h2>
+       <h2> Diseños de autores </h2>
      </div>
     </section>
-    <div th:if="${logueado != null}">
+   
 
-     <section class="diseños container">
-        <form action="/filtrarPorTipo" method="get" >
-            <div class="form-check form-check-inline">
-              <label class="form-check-label" >INDUMENTARIA</label>
-              <input type="checkbox" name="tipo" value="INDUMENTARIA" class="form-check-input" >
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label" >MAQUILLAJE</label>
-              <input type="checkbox" name="tipo" value="MAQUILLAJE" class="form-check-input">
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label" >CALZADO</label>
-              <input type="checkbox" name="tipo" value="CALZADO" class="form-check-input">
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label" >MARROQUINERIA</label>
-              <input type="checkbox" name="tipo" value="MARROQUINERIA" class="form-check-input">
-            </div>
-          <button type="submit" class="btn btn-secondary">Filtrar</button>
-          <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary">Quitar Filtro</a>
 
-        </form>
-       <br/>
-        
-        <form action="/filtrarPorDiseniador" method="post">
-          <div class="btn-group dropup">
-            <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              DISEÑADORES:
-            </button>
-              <!--<label for="usuarios"></label>-->
-              <ul class="dropdown-menu">
-                <li class="dropdown-item">
-                <select class="form-control" name="usuarios" id="usuarios" multiple>
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
-                </select>
+    <section class="diseños container">
+      <div class="filters">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">INDUMENTARIA</label>
+          <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
+        </div>
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">MAQUILLAJE</label>
+          <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
+        </div>
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">CALZADO</label>
+          <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
+        </div>
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">MARROQUINERIA</label>
+          <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
+        </div>
+        <div class="btn-group dropup">
+          <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            DISEÑADORES:
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <select class="form-control" name="usuarios" id="usuarios" multiple>
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
+              </select>
             </li>
-            </ul>
-          </div>
-          <button type="submit" class="btn btn-secondary">Filtrar</button>
-          <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary">Quitar Filtro</a>
-      </form>
-
-    </div>    
-      
-      
-      
-      
-      <h2>Ultimos diseños</h2>             
+          </ul>
+        </div>
+        <div>
+          <div th:if="${logueado != null}">
+            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary">Quitar Filtro</a>
+        </div>
+        <div th:if="${logueado == null}">
+            <a th:href="@{/}" class="btn btn-secondary">Quitar Filtro</a>
+        </div>
+        </div>
+      </div>
 
       <div class="swiper mySwiper">
-          <div class="swiper-wrapper">
-        </div>     
-        <div class="swiper mySwiper">
-          <div class="swiper-wrapper" >
-            <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" th:attr="data-id=${publicaciones.idPublicacion}">
+        <div class="swiper-wrapper">
+          <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
+              th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
               <h4 th:text="${publicaciones.titulo}"></h4>
-              <img  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">                            
-              <div class="like-button" onclick="toggleLike(this)">
+              <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+              <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+              </a>              
+              <div th:if="${logueado !=null}" class="like-button" onclick="toggleLike(this)">
                 <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
-                </svg>
-              </div>            
-              <p class="parrafo" th:text="${publicaciones.contenido}"></p>
-            </div>
+              </svg>
           </div>
-     </div>
+          <p class="bg-white bg-opacity-75 text-black" th:text="${publicaciones.contenido}"></p>
+      </div>
+                    </div>
 
-    </section>
-    <section class="icons container">
-       <i class="fa-solid fa-house"></i>
-       <i class="fa-solid fa-fire-flame-curved"></i>
-       <i class="fa-solid fa-folder"></i>
-       <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
-    </section>
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="icons container">
+            <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-fire-flame-curved"></i>
+            <i class="fa-solid fa-folder"></i>
+            <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
+        </section>
+
     
     <div class="container">
       <footer class="py-5">
@@ -144,6 +140,7 @@
               <p class="text-center text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023 Compañía, Inc.</font></font></p>
             </footer>
           </div>
+          <script  src="../static/script/filtro.js"></script>
          <script src="../static/script/script.js"></script> 
          <script src="../static/script/animacionesError.js"></script>            
          <script src="../static/script/like.js"></script>     
