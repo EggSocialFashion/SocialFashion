@@ -79,6 +79,10 @@ p {
 .like-button.active .heart-icon {
   fill: red;
 }
+.like-button.desactive .heart-icon {
+  fill: white;
+}
+
 .swiper-slide img {
   height: 700px;
   border-radius: 12px;
