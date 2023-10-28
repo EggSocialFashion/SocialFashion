@@ -10,15 +10,9 @@
   filter: opacity(0.8);
 }
 
-.login_2 > img {
-  width: 132px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  filter: opacity(0.5);
-}
-
-.login_2 {
+.login-registro {
+  display: flex;
+  flex-wrap: wrap;
   position: relative; /* Ajusta este valor según tus necesidades */
   margin-top: 24px;
   height: auto;
@@ -28,8 +22,18 @@
   background: #ffffff;
   box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
   text-align: center;
-  z-index: 150;
 }
+
+
+.img-registro-container > img {
+  margin-top: 100px;
+  width: 300px;
+  object-fit: cover;
+  position: absolute;
+  border-radius: 50%;
+  filter: opacity(0.05);
+}
+
 
 .login-form-2 {
   display: grid;
@@ -72,7 +76,8 @@
 }
 
 .login-form-2 > input:hover {
-  height: 50px;
+  height: 44px;
+  transition: height 0.3s;
 }
 
 .login-form-2 > button {

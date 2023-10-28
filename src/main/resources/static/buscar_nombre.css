@@ -39,6 +39,7 @@ input {
   box-shadow: 4px 4px 10px 4px rgb(159, 159, 159);
   border-radius: 10px;
   background-color: transparent;
+  z-index: 105;
 }
 
 .form-control_input1 {
