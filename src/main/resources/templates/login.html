@@ -10,7 +10,7 @@
           <form class="login-form-2" th:action="@{/logincheck}" method="POST"> 
                    <div
                      th:if="${Error != null}"
-                    class="card text-white bg-danger mensajeError animate__animated animate__fadeInDown animate__faster"
+                    class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
                     >
                     <div class="card-body">
                      <h5 class="card-title">Error</h5>
@@ -31,6 +31,5 @@
           integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
           crossorigin="anonymous"
         ></script>
-        <script src="../static/script/animacionesError.js"></script> 
   </body>
 </html>
