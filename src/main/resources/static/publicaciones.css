@@ -21,6 +21,7 @@
 .form-container {
   display: block;
   position: relative;
+  min-width: 360px;
   max-width: 1000px;
   margin: 0 auto;
   padding: 10px;
