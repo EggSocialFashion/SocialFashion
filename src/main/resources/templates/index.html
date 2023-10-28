@@ -37,7 +37,7 @@
     <section class="container">
     <div class="search-txt justify-content-center">
        <i class="fa-brands fa-pinterest"> </i>
-       <h2> Diseños de autores </h2>
+      <h2> Diseños de autores </h2>
      </div>
     </section>
    
@@ -106,6 +106,7 @@
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
              <div class="a-img-corazon-container">
               <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+
               <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
               </a>   
               <div th:if="${logueado !=null}" class="like-button container-corazon" onclick="toggleLike(this)">
@@ -117,6 +118,7 @@
             <div class="container-p-con-texto">
             <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
           </div>
+
           </div>
         </div>
 
@@ -126,7 +128,16 @@
             </div>
         
         <section th:replace="/template.fragments/sectionIcon :: section"> </section>
-
+        </div>
+      </div>
+    </section>
+    
+    <section class="icons container">
+       <i class="fa-solid fa-house"></i>
+       <i class="fa-solid fa-fire-flame-curved"></i>
+       <i class="fa-solid fa-folder"></i>
+       <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
+    </section>
     
     <footer th:replace="/template.fragments/footer :: footer"> </footer>
           
