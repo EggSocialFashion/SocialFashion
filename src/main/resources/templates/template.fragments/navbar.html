@@ -3,65 +3,138 @@
   data-bs-theme="dark"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="http://localhost:8080/">Social Fashion
-      <img class="navbar_logo" style="width: 36px; border-radius: 50%; filter: opacity(0.8)" src="../../static/img/logo.png" alt="logo" />
+    <a class="navbar-brand" href="http://localhost:8080/"
+      >Social Fashion
+      <img
+        class="navbar_logo"
+        style="width: 36px; border-radius: 50%; filter: opacity(0.8)"
+        src="../../static/img/logo.png"
+        alt="logo"
+      />
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" >
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Social Fashion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          Social Fashion
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a th:if="${session.usuariosession == null}"class="nav-link active" aria-current="page" th:href="@{/usuarios/login}" >Iniciar Sesion</a>
+            <a
+              th:if="${session.usuariosession == null}"
+              class="nav-link active"
+              aria-current="page"
+              th:href="@{/usuarios/login}"
+              >Iniciar Sesion</a
+            >
           </li>
           <li class="nav-item">
-            <a th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/usuarios/registrar}" >Registrarse</a>
+            <a
+              th:if="${session.usuariosession == null}"
+              class="nav-link"
+              th:href="@{/usuarios/registrar}"
+              >Registrarse</a
+            >
           </li>
           <!--
           <li class="nav-item">
             <a th:if="${session.usuariosession != null}" class="nav-link" href="#" >Blog</a>
             <a class="nav-link" href="blog.html">Blog</a>
           </li>
-          -->             
+          -->
           <li class="nav-item dropdown">
-            <a th:if="${session.usuariosession != null}" class="nav-link dropdown-toggle" th:href="@{/usuarios/lista}" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Usuarios</a>                                             
+            <a
+              th:if="${session.usuariosession != null}"
+              class="nav-link dropdown-toggle"
+              th:href="@{/usuarios/lista}"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Usuarios</a
+            >
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" th:href="@{/usuarios/registrar}">Registrar Usuario</a>
-              </li>
-              <li>
-                <a class="dropdown-item" th:href="@{/usuarios/buscarpornombre}">Buscar por nombre</a>
+                <a class="dropdown-item" th:href="@{/usuarios/buscarpornombre}"
+                  >Buscar por nombre</a
+                >
               </li>
               <li>
                 <hr class="dropdown-divider" />
               </li>
               <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
             </ul>
-          </li>          
+          </li>
           <li class="nav-item dropdown">
-            <a th:if="${session.usuariosession != null}" class="nav-link dropdown-toggle" th:href="@{/usuarios/lista}" role="button" data-bs-toggle="dropdown" aria-expanded="false" > Publicaciones</a>
-          <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-item dropdown">
-            <a   class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrador</a>
+            <a
+              th:if="${session.usuariosession != null}"
+              class="nav-link dropdown-toggle"
+              th:href="@{/usuarios/lista}"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Publicaciones</a
+            >
+          </li>
+
+          <li
+            th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+            class="nav-item dropdown"
+          >
+            <a
+              class="nav-link dropdown-toggle"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Administrador</a
+            >
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" th:href="@{/admin/usuarios}">Usuarios Denunciados</a>
+                <a class="dropdown-item" th:href="@{/admin/usuarios}"
+                  >Usuarios Denunciados</a
+                >
               </li>
               <li>
-                <a class="dropdown-item" th:href="@{/admin/publicaciones}">Publicaciones denunciadas</a>
+                <a class="dropdown-item" th:href="@{/admin/publicaciones}"
+                  >Publicaciones denunciadas</a
+                >
               </li>
               <li>
-                <a class="dropdown-item" th:href="@{/admin/comentarios}">Comentarios Denunciados</a>
+                <a class="dropdown-item" th:href="@{/admin/comentarios}"
+                  >Comentarios Denunciados</a
+                >
               </li>
               <li>
-                <a class="dropdown-item" th:href="@{/admin/reportes}">Reportes</a>
+                <a class="dropdown-item" th:href="@{/admin/reportes}"
+                  >Reportes</a
+                >
               </li>
               <li>
-                <a class="dropdown-item" th:href="@{/usuarios/lista}">Lista de Usuarios</a>
+                <a class="dropdown-item" th:href="@{/usuarios/lista}"
+                  >Lista de Usuarios</a
+                >
               </li>
             </ul>
           </li>
