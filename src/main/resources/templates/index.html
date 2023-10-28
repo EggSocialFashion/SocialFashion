@@ -81,40 +81,15 @@
               th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
               <h4 th:text="${publicaciones.titulo}"></h4>
               <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-              <img onchange="initSwipper()" th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
-              </a>
-              
-                        <!---
-                        <th:block th:with="hasLike=false">
-                            <div th:each="like : ${likes}"> 
-                                <div th:if="${like.idPublicacion == publicaciones.idPublicacion}"> 
-                                    <th:block th:with="hasLike=true">---->
-                        <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
-                            <button type="submit">
-                                <div th:if="${logueado !=null}" class="meGusta like-button"  data-likes="true" onclick="toggleLike(this)">
-                                    <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </form> <!---
-                        </th:block>
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:unless="${hasLike}">
-                <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
-                    <button type="submit">
-                        <div class="meGusta like-button" th:if="${likes != null}" data-likes="${likes.estado}" onclick="toggleLike(this)">
-                            <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
-                            </svg>
-                        </div>
-                    </button>
-                </form>
-            </th:block>
----->
-                        <p class="bg-white bg-opacity-75 text-black" th:text="${publicaciones.contenido}"></p>
+              <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+              </a>              
+              <div th:if="${logueado !=null}" class="like-button" onclick="toggleLike(this)">
+                <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
+              </svg>
+          </div>
+          <p class="bg-white bg-opacity-75 text-black" th:text="${publicaciones.contenido}"></p>
+      </div>
 
                     </div>
 
