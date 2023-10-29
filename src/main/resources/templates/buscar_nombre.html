@@ -54,6 +54,10 @@
                 <th th:text="${usuario.nombre}"></th>
                 <th th:text="${usuario.email}"></th>
               </tr>
+              <a th:href="@{'/reportar?tipo=USUARIO&id=' + ${usuario.idUsuario}}" class="btn btn-outline-danger p-1">
+                <i class="bi bi-exclamation-diamond"></i>
+            </a>
+            
             </tbody>
           </table>
         </div>
