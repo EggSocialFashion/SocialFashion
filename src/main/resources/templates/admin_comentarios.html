@@ -46,20 +46,24 @@
                     <th th:text="${comentario.tipo}"></th>
                     <th th:text="${comentario.tipoObjeto}"></th>
                     <th>
-                        <a th:href="@{/comentario/{idObjeto}(idObjeto=${comentario.idObjeto})}" class="btn btn-primary">Ver Comentario</a>
+                        <a th:href="@{/comentario/{idObjeto}(idObjeto=${comentario.idObjeto})}" class="btn btn-outline-secondary"><i class="bi bi-search"></i></a>
 
                     </th>
                     <th>
                         <form th:action="@{/admin/comentario}" method="post">
                             <input type="hidden" name="idReporte" th:value="${comentario.idReporte}"/>
-                            <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-success">Desestimar</button>
+                            <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-outline-success">
+                                <i class="bi bi-hand-thumbs-down"></i>
+                            </button>
                         </form>
 
                     </th>
                     <th>
                         <form th:action="@{/admin/comentario}" method="post">
                             <input type="hidden" name="idReporte" th:value="${comentario.idReporte}"/>
-                            <button type="submit" name="estado" value="ACEPTADO" class="btn btn-danger">Aceptar</button>
+                            <button type="submit" name="estado" value="ACEPTADO" class="btn btn-outline-danger">
+                                <i class="bi bi-hand-thumbs-up"></i>
+                            </button>
                         </form>
                     </th>
                 </tr>
