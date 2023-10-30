@@ -167,14 +167,16 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
-    public String borrarPublicacion(@PathVariable String id, Model modelo) {
+    public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
       
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
-                if (publicacion.isEstado() == true) {
+                if (publicacion.isEstado() && publicacion.isEstado()==true) {
                     publicacionServicio.BajaPublicacion(id);
                 } else {
                     modelo.addAttribute("error", "La publicacion no existe");
@@ -184,9 +186,8 @@ public class PublicacionControlador {
             }
         } catch (Exception ex) {
             modelo.addAttribute("error", ex.getMessage());
-            return "error.html";
         }
-        return "usuario_perfil.html";
+        return "redirect:/usuarios/perfil/"+logueado.getIdUsuario();
     }
 
 

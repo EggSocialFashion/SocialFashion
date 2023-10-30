@@ -306,7 +306,12 @@ display: flex;
 </div>
  </div>
  <div class="button-container-publicacion">
-  <button >Modificar</button>
+    <form th:action="@{'/publicacion/borrar/' + ${publica.idPublicacion}}"method="post">
+      <input type="hidden" name="publica.idPublicacion" th:value="${publica.idPublicacion}"/>
+      <button type="submit" class="button-container button">
+        Eliminar
+      </button>
+    </form>
  </div>
 </div>
 
