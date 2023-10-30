@@ -12,7 +12,7 @@
     />
     <nav th:replace="/template.fragments/navbar :: nav"></nav>
 
-    <div class="m5 formulario-container_buscarNombre">
+    <div class="container m5 formulario-container_buscarNombre">
       <form
         class="formulario_nombre"
         th:action="@{/usuarios/buscarnombre}"
@@ -54,6 +54,10 @@
                 <th th:text="${usuario.nombre}"></th>
                 <th th:text="${usuario.email}"></th>
               </tr>
+              <a th:href="@{'/reportar?tipo=USUARIO&id=' + ${usuario.idUsuario}}" class="btn btn-outline-danger p-1">
+                <i class="bi bi-exclamation-diamond"></i>
+            </a>
+            
             </tbody>
           </table>
         </div>
