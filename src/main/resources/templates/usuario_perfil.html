@@ -187,7 +187,9 @@
 
  
         <h1>Mi perfil</h1>
-        <img th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" width="250"/>    
+            
+        <img th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" onerror="this.onerror=null;this.src='../../static/img/persona.png';" width="250">
+
         <h2>Nombre: <span th:text="${usuarioPerfil.nombre}"></span></h2>
         <h2>Email: <span th:text="${usuarioPerfil.email}"></span></h2>
         <h2>Rol: <span th:text="${usuarioPerfil.roles}"></span></h2>
