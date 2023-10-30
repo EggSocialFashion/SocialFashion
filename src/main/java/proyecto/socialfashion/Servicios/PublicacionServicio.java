@@ -122,19 +122,16 @@ public class PublicacionServicio {
         //Creo una nueva lista para verificar que esten en alta 
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         listaPublicacion.clear();
-
         //En el caso que la cantidad de publicaciones sea menor a 10
         if (listaVerificada.size() < 10){
             return listaVerificada;
         } else {
             //En el caso que la lista de publicaciones sea mayor a 10
             for (int i = 0; i < 10; i++) {
-                listaPublicacion.add(listaVerificada.get(i));
+               listaPublicacion.add(listaVerificada.get(i));
             }
             return listaPublicacion;
-        }
-
- 
+        } 
     }
     
 
