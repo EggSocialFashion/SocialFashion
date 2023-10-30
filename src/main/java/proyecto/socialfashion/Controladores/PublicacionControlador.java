@@ -49,6 +49,7 @@ public class PublicacionControlador {
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
+        
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         List<Usuario> usuarios = usuarioServicio.diseniadores();
         modelo.addAttribute("usuarios",usuarios);

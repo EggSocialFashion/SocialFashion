@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Copia de seguridad de todos los elementos originales en el carrusel
     const originalDiseinadores = Array.from(swiperContainer.children);
 
+    // Declarar la variable swiper a nivel global
+    let swiper;
+
     // Función para mostrar u ocultar elementos en función de las selecciones
     function filtrarLista() {
       const categoriaSeleccionada = Array.from(categoriaCheckboxes)
@@ -33,13 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
           swiperContainer.appendChild(diseinador.cloneNode(true));
         }
       });
-      
+
       // Después de filtrar los elementos, re-inicializa el carrusel Swiper
       if (swiper) {
         swiper.destroy();
       }
 
-      var swiper = new Swiper(".mySwiper", {
+      swiper = new Swiper(".mySwiper", {
         effect: "coverflow",
         grabCursor: true,
         timeline: true,
@@ -50,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
           stretch: 20,
           depth: 300,
           modifier: 1,
-          slideShadows: true,
+          slideShadows: true
         },
-        loop: true,
+        loop: true
       });
     }
 
@@ -64,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     diseinadoresSelect.addEventListener("change", filtrarLista);
 
     // Inicializar el carrusel al cargar la página
-    var swiper = new Swiper(".mySwiper", {
+    swiper = new Swiper(".mySwiper", {
       effect: "coverflow",
       grabCursor: true,
       timeline: true,
@@ -75,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
         stretch: 20,
         depth: 300,
         modifier: 1,
-        slideShadows: true,
+        slideShadows: true
       },
-      loop: true,
+      loop: true
     });
-  });
+});

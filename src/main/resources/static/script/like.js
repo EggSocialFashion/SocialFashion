@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var likeButtons =  document.querySelectorAll(".like-button"); 
        likeButtons.forEach(function(button){ 
         var likesState = button.getAttribute("data-likes");
-        likesState = (likesState === "true");
+        likesState = button.getAttribute("data-likes") === "true";
 
         if (likesState) {
             button.classList.add("active");

@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
       stretch: 20,
       depth: 300,
       modifier: 1,
-      slideShadows: true,
+      slideShadows: true
     },
-    loop: true,
+    loop: true
   });
 });*/
