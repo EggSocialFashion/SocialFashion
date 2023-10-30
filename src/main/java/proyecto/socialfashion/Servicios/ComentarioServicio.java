@@ -18,7 +18,7 @@ public class ComentarioServicio {
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
     @Autowired
-    private PublicacionServicio publicacionServicio;;
+    private PublicacionServicio publicacionServicio;
     @Transactional
     public void guardarComentario(Comentario comentario) {
         Comentario coment = comentario;

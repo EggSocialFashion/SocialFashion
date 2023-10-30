@@ -89,30 +89,6 @@ public class ComentarioControlador {
         return "error.html";
     }
 }
-<<<<<<< HEAD
-
-@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-@PostMapping("/comentario/borrar/{idComentario}")
-public String borrarComentario(
-        @PathVariable String idComentario,Model modelo,HttpSession session) {
-
-    try {
-        Optional<Comentario> respuesta = comentarioServicio.buscarComentarioPorId(idComentario);
-
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario==null){
-            return "redirecto:login.html";
-        }
-        if (respuesta.isPresent()) {
-            Comentario comentario = respuesta.get();
-if (comentario.getIdUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario().toString())) {
-                comentarioServicio.borrarComentario(comentario.getIdComentario());
-                modelo.addAttribute("mensaje", "Comentario borrado exitosamente");
-                return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
-            } else {
-                modelo.addAttribute("error", "Usuario Incorrecto");
-                return "redirect:/publicacion/"+comentario.getIdPublicacion().getIdPublicacion().toLowerCase();
-=======
  
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/comentario/borrar/{idComentario}")
@@ -140,12 +116,8 @@ if (comentario.getIdUsuario().getIdUsuario().toString().equals(usuario.getIdUsua
             } else {
                 modelo.addAttribute("error", "Comentario inexistente");
                 return "index.html";
->>>>>>> dev-Roxana
             }
-        } else {
-            modelo.addAttribute("error", "Comentario inexistente");
-            return "index.html";
-        }
+       
 } catch (Exception e) {
         modelo.addAttribute(e.getMessage());
         return "index.html";

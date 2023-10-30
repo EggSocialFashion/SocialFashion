@@ -6,53 +6,104 @@
    
     <nav th:replace="/template.fragments/navbar :: nav"> </nav>
        
-        <h1>Detalles de la Publicación</h1>
-        <h2>Título: <span th:text="${publicacion.titulo}"></span></h2>
+            <div class="text"> 
+                <h1>Detalles de la Publicación</h1> 
+            </div>
+
+            <div class="text1"> 
+                <h2>Título: <span th:text="${publicacion.titulo}"></span></h2>
+            </div>
+
+            <div class="text2">
                 <p>Contenido: <span th:text="${publicacion.contenido}"></span></p>
-                <div>
+            </div>
 
-                    <div>
-                        <img th:src="@{/imagen/publicacion/__${publicacion.idPublicacion}__}" width="250"/>
-                    </div>
-                    <div>
+                
+
+                <div class="todo">
+                    
+                    <div class="contenedor-img-comen" >
+                           
+
+                        <abbr title="Reportar imagen">
+                        <button    class="btn reporte-signo-img"><i class="fa fa-exclamation" aria-hidden="true"></i></button>
+                        </abbr>
+                    <div class="img">
                         
-                        <div th:each="comentario : ${comentarios}">
-                            <p th:text="${comentario.texto}" ></p>
-                            <form th:action="@{'/comentario/borrar/' + ${comentario.idComentario}}" method="post">
-                                <input type="hidden" name="idPublicacion" th:value="${publicacion.idPublicacion}" />
-                                <button type="submit" class="btn btn-danger">Borrar Comentario</button>
-<<<<<<< HEAD
-                            </form> 
-=======
-                            </form>
+                        <img class="imagenA" th:src=@{/imagen/publicacion/__${publicacion.idPublicacion}__} width="250"/>
+                        
+                    </div>
 
->>>>>>> dev-Roxana
+                    <div class="comen">
+                        
+                        <div class="contenedor-comentario-subido" th:each="comentario : ${comentarios}">
+
+                            <div class="comentario-subido" >
+                              <p th:text="${comentario.texto}" ></p>
+                              <form th:action="@{'/comentario/borrar/' + ${comentario.idComentario}}" method="post">
+                                
+                                <input type="hidden" name="idPublicacion" th:value="${publicacion.idPublicacion}" />
+
+                                
+
+                                <button type="submit" class="btn boton-tachito"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                                
+
+                                <abbr class="abr-tachito" title="Reportar Comentario">
+
+                                <button type="submit" class="btn reporte-signo-comen"><i class="fa fa-exclamation" aria-hidden="true"></i></button>
+
+                                </abbr>
+                           </form>
+
+                           
+                           </div>
+                        
                         </div>
                     </div>
-                    
-                    
-                    <div>
-                        <h2>Agregar un Comentario</h2>
-                        <form th:action="@{/publicacion/guardar/__${publicacion.idPublicacion}__}" method="POST">
-                            <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
-                            <label for="texto"></label>
-                                <div class="wrapper"> 
-                                    <textarea name="texto" placeholder="En que estas pensando?..."></textarea>
-                                        <button type="submit">Enviar</button>    
-                                </div>
-                               
-                                <script>
-                                    const textarea = document.querySelector("textarea");
-                                    textarea.addEventListener("keyup" , e=>{
-                                        let scHeigt = e.target.scrollHeight;
-                                        textarea.style.height = `${scHeigt}px`;
-                                    })
-                                </script>
-                        </form>
-                    </div>
+
+                    </div>  
+
+                    <div class="contenedor-textarea">
+                        <div >
+                              <form th:action="@{/publicacion/guardar/__${publicacion.idPublicacion}__}" method="POST">
+                              <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                              <label for="texto"></label>
+                         </div>
+                                 <div class="wrapper-a"> 
+                                     <textarea name="texto" placeholder="Agerga un comentario"></textarea>
+                                     <abbr title="Enviar">
+                                     <button type="submit" class="btn boton-avion"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                    </abbr>
+                                 </div>
+                                
+                                 <script>
+                                     const textarea = document.querySelector("textarea");
+                                     textarea.addEventListener("keyup" , e=>{
+                                         let scHeigt = e.target.scrollHeight;
+                                         textarea.style.height = `${scHeigt}px`;
+                                     })
+                                 </script>
+                         </form>
+                     </div>                  
                 </div>
+                <div class="contendedor-casita">
+                <a  href="http://localhost:8080">
+                <div class="boton-casita" >
+                    <section class="icons container">   
+                        <i class="fa-solid fa-house icono-casita"></i>  
+                    </section>
+                </div>
+                </a>
+               
+                   
                 
-    
+
+
+
+
+               </div>
 </body>
 
 </html>
