@@ -21,6 +21,7 @@
 .form-container {
   display: block;
   position: relative;
+  min-width: 360px;
   max-width: 1000px;
   margin: 0 auto;
   padding: 10px;
@@ -62,17 +63,17 @@
   color: #685aff;
   box-shadow: 2px 2px 10px 2px rgb(255, 255, 255);
 }
-
+  /* 
 .icons-publicaciones {
-  /* display: flex;
+display: flex;
    align-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;*/
+  justify-content: space-around;
 }
 
 @media (max-width: 670px) {
   .form-container {
     background-color: white;
   }
-}
+}*/

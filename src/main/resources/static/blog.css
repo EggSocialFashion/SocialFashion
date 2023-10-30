@@ -1,4 +1,4 @@
-body {
+/*body {
   background-color: darkgrey;
   margin: 0;
   box-sizing: border-box;
@@ -18,9 +18,16 @@ body {
   filter: opacity(0.5);
 }
 
-.nav-item {
+.nav-item-footer {
+  font-size: 20px;
   text-align: center;
-  text-shadow: 1px 1px 1px rgb(255, 255, 255);
+  text-shadow: 1px 0px 3px rgb(255, 255, 255);
+  transition: font-size 0.3s;
+}
+
+.nav-item-footer:hover {
+  text-shadow: 1px 1px 2px rgb(255, 255, 255);
+  font-size: 22px;
 }
 
 .bd-placeholder-img {
@@ -103,4 +110,4 @@ body {
 
 footer > p {
   color: white;
-}
+}*/

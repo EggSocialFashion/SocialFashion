@@ -46,19 +46,19 @@
                     <th th:text="${publicacion.tipo}"></th>
                     <th th:text="${publicacion.tipoObjeto}"></th>
                     <th>
-                        <a th:href="@{/publicacion/{idObjeto}(idObjeto=${publicacion.idObjeto})}" class="btn btn-primary">Ver Publicación</a>
+                        <a th:href="@{/publicacion/{idObjeto}(idObjeto=${publicacion.idObjeto})}" class="btn btn-outline-secondary"><i class="bi bi-search"></i></a>
                     </th>
                     <th>
                       <form th:action="@{/admin/publicacion}" method="post">
                           <input type="hidden" name="idReporte" th:value="${publicacion.idReporte}"/>
-                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-success">Desestimar</button>
+                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-down"></i></button>
                       </form>
 
                   </th>
                   <th>
                       <form th:action="@{/admin/publicacion}" method="post">
                           <input type="hidden" name="idReporte" th:value="${publicacion.idReporte}"/>
-                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-danger">Aceptar</button>
+                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i></button>
                       </form>
                   </th>
                 </tr>
