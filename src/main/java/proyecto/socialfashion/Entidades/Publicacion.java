@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -44,7 +45,7 @@ public class Publicacion {
     private Usuario usuario;
     
    
-    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publicacion",fetch= FetchType.EAGER)
     private List<Like> likes;
    
     
@@ -124,8 +125,8 @@ public class Publicacion {
         return likes;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setLikes(Like like) {
+        likes.add(like);
     }
 
 

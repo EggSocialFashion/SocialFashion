@@ -35,11 +35,11 @@ public class LikeServicio {
             like.setPublicacion(publicacion);
             like.setUsuario(usuario);
             like.setEstado(true);
-            List<Like>listaDeLikes = publicacionRepositorio.getReferenceById(publicacion.getIdPublicacion()).getLikes();
-            listaDeLikes.add(like);
-            publicacion.setLikes(listaDeLikes);
-            
             likeRepositorio.save(like);
+            Like likeaux = like;
+            publicacion.setLikes(likeaux);
+            
+
         }
 
        

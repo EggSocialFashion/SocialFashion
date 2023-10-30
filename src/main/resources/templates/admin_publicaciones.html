@@ -23,7 +23,7 @@
   </div>
 </div>
   <div class="container-sm tabla-container">
-    <h3 class= "form-h3">Comentarios Denunciados</h3>
+    <h3 class= "form-h3">Publicaciones Denunciados</h3>
    
     <div class="table-responsive">
         <table class="table">
@@ -33,7 +33,7 @@
                     <th>Estado</th>
                     <th>Tipo</th>
                     <th>Tipo Objeto</th>
-                    <th>idObjeto</th>
+                    <th>Ver</th>
                     <th>Rechazar Reporte</th>
                     <th>Aceptar Reporte</th>
 
@@ -46,19 +46,19 @@
                     <th th:text="${publicacion.tipo}"></th>
                     <th th:text="${publicacion.tipoObjeto}"></th>
                     <th>
-                        <a th:href="@{/publicacion/{idObjeto}(idObjeto=${publicacion.idObjeto})}" class="btn btn-outline-secondary"><i class="bi bi-search"></i></a>
+                        <a th:href="@{/publicacion/{idObjeto}(idObjeto=${publicacion.idObjeto})}" class="btn btn-secondary"><i class="bi bi-search"></i></a>
                     </th>
                     <th>
                       <form th:action="@{/admin/publicacion}" method="post">
                           <input type="hidden" name="idReporte" th:value="${publicacion.idReporte}"/>
-                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-down"></i></button>
+                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-success"><i class="bi bi-hand-thumbs-down"></i></button>
                       </form>
 
                   </th>
                   <th>
                       <form th:action="@{/admin/publicacion}" method="post">
                           <input type="hidden" name="idReporte" th:value="${publicacion.idReporte}"/>
-                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i></button>
+                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-danger"><i class="bi bi-hand-thumbs-up"></i></button>
                       </form>
                   </th>
                 </tr>

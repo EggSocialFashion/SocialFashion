@@ -21,7 +21,7 @@ public class Like {
     private String idLike;
     
     @ManyToOne
-    @JoinColumn(name = "id_Publicacion")
+    @JoinColumn(name = "id_publicacion")
     private Publicacion publicacion;
 
     @OneToOne
