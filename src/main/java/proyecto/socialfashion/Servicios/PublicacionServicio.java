@@ -129,8 +129,8 @@ public class PublicacionServicio {
             return listaVerificada;
         } else {
             //En el caso que la lista de publicaciones sea mayor a 10
-            for (int i = 0; i < 10; i++) {
-                listaPublicacion.clear();
+            listaPublicacion.clear();
+            for (int i = 0; i < 10; i++) {                
                 listaPublicacion.add(listaVerificada.get(i));
               
             }
