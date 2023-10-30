@@ -1,0 +1,191 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.img-fondo {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.flex-container {
+  padding: 10px;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin: 30px;
+  gap: 24px;
+}
+
+.item-card-perfil {
+  background-image: url("https://img.freepik.com/foto-gratis/resumen-fondo-cubos-negros_1123-401.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1697587200&semt=ais");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-content: center;
+  min-width: 360px;
+  min-height: 480px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  border-radius: 10px;
+}
+
+.contenedor-de-datos-perfil {
+  color: white;
+  position: relative;
+  padding: 50px;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px 0px rgb(178, 178, 178);
+}
+
+.card-pefil-img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card-pefil-img-container img {
+  text-align: center;
+  margin-top: 16px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.item-card-informacionContacto-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+}
+
+.corazon-container {
+  display: flex;
+  margin-right: 24px;
+  flex-direction: column;
+}
+
+/* svg icon corazon*/
+.corazon-perfil {
+  width: 28px;
+  height: 28px;
+}
+
+.parrafo-corazon {
+  font-size: 13px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-container button {
+  margin-top: 32px;
+  border: none;
+  color: white;
+  margin-bottom: 12px;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #685aff;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.item-card-perfil-publicacion {
+  display: flex;
+  max-width: 400px;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  border-radius: 10px;
+}
+
+.item-card-perfil-publicacion h4 {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.img-publicacion-container {
+  position: relative;
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  justify-content: end;
+  justify-items: end;
+  margin: 10px;
+}
+
+.img-publicacion {
+  border: 5px solid white;
+  border-radius: 10px;
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.corazon-container-publicacion {
+  padding: 10px;
+}
+
+.coment-container {
+  background-color: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px 0px rgb(154, 154, 154);
+}
+
+.coment-img {
+  margin-top: 0;
+  padding: 8px;
+  max-width: 300px;
+  border-radius: 10px;
+  height: auto;
+}
+
+.corazon-publicacion {
+  align-self: flex-end;
+  position: relative;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+}
+
+.button-container-publicacion {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.button-container-publicacion button {
+  color: white;
+  margin-bottom: 12px;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #685aff;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.div-a-container a:hover {
+  font-size: 18px;
+}

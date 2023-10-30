@@ -3,136 +3,122 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Social Fashion</title>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-  />
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-    crossorigin="anonymous"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Fashion</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
     />
-
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <style>
-   * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-.navbar_logo {
-  width: 36px;
-  border-radius: 50%;
-  filter: opacity(0.8);
-}
+      .navbar_logo {
+        width: 36px;
+        border-radius: 50%;
+        filter: opacity(0.8);
+      }
 
-.img-fondo{
-  width: 100%;
-  min-height: 100vh;
-  object-fit: cover;
-  position: absolute;
-}
+      .img-fondo {
+        width: 100%;
+        min-height: 100vh;
+        object-fit: cover;
+        position: absolute;
+      }
 
+      .login_2 {
+        position: relative; /* Ajusta este valor según tus necesidades */
+        margin-top: 24px;
+        height: auto;
+        min-width: 352px;
+        padding: 20px;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+        text-align: center;
+        z-index: 150;
+      }
 
-.login_2 {
-  position: relative; /* Ajusta este valor según tus necesidades */
-  margin-top: 24px;
-  height: auto;
-  min-width: 352px;
-  padding: 20px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-  text-align: center;
-  z-index: 150;
-}
+      .login-form-2 {
+        display: grid;
+        gap: 20px;
+      }
 
-.login-form-2 {
-  display: grid;
-  gap: 20px;
-}
+      .login-form-2 > input,
+      .login-form-2 > button {
+        height: 42px;
+        width: 100%;
+        outline: none;
+        padding: 0;
+        border-radius: 10px;
+        font-family: inherit;
+      }
 
-.login-form-2 > input,
-.login-form-2 > button {
-  height: 42px;
-  width: 100%;
-  outline: none;
-  padding: 0;
-  border-radius: 10px;
-  font-family: inherit;
-}
+      .login-form-2 > input {
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid #685aff;
+        box-shadow: 0px 2px 4px 0px rgb(54, 54, 54);
+        opacity: 0.8;
+        font-size: 16px;
+        text-align: center;
+      }
 
-.login-form-2 > input {
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid #685aff;
-  box-shadow: 0px 2px 4px 0px rgb(54, 54, 54);
-  opacity: 0.8;
-  font-size: 16px;
-  text-align: center;
-}
+      .login-form-2 > input:hover {
+        border-bottom: 3px solid #4e3eff;
+      }
 
-.login-form-2 > input:hover {
-  border-bottom: 3px solid #4e3eff;
-}
+      .login-form-2 > input:hover {
+        height: 50px;
+      }
 
-.login-form-2 > input:hover {
-  height: 50px;
-}
+      .login-form-2 > button {
+        cursor: pointer;
+        height: 46px;
+        background: #685aff;
+        color: #f9f9f9;
+        border: none;
+        box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
 
-.login-form-2 > button {
-  cursor: pointer;
-  height: 46px;
-  background: #685aff;
-  color: #f9f9f9;
-  border: none;
-  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.login-form-2 > button:hover {
-  background: #4e3eff;
-}
-
-  
+      .login-form-2 > button:hover {
+        background: #4e3eff;
+      }
     </style>
   </head>
-
   <body>
-    
-    <nav th:replace="/template.fragments/navbar :: nav"></nav>
     <img
-    class="img-fondo"
-    src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    alt="moda"
-  />
-
+      class="img-fondo"
+      src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      alt="moda"
+    />
+    <nav th:replace="/template.fragments/navbar :: nav"></nav>
     <div class="container-fluid login_2 col-3">
       <form
         th:action="@{/usuarios/modificar/__${usuario.idUsuario}__}"
@@ -140,8 +126,6 @@
         enctype="multipart/form-data"
         class="login-form-2"
       >
-        <input hidden th:value="${id}" name="id" />
-
         <div th:if="${error != null}">
           <h5 style="color: red">ERROR!!! :(</h5>
           <p th:text="${error}"></p>
@@ -184,10 +168,14 @@
           th:value="${password2}"
         />
 
+        <div class="form-group my-3">
+          <input type="file" class="form-control" name="archivo" />
+        </div>
+
         <button type="submit">Modificar</button>
       </form>
     </div>
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"

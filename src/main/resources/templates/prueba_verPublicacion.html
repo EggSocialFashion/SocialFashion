@@ -1,6 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head th:replace="/template.fragments/head :: head"> </head>
+  <!--
+
+
+  <body>
+    <nav th:replace="/template.fragments/navbar :: nav"></nav>
+    <div
+      th:if="${error != null}"
+      class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
+    >
+      <div class="card-body">
+        <h5 class="card-title">Error</h5>
+        <p class="card-text" th:text="${error}"></p>
+      </div>
+    </div>
+    <div
+      th:if="${exito != null}"
+      class="mensajeExito animate__animated animate__fadeInDown animate__faster"
+    >
+      <div class="card text-white bg-success mb-3 mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Éxito</h5>
+          <p class="card-text" th:text="${exito}"></p>
+        </div>
+      </div>
+    </div>
+    <div>
+    <h3 class="form-h3 m-2 fs-1">Detalles de la Publicación</h3>
+    <h3 class= "form-h3 m-2 fs-2"> <span th:text="${publicacion.titulo}"></span></h3>
+    <h3 class= "form-h3 m-2 fs-3"> <span th:text="${publicacion.contenido}"></span></h3>
+    <div class="container d-flex row-12 justify-content-between p-2  ">
+      <div class="container col-4 text-center">
+        <img
+          th:src="@{/imagen/publicacion/__${publicacion.idPublicacion}__}"
+          width="250"
+        />
+        <a th:href="@{'/reportar?tipo=PUBLICACION&id=' + ${publicacion.idPublicacion}}" class="btn btn-outline-danger p-1">
+          <i class="bi bi-exclamation-diamond"></i>
+      </a>
+      
+      </div>
+      <div class="comentarios-container col-4 mb-4 text-center bg-transparent text-dark shadow p-3 mb-5 bg-body rounded">
+        <div th:each="comentario : ${comentarios}" >
+          <div class="container d-flex justify-content-end align-items-start">
+              <p th:text="${comentario.texto}" class="bg-white text-dark border border-info p-2 rounded"></p>
+              <form th:action="@{'/comentario/borrar/' + ${comentario.idComentario}}"method="post">
+                <div class="container d-flex justify-content-end align-items-start">
+                <input type="hidden" name="idPublicacion" th:value="${publicacion.idPublicacion}"/>
+                <button type="submit" class="btn btn-outline-secondary p-1">
+                  <i class="bi bi-trash3"></i>
+                </button>
+                <a th:href="@{'/reportar?tipo=COMENTARIO&id=' + __${comentario.idComentario}__}" class="btn btn-outline-danger p-1">
+                      <i class="bi bi-exclamation-diamond"></i>
+                </a>
+
+            
+              
+              </div>
+              </form>
+          </div>          
+        </div>
+      </div>
+-->
   
 <body>
    

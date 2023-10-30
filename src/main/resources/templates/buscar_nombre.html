@@ -10,25 +10,23 @@
       src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
       alt="moda"
     />
-
     <nav th:replace="/template.fragments/navbar :: nav"></nav>
 
-    <div class="m5  formulario-container_buscarNombre">
+    <div class="container m5 formulario-container_buscarNombre">
       <form
         class="formulario_nombre"
         th:action="@{/usuarios/buscarnombre}"
         method="POST"
         enctype="multipart/form-data"
       >
-      <img src="../static/img/logo.png" />
-        <div th:if="${error != null}">
-          <h5 style="color: red">ERROR!!! :(</h5>
-          <p th:text="${error}"></p>
-        </div>
-
-        <div th:if="${exito != null}">
-          <h5 style="color: green">Éxito!!! :)</h5>
-          <p th:text="${exito}"></p>
+        <div
+          th:if="${error != null}"
+          class="card text-white bg-danger mb-3 mt-3 mensajeError"
+        >
+          <div class="card-body">
+            <h5 class="card-title">Error</h5>
+            <p class="card-text" th:text="${error}"></p>
+          </div>
         </div>
 
         <div class="form-group my-3">
@@ -43,8 +41,29 @@
             th:value="${nombre}"
           />
         </div>
-
-        <button type="submit" class="btn mt-3 botones_buscarnombre">Buscar</button>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody th:each="usuario : ${usuariosNom}">
+              <tr>
+                <th th:text="${usuario.nombre}"></th>
+                <th th:text="${usuario.email}"></th>
+              </tr>
+              <a th:href="@{'/reportar?tipo=USUARIO&id=' + ${usuario.idUsuario}}" class="btn btn-outline-danger p-1">
+                <i class="bi bi-exclamation-diamond"></i>
+            </a>
+            
+            </tbody>
+          </table>
+        </div>
+        <button type="submit" class="btn mt-3 botones_buscarnombre">
+          Buscar
+        </button>
       </form>
     </div>
 
@@ -53,5 +72,6 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
+    <script src="../static/script/animacionesError.js"></script>
   </body>
 </html>
