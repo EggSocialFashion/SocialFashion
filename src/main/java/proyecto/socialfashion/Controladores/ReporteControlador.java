@@ -31,7 +31,6 @@ public class ReporteControlador {
             return "prueba_reportar.html";
 
         }
-
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
