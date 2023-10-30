@@ -102,13 +102,17 @@ public class ComentarioControlador {
                 modelo.addAttribute("error", "Comentario inexistente");
                 return "index.html";
             }
-        } catch (Exception e) {
-            modelo.addAttribute(e.getMessage());
-            return "index.html";
-        }
+       
+} catch (Exception e) {
+        modelo.addAttribute(e.getMessage());
+        return "index.html";
     }
 
+    }
     // buscar lista de comentarios
+      
+
+ 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/comentarios/{idPublicacion}")
     public String publicacionComentarios(@PathVariable String idPublicacion, Model modelo) {
