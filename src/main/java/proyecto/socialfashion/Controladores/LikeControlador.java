@@ -4,14 +4,19 @@ package proyecto.socialfashion.Controladores;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
@@ -37,30 +42,6 @@ public class LikeControlador {
     
     @Autowired
     UsuarioServicio usuarioServicio;
-    /*
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/GenerandoLikes")   
-    public String getGenerandoLike(HttpSession session, ModelMap modelo){
-    
-         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-      
-        try {
-
-        List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
-        List<Usuario> usuarios = usuarioServicio.diseniadores();
-        modelo.addAttribute("publicacionesAlta", publicacionesAlta);
-        modelo.addAttribute("usuarios",usuarios);
-        modelo.addAttribute("logueado", logueado);
-            return "index.html";
-        }catch (Exception e) {
-            modelo.addAttribute("error", "No esta funcionando los likes en este momento");
-            return "index.html";
-            
-            
-        }
-    }
-    */
-    
     
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/GenerandoLikes/{idPublicacion}")
@@ -70,22 +51,35 @@ public class LikeControlador {
       
         try {
 
-        Optional<Publicacion> optionalPublicacion = publicacionRepositorio.findById(idPublicacion);
-        if (optionalPublicacion.isPresent()) {
-            Publicacion publicacion = optionalPublicacion.get();
-            likeServicio.crearLike(publicacion, logueado);
-        }
+                Optional<Publicacion> optionalPublicacion = publicacionRepositorio.findById(idPublicacion);
+                if (optionalPublicacion.isPresent()) {
+                    Publicacion publicacion = optionalPublicacion.get();
+                    likeServicio.crearLike(publicacion, logueado);
+                }
 
             return "redirect:/publicacionesSocialFashion";
         }catch (Exception e) {
-            modelo.addAttribute("error", "No esta funcionando los likes en este momento");
-            return "index.html";
+            modelo.addAttribute("error",e.getMessage());
+            return "redirect:/publicacionesSocialFashion";
             
             
         }
+
+
     }
     
-   
+    @GetMapping("/checkLike")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkLike(@RequestParam("publicacionId") String publicacionId,
+                                                @RequestParam("usuarioId") String usuarioId) {
+    
+            boolean tieneLike = likeServicio.tieneLike(publicacionId, usuarioId);
+            System.out.println(tieneLike);
+            return ResponseEntity.ok(tieneLike);
+
+            
+}
+
     
     
             

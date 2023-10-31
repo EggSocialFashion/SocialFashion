@@ -13,7 +13,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "likes")
 public class Like {
-
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -21,28 +20,22 @@ public class Like {
     private String idLike;
     
     @ManyToOne
-    @JoinColumn(name = "id_publicacion")
+    @JoinColumn(name = "id_Publicacion")
     private Publicacion publicacion;
 
     @OneToOne
     @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
-
     private Boolean estado;
-
     public Like() {
         
     }
-
     public Like(String idLike, Publicacion publicacion, Usuario usuario, Boolean estado) {
         this.idLike = idLike;
         this.publicacion = publicacion;
         this.usuario = usuario;
         this.estado = estado;
-    }
-    
-    
-
+    }        
     public String getIdLike() {
         return idLike;
     }
@@ -74,5 +67,9 @@ public class Like {
     public void setPublicacion(Publicacion publicacion) {
         this.publicacion = publicacion;
     }
- 
+
+    
+
+
+    
 }

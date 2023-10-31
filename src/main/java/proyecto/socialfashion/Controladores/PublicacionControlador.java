@@ -68,9 +68,6 @@ public class PublicacionControlador {
         }
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
         List<Usuario> usuarios = usuarioServicio.diseniadores();
-        List<Like> likes = likeServicio.likesUsuarios(logueado);
-        
-        modelo.addAttribute("likes", likes); 
         modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("logueado", logueado);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
@@ -120,7 +117,7 @@ public class PublicacionControlador {
 
     }
 
-    /*
+    
  
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/tendencias")
@@ -138,7 +135,7 @@ public class PublicacionControlador {
 
     
     }
- */
+
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, Model modelo) {
@@ -167,16 +164,14 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
-    public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
+    public String borrarPublicacion(@PathVariable String id, Model modelo) {
       
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
-                if (publicacion.isEstado() && publicacion.isEstado()==true) {
+                if (publicacion.isEstado() == true) {
                     publicacionServicio.BajaPublicacion(id);
                 } else {
                     modelo.addAttribute("error", "La publicacion no existe");
@@ -186,8 +181,9 @@ public class PublicacionControlador {
             }
         } catch (Exception ex) {
             modelo.addAttribute("error", ex.getMessage());
+            return "error.html";
         }
-        return "redirect:/usuarios/perfil/"+logueado.getIdUsuario();
+        return "usuario_perfil.html";
     }
 
 
