@@ -146,16 +146,6 @@
   cursor: pointer;
   font-size: 24px;
 }
-.heart-icon {
-  fill: white;
-  align-self: flex-start;
-}
-.like-button.active .heart-icon {
-  fill: red;
-}
-.like-button.desactive .heart-icon {
-  fill: white;
-}
 
 .swiper-slide img {
   height: 700px;
@@ -202,6 +192,15 @@
 
 .mensajeExito {
   font-size: 20px;
+}
+
+.unliked-button {
+  fill: white;
+}
+
+/* Estilo del corazón cuando está "me gusta" (rojo) */
+.liked-button {
+  fill: red;
 }
 
 #subti {
