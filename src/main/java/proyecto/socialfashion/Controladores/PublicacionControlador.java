@@ -68,6 +68,8 @@ public class PublicacionControlador {
         }
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
         List<Usuario> usuarios = usuarioServicio.diseniadores();
+        List<Like> likes = likeServicio.likesUsuarios(logueado);        
+        modelo.addAttribute("likes", likes); 
         modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("logueado", logueado);
         modelo.addAttribute("publicacionesAlta", publicacionesAlta);
