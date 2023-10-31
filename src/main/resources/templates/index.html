@@ -1,143 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head th:replace="/template.fragments/head :: head"> 
-
-
-
-
-
   </head>
-
-  <body>
-  
+  <body>  
   <nav th:replace="/template.fragments/navbar :: nav"> </nav>
-
-
   <section>
-  <div th:if="${exito != null}" class="mensajeExito">
-    <div class="card text-white bg-success mb-3 mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Éxito</h5>
-            <p class="card-text" th:text="${exito}"></p>
-        </div>    
+    <div th:if="${exito != null}" class="mensajeExito">
+      <div class="card text-white bg-success mb-3 mt-3">
+          <div class="card-body">
+              <h5 class="card-title">Éxito</h5>
+              <p class="card-text" th:text="${exito}"></p>
+          </div>    
+      </div>
     </div>
-  </div>
 
-  <div
-  th:if="${error != null}"
-  class="card text-white bg-danger mb-3 mt-3 mensajeError"
->
-  <div class="card-body">
-    <h5 class="card-title">Error</h5>
-    <p class="card-text" th:text="${error}"></p>
-  </div>
-</div>
+    <div
+      th:if="${error != null}"
+      class="card text-white bg-danger mb-3 mt-3 mensajeError"
+    >
+        <div class="card-body">
+          <h5 class="card-title">Error</h5>
+          <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+  </section>
 
-</section>
-    <section class="container">
+  <section class="container">
     <div class="search-txt justify-content-center">
-       <i class="fa-brands fa-pinterest"> </i>
-      <h2> Diseños de autores </h2>
-     </div>
-    </section>
-   
+        <i class="fa-brands fa-pinterest"> </i>
+        <h2> Diseños de autores </h2>
+    </div>
+  </section>   
 
-
-    <section class="diseños container-fluid">
-        
-      <div class="form-check form-check-inline">
-          <label class="form-check-label">INDUMENTARIA</label>
-          <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
-      </div>
-
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">MAQUILLAJE</label>
-          <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
-        </div>
-        
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">CALZADO</label>
-          <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
-        </div>
-        
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">MARROQUINERIA</label>
-          <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
-        </div>
-        
-
-
-        <div class="btn-group dropup dropdown-diseñadores-container">
-          <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores" data-bs-toggle="dropdown" aria-expanded="false">
+  <section class="diseños container-fluid">        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">INDUMENTARIA</label>
+        <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
+    </div>
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">MAQUILLAJE</label>
+        <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
+    </div>        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">CALZADO</label>
+        <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
+    </div>        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">MARROQUINERIA</label>
+        <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
+    </div>        
+    <div class="btn-group dropup dropdown-diseñadores-container">
+        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores" data-bs-toggle="dropdown" aria-expanded="false">
             Diseñadores:
-          </button>
-      
-        
-          <ul class="dropdown-menu">
-            <li class="dropdown-item">
-              <select class="form-control" name="usuarios" id="usuarios" multiple>
+        </button>              
+        <ul class="dropdown-menu">
+          <li class="dropdown-item">
+            <select class="form-control" name="usuarios" id="usuarios" multiple>
                 <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
-              </select>
-            </li>
-          </ul>
-      
-
-          <div>
-            <div th:if="${logueado != null}">
+            </select>
+          </li>
+        </ul>      
+        <div>
+          <div th:if="${logueado != null}">
             <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
-            </div>
-            
-            <div th:if="${logueado == null}">
-              <a th:href="@{/}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
-            </div>
+          </div>            
+          <div th:if="${logueado == null}">
+            <a th:href="@{/}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
           </div>
-
         </div>
-        
-        
-      </section>
-      
-      <div class="swiper mySwiper container-fluid">
-        
-        <div class="swiper-wrapper container-fluid">
-         
-          <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
-          th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
+      </div>                
+  </section>      
+  <div class="swiper mySwiper container-fluid">        
+      <div class="swiper-wrapper container-fluid">         
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
+           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
-             <div class="a-img-corazon-container">
-              <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-
-              <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
-              </a>   
-              <div th:if="${logueado !=null}" class="like-button container-corazon" onclick="toggleLike(this)">
-                <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
-              </svg> 
-            </div>          
-            
+          <div class="a-img-corazon-container">
+            <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+                <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+            </a>   
+            <div th:if="${logueado !=null}" class="like-button container-corazon" onclick="toggleLike(this)">
+              <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
+                <button type="submit" class="like-button">
+                   <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                      <path th:classappend="${liked} ? 'heart-icon-liked' : 'heart-icon'" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
+                    </svg>                     
+                </button>
+              </form>                              
+            </div>                      
             <div class="container-p-con-texto">
-            <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
-          </div>
-
-          </div>
-        </div>
-
-                    </div>
-
-                </div>
+              <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
             </div>
-        <section th:replace="/template.fragments/sectionIcon :: section"> </section>
+          </div>
         </div>
       </div>
-    </section>
-    
-    <section class="icons container">
-       <i class="fa-solid fa-house"></i>
-       <i class="fa-solid fa-fire-flame-curved"></i>
-       <i class="fa-solid fa-folder"></i>
-       <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
-    </section>
-    
+    </div>                
+    <section th:replace="/template.fragments/sectionIcon :: section"></section>                  
     <footer th:replace="/template.fragments/footer :: footer"> </footer>                  
           <script  src="../static/script/filtro.js"></script>
          <script src="../static/script/script.js"></script> 

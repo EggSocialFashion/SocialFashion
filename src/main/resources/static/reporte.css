@@ -1,42 +1,29 @@
-body {
+*body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
-}
-
-.message-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.card {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
-
-.error-card {
-  background-color: #ff6b6b;
-  color: #fff;
-}
-
-.success-card {
-  background-color: #4caf50;
-  color: #fff;
 }
 
 .form-containerr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: left;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.form-containerr form {
+  border: 1px solid #ccc;
+  border-radius: 3px;
   padding: 20px;
+  background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 3);
-  margin: 20px auto; /* Añadimos margen superior e inferior y centrado horizontalmente */
-  max-width: 1000px;
+}
+
+.form-containerr form {
+  margin-top: 20px;
 }
 
 .input-field {
@@ -46,8 +33,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-/*
-.btn {
+
+.btnn {
   margin-top: 10px;
   background-color: #685aff;
   color: #fff;
@@ -56,15 +43,14 @@ body {
   border-radius: 3px;
   cursor: pointer;
 }
-*/
 
-.btn:hover {
-  background-color: lightgray;
+.btnn:hover {
+  background-color: #3b2ce2;
   color: white;
 }
 
 @media screen and (max-width: 400px) {
-  .form-containerr {
+  .form-container-wrapper {
     padding: 10px;
   }
 }

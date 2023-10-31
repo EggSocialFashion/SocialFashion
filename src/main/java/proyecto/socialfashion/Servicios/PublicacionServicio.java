@@ -227,8 +227,7 @@ public class PublicacionServicio {
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         List<Publicacion> listaFiltroUsuario = new ArrayList<>();
         //Comparo para verificar si son iguales a los tipos que traigo
-        for (Publicacion publicacion : listaVerificada) {
-            
+        for (Publicacion publicacion : listaVerificada){            
                 if(publicacion.getUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario())){
                     listaFiltroUsuario.add(publicacion);
                 }
