@@ -141,7 +141,7 @@
   position: absolute;
   padding: 10px;
 }
-
+/*
 .like-button {
   cursor: pointer;
   font-size: 24px;
@@ -156,7 +156,7 @@
 .like-button.desactive .heart-icon {
   fill: white;
 }
-
+*/
 .swiper-slide img {
   height: 700px;
   border-radius: 12px;
@@ -196,9 +196,13 @@
   padding: 30px;
 }
 
-.icons {
-  padding: 30px;
-}
+  .diseños {
+    padding: 30px;
+  }
+
+  .icons {
+    padding: 30px;
+  }
 
 .mensajeExito {
   font-size: 20px;

@@ -25,7 +25,7 @@ public class Reporte {
     private TipoObjeto tipoObjeto;
     private String idObjeto;
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
     public Reporte() {

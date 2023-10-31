@@ -127,9 +127,7 @@ public class Publicacion {
         this.likes = likes;
     }
 
-
-
-
+    
     public Usuario getUsuario() {
         return usuario;
     }

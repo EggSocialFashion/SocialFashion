@@ -85,7 +85,7 @@ public class PublicacionServicio {
         
         return listaVerificada;
     }
-
+ 
    
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {
