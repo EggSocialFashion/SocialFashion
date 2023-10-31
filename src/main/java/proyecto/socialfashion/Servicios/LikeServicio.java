@@ -36,14 +36,8 @@ public class LikeServicio {
             like.setUsuario(usuario);
             like.setEstado(true);
             likeRepositorio.save(like);
-            Like likeaux = like;
-            publicacion.setLikes(likeaux);
-            
 
         }
-
-       
-
     }
     
 
@@ -56,8 +50,7 @@ public class LikeServicio {
         } else {
             like.setEstado(true);
         }
-      
-    
+     
     }
    
     //Con este metodo traigo una List de todos los likes de la publicacion
