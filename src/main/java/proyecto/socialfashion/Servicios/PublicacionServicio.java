@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import proyecto.socialfashion.Entidades.Imagen;
+import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Categoria;
@@ -21,10 +22,10 @@ import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 public class PublicacionServicio {
 
     @Autowired
-    PublicacionRepositorio publicacionRepositorio;
+    private PublicacionRepositorio publicacionRepositorio;
 
     @Autowired
-    ImagenServicio imagenServicio;
+    private ImagenServicio imagenServicio;
 
     @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
@@ -255,6 +256,7 @@ public class PublicacionServicio {
         return listaFiltroDiseniador;
 
     }
+    /*
     
-            
+             */
 }

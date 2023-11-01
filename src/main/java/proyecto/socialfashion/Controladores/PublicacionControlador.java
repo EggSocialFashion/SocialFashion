@@ -28,6 +28,7 @@ import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.LikeServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
+import proyecto.socialfashion.Servicios.ReporteServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
 @Controller
@@ -45,6 +46,10 @@ public class PublicacionControlador {
     
     @Autowired 
     private LikeServicio likeServicio;
+
+    @Autowired
+    private ReporteServicio reporteServicios;
+
 
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
@@ -193,6 +198,14 @@ public class PublicacionControlador {
         }
         return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/estadisticas")
+    public String estadisticasUsuario(HttpSession session, Model modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
-
+        List<Object[]> listado = reporteServicios.estadisticaPorUsuario(usuario);
+        modelo.addAttribute("listado", listado);
+        return "estadisticas.html";
+    }
+   
 }

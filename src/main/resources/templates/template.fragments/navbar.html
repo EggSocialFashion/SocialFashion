@@ -91,6 +91,9 @@
                 <a th:if="${session.usuariosession != null}" class="dropdown-item" th:href="@{/tendencias}">Tendencias</a>
               </li>
               <li>
+                <a th:if="${session.usuariosession != null}" class="dropdown-item" th:href="@{/estadisticas}">Estadisticas</a>
+              </li>
+              <li>
                 <hr class="dropdown-divider" />
               </li>
               <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>

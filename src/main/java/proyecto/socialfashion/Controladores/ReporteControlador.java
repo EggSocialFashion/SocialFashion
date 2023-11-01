@@ -1,5 +1,7 @@
 package proyecto.socialfashion.Controladores;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +72,10 @@ public class ReporteControlador {
                 return "error.html";
             }
         }
+
+        
+    
+    
     
 
 }

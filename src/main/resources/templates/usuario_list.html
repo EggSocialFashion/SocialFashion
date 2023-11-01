@@ -34,7 +34,7 @@
                         <th th:text="${usuario.nombre}"></th>
                         <th th:text="${usuario.email}"></th>
                         <th th:text="${usuario.roles}"></th>
-                        <th th:text="${usuario.estado}"></th>
+                        <th th:text="${usuario.estado? 'Alta' : 'Baja'}"></th>
                         <th>
                             <a class="modificar_usuario" th:href="@{/usuarios/modificar/__${usuario.idUsuario}__}">Modificar</a>
                         </th>
