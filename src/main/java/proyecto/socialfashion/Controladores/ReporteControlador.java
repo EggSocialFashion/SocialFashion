@@ -1,5 +1,7 @@
 package proyecto.socialfashion.Controladores;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,7 @@ public class ReporteControlador {
             return "prueba_reportar.html";
         }
     }
-    
-
+        
         @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
         @PostMapping("/reportar")
         public String denunciar(@RequestParam String texto,
@@ -71,6 +72,10 @@ public class ReporteControlador {
                 return "error.html";
             }
         }
+
+        
+    
+    
     
 
 }

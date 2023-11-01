@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import proyecto.socialfashion.Entidades.Imagen;
+import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Categoria;
@@ -21,10 +22,10 @@ import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 public class PublicacionServicio {
 
     @Autowired
-    PublicacionRepositorio publicacionRepositorio;
+    private PublicacionRepositorio publicacionRepositorio;
 
     @Autowired
-    ImagenServicio imagenServicio;
+    private ImagenServicio imagenServicio;
 
     @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
@@ -63,29 +64,37 @@ public class PublicacionServicio {
     }
     
    
-/*
+
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorLikes() {
 
         List<Publicacion> listaPublicacion = new ArrayList<>();
-        listaPublicacion = publicacionRepositorio.findAll();
+        listaPublicacion = publicacionRepositorio.buscarPublicacionPorFechaDeAlta(LocalDateTime.now());
 
         // Se crea una collection sort y se ordena por likes de noticia
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
                 int likes1 = publicacion1.getLikes().size();
-                int likes2 = publicacion1.getLikes().size();
-                return Integer.compare(likes2, likes1);
+                int likes2 = publicacion2.getLikes().size();
+                int comparandoLikes =  Integer.compare(likes2, likes1);
+                
+                if (comparandoLikes != 0) {
+                    return comparandoLikes;
+                } else {
+                    return publicacion2.getAlta().compareTo(publicacion1.getAlta());
+                }
+                
+                
             }
         });
-        
+
        //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         
         return listaVerificada;
     }
- */
+ 
    
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {
@@ -227,8 +236,7 @@ public class PublicacionServicio {
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         List<Publicacion> listaFiltroUsuario = new ArrayList<>();
         //Comparo para verificar si son iguales a los tipos que traigo
-        for (Publicacion publicacion : listaVerificada) {
-            
+        for (Publicacion publicacion : listaVerificada){            
                 if(publicacion.getUsuario().getIdUsuario().toString().equals(usuario.getIdUsuario())){
                     listaFiltroUsuario.add(publicacion);
                 }
@@ -260,5 +268,5 @@ public class PublicacionServicio {
         return listaFiltroDiseniador;
 
     }
-            
+
 }
