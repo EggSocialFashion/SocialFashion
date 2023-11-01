@@ -72,11 +72,16 @@
     
     }
 
-    .reporte-signo-img{
+    .boton-reportar-imagen{
+        background-color: #fff;
+        border-color:black;
+    }
+    .bi-exclamation-diamond{
         display: flex;
         flex-wrap: wrap;
         align-items: left;
         justify-items: left;
+        border-color: blueviolet;
         color: black;
     }
 
@@ -146,10 +151,12 @@
     }
     
     .contenedor-textarea{
+        width: 800px;
         display: flex;
-        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
         align-content: center;
-        justify-content: center;
+        justify-content: space-evenly;
         border: none;
         
     }
@@ -192,6 +199,7 @@
 }
 
 .icono-casita{
+    color: black;
     align-items: end;
 }
     .boton-casita{
@@ -200,13 +208,13 @@
         justify-items: center;
         flex-wrap: wrap;
         flex-direction: column;
-        color: #fff !important; 
+        color: black !important; 
     }
 
     .casita{
         
         padding: 100px 100px 100px 100px;
-        color:#fff !important;
+        color:black !important;
         
       }
         

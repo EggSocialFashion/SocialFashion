@@ -91,13 +91,17 @@
                            
 
                         <abbr title="Reportar imagen">
-                        <button    class="btn reporte-signo-img"><i class="fa fa-exclamation" aria-hidden="true"></i></button>
+                        
+                        <a th:href="@{'/reportar?tipo=PUBLICACION&id=' + ${publicacion.idPublicacion}}" class="btn boton-reportar-imagen">
+                            <i class="bi bi-exclamation-diamond"></i>
+                        </a>
                         </abbr>
                     <div class="img">
                         
                         <img class="imagenA" th:src=@{/imagen/publicacion/__${publicacion.idPublicacion}__} width="250"/>
                         
                     </div>
+                    
 
                     <div class="comen">
                         
@@ -114,13 +118,16 @@
                                 <button type="submit" class="btn boton-tachito"><i class="fa fa-trash" aria-hidden="true"></i></button>
 
                                 
-
+                                
                                 <abbr class="abr-tachito" title="Reportar Comentario">
 
-                                <button type="submit" class="btn reporte-signo-comen"><i class="fa fa-exclamation" aria-hidden="true"></i></button>
+                                <a th:href="@{'/reportar?tipo=COMENTARIO&id=' + __${comentario.idComentario}__}" class="btn boton-reportar-comentario">
+                                    <i class="bi bi-exclamation-diamond"></i>
+                              </a>
 
                                 </abbr>
                            </form>
+
 
                            
                            </div>
