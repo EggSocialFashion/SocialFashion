@@ -4,6 +4,8 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head th:replace="/template.fragments/head :: head"> </head>
+  <!--
+
 
   <body>
     <nav th:replace="/template.fragments/navbar :: nav"></nav>
@@ -61,39 +63,117 @@
           </div>          
         </div>
       </div>
+-->
+  
+<body>
+   
+    <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+       
+            <div class="text"> 
+                <h1>Detalles de la Publicación</h1> 
+            </div>
 
-      <div class="container col-4 text-center bg-transparent shadow p-3 mb-5 bg-body rounded">
-        <h2>Agregar un Comentario</h2>
-        <form
-          th:action="@{/publicacion/guardar/__${publicacion.idPublicacion}__}"
-          method="POST"
-        >
-          <input
-            type="hidden"
-            name="idPublicacion"
-            value="${publicacion.idPublicacion}"
-          />
-          <label for="texto"></label>
-          <textarea id="texto" name="texto" rows="4" required class="form-control"></textarea>
-          <br />
-          <button type="submit" class="btn btn-secondary">
-            <i class="bi bi-send-check-fill"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    <script  src="../static/script/filtro.js"></script>
-    <script src="../static/script/script.js"></script>
-    <script src="../static/script/animacionesError.js"></script>
-    <script src="../static/script/like.js"></script>
-    <script src="../static/script/animacionExito.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            <div class="text1"> 
+                <h2>Título: <span th:text="${publicacion.titulo}"></span></h2>
+            </div>
 
-  </body>
+            <div class="text2">
+                <p>Contenido: <span th:text="${publicacion.contenido}"></span></p>
+            </div>
+
+                
+
+                <div class="todo">
+                    
+                    <div class="contenedor-img-comen" >
+                           
+
+                        <abbr title="Reportar imagen">
+                        
+                        <a th:href="@{'/reportar?tipo=PUBLICACION&id=' + ${publicacion.idPublicacion}}" class="btn boton-reportar-imagen">
+                            <i class="bi bi-exclamation-diamond"></i>
+                        </a>
+                        </abbr>
+                    <div class="img">
+                        
+                        <img class="imagenA" th:src=@{/imagen/publicacion/__${publicacion.idPublicacion}__} width="250"/>
+                        
+                    </div>
+                    
+
+                    <div class="comen">
+                        
+                        <div class="contenedor-comentario-subido" th:each="comentario : ${comentarios}">
+
+                            <div class="comentario-subido" >
+                              <p th:text="${comentario.texto}" ></p>
+                              <form th:action="@{'/comentario/borrar/' + ${comentario.idComentario}}" method="post">
+                                
+                                <input type="hidden" name="idPublicacion" th:value="${publicacion.idPublicacion}" />
+
+                                
+
+                                <button type="submit" class="btn boton-tachito"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                                
+                                
+                                <abbr class="abr-tachito" title="Reportar Comentario">
+
+                                <a th:href="@{'/reportar?tipo=COMENTARIO&id=' + __${comentario.idComentario}__}" class="btn boton-reportar-comentario">
+                                    <i class="bi bi-exclamation-diamond"></i>
+                              </a>
+
+                                </abbr>
+                           </form>
+
+
+                           
+                           </div>
+                        
+                        </div>
+                    </div>
+
+                    </div>  
+
+                    <div class="contenedor-textarea">
+                        <div >
+                              <form th:action="@{/publicacion/guardar/__${publicacion.idPublicacion}__}" method="POST">
+                              <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                              <label for="texto"></label>
+                         </div>
+                                 <div class="wrapper-a"> 
+                                     <textarea name="texto" placeholder="Agerga un comentario"></textarea>
+                                     <abbr title="Enviar">
+                                     <button type="submit" class="btn boton-avion"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                    </abbr>
+                                 </div>
+                                
+                                 <script>
+                                     const textarea = document.querySelector("textarea");
+                                     textarea.addEventListener("keyup" , e=>{
+                                         let scHeigt = e.target.scrollHeight;
+                                         textarea.style.height = `${scHeigt}px`;
+                                     })
+                                 </script>
+                         </form>
+                     </div>                  
+                </div>
+                <div class="contendedor-casita">
+                <a  href="http://localhost:8080">
+                <div class="boton-casita" >
+                    <section class="icons container">   
+                        <i class="fa-solid fa-house icono-casita"></i>  
+                    </section>
+                </div>
+                </a>
+               
+                   
+                
+
+
+
+
+               </div>
+</body>
+
 </html>
