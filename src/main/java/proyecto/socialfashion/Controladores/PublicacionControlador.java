@@ -128,7 +128,6 @@ public class PublicacionControlador {
          if(usuario == null){
             return "redirect:login.html";
         }
-
            List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
             
