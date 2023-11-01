@@ -6,12 +6,12 @@
     <nav th:replace="/template.fragments/navbar :: nav"> </nav>
 
     <div class="container-fluid">
-      <div class="container-fluid login col-3">
+      <div class="container-fluid login col-3 animate__animated animate__zoomInUp">
           <img src="../static/img/logo.png" />
           <form class="login-form" th:action="@{/logincheck}" method="POST"> 
                    <div
                      th:if="${Error != null}"
-                    class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
+                    class="card-login card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
                     >
                     <div class="card-body">
                      <h5 class="card-title">Error</h5>
