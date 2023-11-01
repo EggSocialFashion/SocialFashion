@@ -69,6 +69,21 @@ public class LikeServicio {
         List<Like> listaDeMeGustas = likeRepositorio.buscarLikePorPubli(idPublicacion);
         return listaDeMeGustas;
     }
+    // este es para la pagina de verPublicacion la cantidad de liks que tiene la publicación
+    @Transactional
+    public Integer totalLike(String idPublicacion){
+       Integer respuesta=0;
+
+        List<Like> likes = likeRepositorio.findAll();
+
+        for (Like like : likes) {
+            if(like.getEstado()==true&&like.getPublicacion().getIdPublicacion().equals(idPublicacion)){
+                respuesta+=1;
+            }
+        }
+     
+        return respuesta;
+    }
     
     
     //Con este metodo valido si esta creado el like para no volver a crearlo al hacer el click
@@ -92,7 +107,7 @@ public class LikeServicio {
         
        return listaDeLikesDeUnUsuario;
     }
-
+    // este se utiliza para poner en el front en el carrusel si tiene like o no
     public boolean tieneLike (String idPublicacion, String idUsuario){
         boolean respuesta=false;
 

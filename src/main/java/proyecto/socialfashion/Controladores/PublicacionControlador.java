@@ -138,8 +138,9 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model modelo) {
-
+    public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        System.out.println(logueado.toString());
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -147,6 +148,11 @@ public class PublicacionControlador {
                 Publicacion publicacion = respuesta.get();
                 if (publicacion.isEstado() == true) {
                     List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
+                    Integer totalLike = likeServicio.totalLike(id);
+                    Integer totalComentarios = comentarioServicio.totalComentariosPublicacion(id);
+                    modelo.addAttribute("logueado", logueado);
+                    modelo.addAttribute("totalLike",totalLike);
+                    modelo.addAttribute("totalComentarios", totalComentarios);
                     modelo.addAttribute("publicacion", publicacion);
                     modelo.addAttribute("comentarios", comentarios);
                 } else {
@@ -164,7 +170,8 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
-    public String borrarPublicacion(@PathVariable String id, Model modelo) {
+    public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
       
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
@@ -183,7 +190,7 @@ public class PublicacionControlador {
             modelo.addAttribute("error", ex.getMessage());
             return "error.html";
         }
-        return "usuario_perfil.html";
+        return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
 
 

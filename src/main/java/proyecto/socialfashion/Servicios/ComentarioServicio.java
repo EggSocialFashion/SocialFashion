@@ -1,5 +1,6 @@
 package proyecto.socialfashion.Servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +73,26 @@ public class ComentarioServicio {
         System.out.println(comentarios.size());
         return comentarios;
     }
+
+    @Transactional
+    public Integer totalComentariosPublicacion(String idPublicacion){
+    
+        List<Comentario> comentarios = comentarioRepositorio.buscarComentarioPorPublicacion(idPublicacion);
+        List<Comentario> comentarioDepurado = new ArrayList<>();
+
+        for (Comentario comentario : comentarios) {
+            if(comentario.getIdPublicacion().getIdPublicacion().toString().equals(idPublicacion) 
+                && comentario.getEstado()==true){
+                comentarioDepurado.add(comentario);
+
+            }
+            
+        }
+
+
+        return comentarioDepurado.size();
+
+    }
+
 }
     

@@ -3,6 +3,7 @@
   <head th:replace="/template.fragments/head :: head"> 
   </head>
   <body>  
+
   <nav th:replace="/template.fragments/navbar :: nav"> </nav>
   <section>
     <div th:if="${exito != null}" class="mensajeExito">
@@ -34,23 +35,23 @@
 
   <section class="diseños container-fluid">        
     <div class="form-check form-check-inline">
-        <label class="form-check-label">INDUMENTARIA</label>
+        <label class="form-check-label text-black">INDUMENTARIA</label>
         <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
     </div>
     <div class="form-check form-check-inline">
-        <label class="form-check-label">MAQUILLAJE</label>
+        <label class="form-check-label text-black">MAQUILLAJE</label>
         <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
     </div>        
     <div class="form-check form-check-inline">
-        <label class="form-check-label">CALZADO</label>
+        <label class="form-check-label text-black">CALZADO</label>
         <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
     </div>        
     <div class="form-check form-check-inline">
-        <label class="form-check-label">MARROQUINERIA</label>
+        <label class="form-check-label text-black">MARROQUINERIA</label>
         <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
     </div>        
     <div class="btn-group dropup dropdown-diseñadores-container">
-        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores" data-bs-toggle="dropdown" aria-expanded="false">
+        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores text-black" data-bs-toggle="dropdown" aria-expanded="false">
             Diseñadores:
         </button>              
         <ul class="dropdown-menu">
@@ -62,7 +63,7 @@
         </ul>      
         <div>
           <div th:if="${logueado != null}">
-            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
+            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro text-black">Quitar Filtro</a>
           </div>            
           <div th:if="${logueado == null}">
             <a th:href="@{/}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>

@@ -61,11 +61,8 @@ public class LikeControlador {
         }catch (Exception e) {
             modelo.addAttribute("error",e.getMessage());
             return "redirect:/publicacionesSocialFashion";
-            
-            
+ 
         }
-
-
     }
     
     @GetMapping("/checkLike")
@@ -74,7 +71,6 @@ public class LikeControlador {
                                                 @RequestParam("usuarioId") String usuarioId) {
     
             boolean tieneLike = likeServicio.tieneLike(publicacionId, usuarioId);
-            System.out.println(tieneLike);
             return ResponseEntity.ok(tieneLike);
 
             
