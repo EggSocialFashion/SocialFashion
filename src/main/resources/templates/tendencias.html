@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div
+          th:each="publicaciones : ${listaPorTendencias}"
+          class="swiper-slide"
+          th:attr="data-publicacion=${publicacion}"
+        >
+          <div data-publicacion="${publicaciones}">
+            <h4 th:text="${publicaciones.titulo}"></h4>
+            <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+              <img
+                th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}"
+                alt="Img de la publicacion"
+              />
+            </a>
+            <p
+              class="bg-white bg-opacity-75 text-black"
+              th:text="${publicaciones.contenido}"
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

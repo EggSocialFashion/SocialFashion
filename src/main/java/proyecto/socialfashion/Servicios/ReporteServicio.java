@@ -15,7 +15,6 @@ import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Reporte;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Estado;
-import proyecto.socialfashion.Enumeraciones.Roles;
 import proyecto.socialfashion.Enumeraciones.Tipo;
 import proyecto.socialfashion.Enumeraciones.TipoObjeto;
 import proyecto.socialfashion.Repositorios.ReporteRepositorio;

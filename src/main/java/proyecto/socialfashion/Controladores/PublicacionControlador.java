@@ -128,7 +128,6 @@ public class PublicacionControlador {
          if(usuario == null){
             return "redirect:login.html";
         }
-
            List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
             
@@ -140,11 +139,10 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model modelo) {
-
+    public String mostrarPublicacion(@PathVariable String id, Model modelo) {        
+       
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
-
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
                 if (publicacion.isEstado() == true) {
@@ -166,8 +164,8 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
-    public String borrarPublicacion(@PathVariable String id, Model modelo) {
-      
+    public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {      
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -185,7 +183,7 @@ public class PublicacionControlador {
             modelo.addAttribute("error", ex.getMessage());
             return "error.html";
         }
-        return "usuario_perfil.html";
+        return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
 
 

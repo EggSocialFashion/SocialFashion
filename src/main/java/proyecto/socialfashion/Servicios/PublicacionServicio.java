@@ -75,7 +75,7 @@ public class PublicacionServicio {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
                 int likes1 = publicacion1.getLikes().size();
-                int likes2 = publicacion1.getLikes().size();
+                int likes2 = publicacion2.getLikes().size();
                 return Integer.compare(likes2, likes1);
             }
         });
@@ -85,7 +85,7 @@ public class PublicacionServicio {
         
         return listaVerificada;
     }
-
+ 
    
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {

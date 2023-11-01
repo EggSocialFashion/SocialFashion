@@ -141,12 +141,22 @@
   position: absolute;
   padding: 10px;
 }
-
+/*
 .like-button {
   cursor: pointer;
   font-size: 24px;
 }
-
+.heart-icon {
+  fill: white;
+  align-self: flex-start;
+}
+.like-button.active .heart-icon {
+  fill: red;
+}
+.like-button.desactive .heart-icon {
+  fill: white;
+}
+*/
 .swiper-slide img {
   height: 700px;
   border-radius: 12px;
@@ -180,6 +190,10 @@
   background-color: #fefefe;
   box-shadow: 0 0 20px black;
   cursor: pointer;
+}
+
+.diseños {
+  padding: 30px;
 }
 
 .diseños {
