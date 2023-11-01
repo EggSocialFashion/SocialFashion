@@ -61,9 +61,7 @@ public class PublicacionServicio {
     public Publicacion getOne(String idPublicacion) {
         return publicacionRepositorio.getOne(idPublicacion);
     }
-    
-   
-
+       
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorLikes() {
 
