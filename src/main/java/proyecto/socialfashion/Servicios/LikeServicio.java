@@ -1,6 +1,6 @@
-
 package proyecto.socialfashion.Servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,9 @@ public class LikeServicio {
     
     @Autowired
     PublicacionRepositorio publicacionRepositorio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
             
     @Transactional()
     public void crearLike(Publicacion publicacion, Usuario usuario){
@@ -66,6 +69,21 @@ public class LikeServicio {
         List<Like> listaDeMeGustas = likeRepositorio.buscarLikePorPubli(idPublicacion);
         return listaDeMeGustas;
     }
+    // este es para la pagina de verPublicacion la cantidad de liks que tiene la publicación
+    @Transactional
+    public Integer totalLike(String idPublicacion){
+       Integer respuesta=0;
+
+        List<Like> likes = likeRepositorio.findAll();
+
+        for (Like like : likes) {
+            if(like.getEstado()==true&&like.getPublicacion().getIdPublicacion().equals(idPublicacion)){
+                respuesta+=1;
+            }
+        }
+     
+        return respuesta;
+    }
     
     
     //Con este metodo valido si esta creado el like para no volver a crearlo al hacer el click
@@ -88,6 +106,28 @@ public class LikeServicio {
       List<Like> listaDeLikesDeUnUsuario = likeRepositorio.buscarLikePorUsuario(usuario.getIdUsuario());
         
        return listaDeLikesDeUnUsuario;
+    }
+    // este se utiliza para poner en el front en el carrusel si tiene like o no
+    public boolean tieneLike (String idPublicacion, String idUsuario){
+        boolean respuesta=false;
+
+        List<Like> likes = likeRepositorio.findAll();
+        List<Like> likeDepurado = new ArrayList<>();
+
+        for (Like like : likes) {
+            if(like.getEstado()==true&&like.getPublicacion().getIdPublicacion().equals(idPublicacion)
+            &&like.getUsuario().getIdUsuario().equals(idUsuario)){
+                likeDepurado.add(like);
+            }
+        }
+     
+        if(likeDepurado.size()==0){
+            respuesta=false;
+        }else{
+            respuesta=true ;
+        }
+            
+        return respuesta;
     }
     
 }

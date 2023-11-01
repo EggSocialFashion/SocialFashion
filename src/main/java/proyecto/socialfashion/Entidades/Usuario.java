@@ -23,10 +23,8 @@ public class Usuario {
     
     @Enumerated(EnumType.STRING)
     private Roles roles;
-
     private Boolean estado;
     private String email;
-
 
     @OneToOne
     private Imagen imagen;

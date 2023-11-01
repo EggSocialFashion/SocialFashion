@@ -13,7 +13,7 @@
 .login-registro {
   display: flex;
   flex-wrap: wrap;
-  position: relative; /* Ajusta este valor según tus necesidades */
+  position: relative; /* Ajusta este valor según tus necesidades*/
   margin-top: 24px;
   height: auto;
   min-width: 352px;
@@ -24,7 +24,6 @@
   text-align: center;
 }
 
-
 .img-registro-container > img {
   margin-top: 100px;
   width: 300px;
@@ -33,7 +32,6 @@
   border-radius: 50%;
   filter: opacity(0.05);
 }
-
 
 .login-form-2 {
   display: grid;
@@ -56,6 +54,7 @@
 .input-name {
   border-bottom: 3px solid #685aff;
 }
+
 .login-form-2 > input {
   background: transparent;
   border: none;
@@ -94,4 +93,12 @@
 
 .login-form-2 > button:hover {
   background: #4e3eff;
+}
+
+@media (min-width: 1530px) {
+  .login-form-2 > input,
+  .login-form-2 > button {
+    height: 52px; /* Ajusta la altura de los campos de entrada en pantallas más grandes */
+    min-width: 352px;
+  }
 }

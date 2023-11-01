@@ -41,7 +41,8 @@ public class UsuarioServicio implements UserDetailsService {
     private PublicacionServicio publicacionServicio;
 
     @Transactional
-    public void registrar(MultipartFile archivo, String nombre, String email, String password, String password2) throws Excepciones {
+    public void registrar(MultipartFile archivo, String nombre, String email, String password, String password2)
+            throws Excepciones {
 
         Usuario usuario = new Usuario();
 
@@ -56,17 +57,18 @@ public class UsuarioServicio implements UserDetailsService {
         Imagen imagen = imagenServicio.guardarFotoPerfil(archivo, usuario);
 
         usuario.setImagen(imagen);
-        
+
         usuarioRepositorio.save(usuario);
 
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String idUsuario, String nombre, String email, String password, String password2, Roles rol)
+    public void actualizar(MultipartFile archivo, String idUsuario, String nombre, String email, String password,
+            String password2, Roles rol)
             throws Excepciones {
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
-       
+
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             validarActualizacion(nombre, email, password, password2);
@@ -83,7 +85,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setEstado(true);
 
             String idImagen = null;
-            
+
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getIdImagen();
             }
@@ -120,10 +122,10 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public Optional<Usuario> buscarUsuarioPorId(String idUsuario) {
-    Optional<Usuario> usuario = usuarioRepositorio.findById(idUsuario);
+        Optional<Usuario> usuario = usuarioRepositorio.findById(idUsuario);
 
-    return usuario;
-}
+        return usuario;
+    }
 
     @Transactional
     public void cambiarRol(String idUsuario) {
@@ -164,8 +166,8 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
-    
-     @Override
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
         if (usuario != null) {
@@ -181,7 +183,8 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    public void validar(String nombre, String email, String password, String password2, Usuario usuario ) throws Excepciones {
+    public void validar(String nombre, String email, String password, String password2, Usuario usuario)
+            throws Excepciones {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Excepciones("El nombre no puede estar vacío");
@@ -198,18 +201,19 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Excepciones("Las contraseñas ingresadas deben ser iguales.");
         }
-        
-        List<Usuario>listaUsuario = listarUsuarios();
-        
+
+        List<Usuario> listaUsuario = listarUsuarios();
+
         for (Usuario listaUsuarios : listaUsuario) {
             if (listaUsuarios.getEmail().equalsIgnoreCase(usuario.getEmail())) {
                 throw new Excepciones("Ya existe un usuario registrado con ese Email");
             }
         }
-        
+
     }
 
-    public void validarActualizacion(String nombre, String email, String password, String password2) throws Excepciones {
+    public void validarActualizacion(String nombre, String email, String password, String password2)
+            throws Excepciones {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Excepciones("El nombre no puede estar vacío");
@@ -226,7 +230,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Excepciones("Las contraseñas ingresadas deben ser iguales.");
         }
-        
+
     }
 
     @Transactional
@@ -236,19 +240,18 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public List<Usuario> diseniadores() {
-    //busco las publicaciones dadas de alta
-    List<Publicacion> auxPublicacion = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
+        // busco las publicaciones dadas de alta
+        List<Publicacion> auxPublicacion = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
 
-    // Usar un conjunto para almacenar diseñadores únicos
-    Set<Usuario> disenadoresUnicos = new HashSet<>();
+        // Usar un conjunto para almacenar diseñadores únicos
+        Set<Usuario> disenadoresUnicos = new HashSet<>();
 
-    for (Publicacion publicacion : auxPublicacion) {
-        disenadoresUnicos.add(publicacion.getUsuario());
+        for (Publicacion publicacion : auxPublicacion) {
+            disenadoresUnicos.add(publicacion.getUsuario());
+        }
+        // Convertir el conjunto de diseñadores únicos de nuevo a una lista
+        List<Usuario> diseniadores = new ArrayList<>(disenadoresUnicos);
+        return diseniadores;
     }
-    // Convertir el conjunto de diseñadores únicos de nuevo a una lista
-    List<Usuario> diseniadores = new ArrayList<>(disenadoresUnicos);
-    return diseniadores;
-}
-
 
 }

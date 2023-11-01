@@ -28,6 +28,7 @@ import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.LikeServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
+import proyecto.socialfashion.Servicios.ReporteServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
 @Controller
@@ -45,6 +46,10 @@ public class PublicacionControlador {
     
     @Autowired 
     private LikeServicio likeServicio;
+
+    @Autowired
+    private ReporteServicio reporteServicios;
+
 
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
@@ -68,8 +73,7 @@ public class PublicacionControlador {
         }
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
         List<Usuario> usuarios = usuarioServicio.diseniadores();
-        List<Like> likes = likeServicio.likesUsuarios(logueado);
-        
+        List<Like> likes = likeServicio.likesUsuarios(logueado);        
         modelo.addAttribute("likes", likes); 
         modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("logueado", logueado);
@@ -129,20 +133,24 @@ public class PublicacionControlador {
          if(usuario == null){
             return "redirect:login.html";
         }
-
-           List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
+         try {
+             List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            
-            //HTML en el que se encuentran las tendencias
             return"tendencias.html";
+        } catch (Exception e) {
+             modelo.addAttribute("error", "No hay publicaciones en tendencias ");
+            return"tendencias.html";
+        }
 
+       
     
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model modelo) {
-
+    public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        System.out.println(logueado.toString());
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -150,6 +158,11 @@ public class PublicacionControlador {
                 Publicacion publicacion = respuesta.get();
                 if (publicacion.isEstado() == true) {
                     List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
+                    Integer totalLike = likeServicio.totalLike(id);
+                    Integer totalComentarios = comentarioServicio.totalComentariosPublicacion(id);
+                    modelo.addAttribute("logueado", logueado);
+                    modelo.addAttribute("totalLike",totalLike);
+                    modelo.addAttribute("totalComentarios", totalComentarios);
                     modelo.addAttribute("publicacion", publicacion);
                     modelo.addAttribute("comentarios", comentarios);
                 } else {
@@ -168,15 +181,14 @@ public class PublicacionControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
     public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
       
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
-                if (publicacion.isEstado() && publicacion.isEstado()==true) {
+                if (publicacion.isEstado() == true) {
                     publicacionServicio.BajaPublicacion(id);
                 } else {
                     modelo.addAttribute("error", "La publicacion no existe");
@@ -186,9 +198,18 @@ public class PublicacionControlador {
             }
         } catch (Exception ex) {
             modelo.addAttribute("error", ex.getMessage());
+            return "error.html";
         }
-        return "redirect:/usuarios/perfil/"+logueado.getIdUsuario();
+        return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/estadisticas")
+    public String estadisticasUsuario(HttpSession session, Model modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
-
+        List<Object[]> listado = reporteServicios.estadisticaPorUsuario(usuario);
+        modelo.addAttribute("listado", listado);
+        return "estadisticas.html";
+    }
+   
 }
