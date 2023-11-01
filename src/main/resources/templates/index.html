@@ -54,7 +54,7 @@
         <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores text-black" data-bs-toggle="dropdown" aria-expanded="false">
             Diseñadores:
         </button>              
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-menu-dark">
           <li class="dropdown-item">
             <select class="form-control" name="usuarios" id="usuarios" multiple>
                 <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>

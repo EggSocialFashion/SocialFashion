@@ -133,12 +133,16 @@ public class PublicacionControlador {
          if(usuario == null){
             return "redirect:login.html";
         }
-           List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
+         try {
+             List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            
-            //HTML en el que se encuentran las tendencias
             return"tendencias.html";
+        } catch (Exception e) {
+             modelo.addAttribute("error", "No hay publicaciones en tendencias ");
+            return"tendencias.html";
+        }
 
+       
     
     }
 
