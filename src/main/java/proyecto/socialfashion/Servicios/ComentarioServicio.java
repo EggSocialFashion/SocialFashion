@@ -18,8 +18,11 @@ public class ComentarioServicio {
 
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
+
     
     
+
+  
     @Transactional
     public void guardarComentario(Comentario comentario) {
         Comentario coment = comentario;
