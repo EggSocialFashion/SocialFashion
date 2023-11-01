@@ -71,16 +71,17 @@
         </div>
       </div>                
   </section>     
-
   <div class="swiper mySwiper container-fluid">        
       <div class="swiper-wrapper container-fluid">         
         <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
            th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
-           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
+          <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
+
           <div class="a-img-corazon-container">
             <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
                 <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
             </a>   
+
             <div th:if="${logueado !=null}" class="like-button-dos container-corazon" onclick="toggleLike(this)">
               <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
                 <button type="submit" class="like-button" th:attr="data-publicacion-id=${publicaciones.idPublicacion}, data-usuario-id=${logueado.idUsuario}">
@@ -92,7 +93,7 @@
                 </button>
               </form>
             </div>
-                               
+                              
             <div class="container-p-con-texto">
               <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
             </div>
