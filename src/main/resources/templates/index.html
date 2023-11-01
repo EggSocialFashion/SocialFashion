@@ -86,14 +86,7 @@
             </select>
           </li>
         </ul>
-        <div>
-          <div th:if="${logueado != null}">
-            <a
-              th:href="@{/publicacionesSocialFashion}"
-              class="btn btn-secondary quitar-filtro"
-              >Quitar Filtro</a
-            >
-          </div>
+        <div>          
           <div th:if="${logueado == null}">
             <a th:href="@{/}" class="btn btn-secondary quitar-filtro"
               >Quitar Filtro</a
@@ -102,6 +95,7 @@
         </div>
       </div>
     </section>
+
     <div class="swiper mySwiper container-fluid">
       <div class="swiper-wrapper container-fluid">
         <div
@@ -110,35 +104,21 @@
           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}"
         >
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
-
               <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
               </a>   
               <div th:if="${logueado !=null}" class="like-button container-corazon" onclick="toggleLike(this)">
                 <svg id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
               </svg> 
-            </div>          
-            
-            <div class="container-p-con-texto">
-            <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
-
-    
-       
-      
-      
-            </div>
-          </div>
-     </div>
-   
-          </div>
-    </div>
-    </div>
-  
-        <section th:replace="/template.fragments/sectionIcon :: section"> </section>
+              </div>                      
+              <div class="container-p-con-texto">
+                 <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>                       
+                </div>
         </div>
-      </div>
-
-    </section>
+     </div>   
+    </div>    
+  
+        <section th:replace="/template.fragments/sectionIcon :: section"> </section>    
    <!--
     <section class="icons container">
        <i class="fa-solid fa-house"></i>
