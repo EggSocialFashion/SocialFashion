@@ -84,7 +84,7 @@ public class PublicacionControlador {
     @GetMapping("/registrarPubli")
     public String registrarPublicacion(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("usuario", logueado);
+        modelo.addAttribute("logueado", logueado);
 
         return "publicaciones.html";
 
@@ -146,7 +146,7 @@ public class PublicacionControlador {
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        System.out.println(logueado.toString());
+        
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
             if (respuesta.isPresent()) {
