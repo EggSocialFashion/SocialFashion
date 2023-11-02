@@ -64,7 +64,7 @@ public class Publicacion {
         this.categoria = categoria;
         this.estado = estado;
         this.usuario = usuario;
-        this.likes = likes;
+        /*this.likes = likes;*/
         this.imagen = imagen;
     }
 

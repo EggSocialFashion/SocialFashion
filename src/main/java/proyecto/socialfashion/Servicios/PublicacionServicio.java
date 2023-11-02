@@ -68,22 +68,45 @@ public class PublicacionServicio {
     public List<Publicacion> listaPublicacionOrdenadasPorLikes() {
 
         List<Publicacion> listaPublicacion = new ArrayList<>();
-        listaPublicacion = publicacionRepositorio.findAll();
+        listaPublicacion = publicacionRepositorio.buscarPublicacionPorFechaDeAlta(LocalDateTime.now());
 
         // Se crea una collection sort y se ordena por likes de noticia
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
             public int compare(Publicacion publicacion1, Publicacion publicacion2) {
                 int likes1 = publicacion1.getLikes().size();
-                int likes2 = publicacion1.getLikes().size();
-                return Integer.compare(likes2, likes1);
+                int likes2 = publicacion2.getLikes().size();
+                int comparandoLikes =  Integer.compare(likes2, likes1);
+                
+                if (comparandoLikes != 0) {
+                    return comparandoLikes;
+                } else {
+                    return publicacion2.getAlta().compareTo(publicacion1.getAlta());
+                }
+                
+                
             }
         });
         
+        
+        
+
        //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
         
-        return listaVerificada;
+           if (listaVerificada.size() < 10){
+            return listaVerificada;
+        } else {
+            //En el caso que la lista de publicaciones sea mayor a 10
+            listaPublicacion.clear();
+            for (int i = 0; i < 10; i++) {
+                
+                listaPublicacion.add(listaVerificada.get(i));
+              
+            }
+            
+            return listaPublicacion;
+        }
     }
 
    
@@ -106,9 +129,9 @@ public class PublicacionServicio {
         
         //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
         List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
-        
-
         return listaVerificada;
+      
+
     }
     
     @Transactional(readOnly = true)

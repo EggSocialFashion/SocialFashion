@@ -129,13 +129,16 @@ public class PublicacionControlador {
          if(usuario == null){
             return "redirect:login.html";
         }
-
-           List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
+         try {
+             List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            
-            //HTML en el que se encuentran las tendencias
             return"tendencias.html";
+        } catch (Exception e) {
+             modelo.addAttribute("error", "No hay publicaciones en tendencias ");
+            return"tendencias.html";
+        }
 
+       
     
     }
 
@@ -167,8 +170,8 @@ public class PublicacionControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
-    public String borrarPublicacion(@PathVariable String id, Model modelo) {
-      
+    public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -186,7 +189,8 @@ public class PublicacionControlador {
             modelo.addAttribute("error", ex.getMessage());
             return "error.html";
         }
-        return "usuario_perfil.html";
+        
+        return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
 
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
