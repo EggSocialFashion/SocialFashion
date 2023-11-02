@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/template.fragments/head :: head"> 
+  </head>
   <body>
     
-    <div th:if="${logueado}"><nav th:replace="/template.fragments/navbar :: nav"> </nav></div>
+    <nav th:replace="/template.fragments/navbar :: nav"> </nav>
     <div
       th:if="${error != null}"
       class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
@@ -43,7 +41,7 @@
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="blue" class="bi bi-chat-right-dots-fill" viewBox="0 0 16 16">
               <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353V2zM5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-              <p th:text="${totalComentarios}" class="fs-3"></p>
+              <p th:text="${totalComentarios}" class="fs-3"></p>              
             </svg>
             <a th:href="@{'/reportar?tipo=PUBLICACION&id=' + ${publicacion.idPublicacion}}" data-toggle="popover" data-placement="top" title="Denunciar publicacion">
               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="red" class="bi bi-exclamation-diamond" viewBox="0 0 16 16"  >
@@ -53,7 +51,7 @@
             </a>
           </div>
       </div>
-    </div>
+    </div>  
       <!--div ver comentarios-->
       <div class="comentarios-container col-4  p-2 text-center text-dark bg-body rounded m-2"  style="background-image: url('https://img.freepik.com/foto-gratis/resumen-fondo-cubos-negros_1123-401.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1697587200&semt=ais'); max-height: 700px; overflow-y: auto;">
         <div th:each="comentario : ${comentarios}" class="m-2">
@@ -90,13 +88,12 @@
     <section th:replace="/template.fragments/sectionIcon :: section"></section>                  
 
     <!--Scripts-->
-     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+              <script  src="../static/script/filtro.js"></script>
+         <script src="../static/script/script.js"></script> 
+         <script src="../static/script/animacionesError.js"></script>            
+         <script src="../static/script/like.js"></script>     
+         <script src="../static/script/animacionExito.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
   </body>
 </html>
