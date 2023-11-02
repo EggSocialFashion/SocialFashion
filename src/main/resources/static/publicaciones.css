@@ -72,6 +72,15 @@
   justify-content: space-around;
 }
 
+.heart-icon {
+  fill: white;
+}
+
+/* Estilo del corazón cuando está "me gusta" (rojo) */
+.heart-icon-liked {
+  fill: red;
+}
+
 @media (max-width: 670px) {
   .form-container {
     background-color: white;

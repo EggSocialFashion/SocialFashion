@@ -1,6 +1,14 @@
-<section class="icons container">
-    <a th:if="${session.usuariosession != null}" th:href="@{http://localhost:8080/publicacionesSocialFashion}"><i class="fa-solid fa-house"></i></a>
-    <a th:if="${session.usuariosession != null}" th:href="@{/tendencias}"><i class="fa-solid fa-fire-flame-curved"></i></a>
-    <i class="fa-solid fa-folder"></i>
-    <a  th:if="${session.usuariosession != null}" th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
- </section>
+<section class="icons container" th>
+  <a th:if="${session.usuariosession != null}" th:href="@{/}"
+    ><i class="fa-solid fa-house"></i
+  ></a>
+  <a th:if="${session.usuariosession != null}" th:href="@{/tendencias}"
+    ><i class="fa-solid fa-fire-flame-curved"></i
+  ></a>
+    <a th:if="${session.usuariosession != null}" th:href="@{/usuarios/perfil/__${logueado.idUsuario}__}">
+  <i class="fa-solid fa-folder"></i>
+   </a>
+  <a th:if="${session.usuariosession != null}" th:href="@{/registrarPubli}">
+    <i class="fa-solid fa-camera-retro"></i
+  ></a>
+</section>

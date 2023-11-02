@@ -196,16 +196,25 @@
   padding: 30px;
 }
 
-  .diseños {
-    padding: 30px;
-  }
+.diseños {
+  padding: 30px;
+}
 
-  .icons {
-    padding: 30px;
-  }
+.icons {
+  padding: 30px;
+}
 
 .mensajeExito {
   font-size: 20px;
+}
+
+.unliked-button {
+  fill: white;
+}
+
+/* Estilo del corazón cuando está "me gusta" (rojo) */
+.liked-button {
+  fill: red;
 }
 
 #subti {

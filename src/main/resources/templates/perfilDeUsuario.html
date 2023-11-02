@@ -203,7 +203,6 @@ display: flex;
   border: none;
   border-radius: 8px;
 }
-
 .coment-img {
   color: black !important;
   padding: 10px;
@@ -267,7 +266,7 @@ display: flex;
 <div class="item-card-perfil container-fluid col-3">
   <div class="contenedor-de-datos-perfil">
   <div class="card-pefil-img-container">
-  <img class="card-perfil-img" th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" alt="Foto perfil">
+    <img th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" onerror="this.onerror=null;this.src='../../static/img/perfil.png';" width="250" alt="Foto perfil">
   </div>
  
   <div class="item-card-informacionContacto-container">
