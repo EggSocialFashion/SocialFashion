@@ -23,53 +23,54 @@ public class ReporteControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/reportar")
-    public String reportar(Model modelo) {
+    public String reportar(@RequestParam("tipo") String tipoObjeto, @RequestParam("id") String idObjeto, Model modelo) {
         try {
+            modelo.addAttribute("tipoObjeto", tipoObjeto);
+            modelo.addAttribute("idObjeto", idObjeto);
             return "prueba_reportar.html";
         } catch (Exception e) {
             modelo.addAttribute("error", e.getMessage());
             return "prueba_reportar.html";
-
         }
-
     }
+    
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/reportar")
-    public String denunciar(@RequestParam String texto,
-            @RequestParam String tipo,
-            @RequestParam String tipoObjeto,
-            @RequestParam String idObjeto,
-            Model modelo, HttpSession session) {
+        @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+        @PostMapping("/reportar")
+        public String denunciar(@RequestParam String texto,
+                @RequestParam String tipo,
+                @RequestParam String tipoObjeto,
+                @RequestParam String idObjeto,
+                Model modelo, HttpSession session) {
 
-        tipo = tipo.toUpperCase();
-        tipoObjeto = tipoObjeto.toUpperCase();
-        try {
-            String mensajeValidacion = reporteServicios.validarDenuncia(tipo, tipoObjeto, idObjeto);
-            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            if (mensajeValidacion == null || mensajeValidacion.isEmpty()) {
-                try {
-                    boolean exito = reporteServicios.guardarReporte(texto, tipo, tipoObjeto, idObjeto, usuario);
-                    if (exito) {
-                        modelo.addAttribute("exito", "Reporte guardado exitosamente");
-                    } else {
+            tipo = tipo.toUpperCase();
+            tipoObjeto = tipoObjeto.toUpperCase();
+            try {
+                String mensajeValidacion = reporteServicios.validarDenuncia(tipo, tipoObjeto, idObjeto);
+                Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+                if (mensajeValidacion == null || mensajeValidacion.isEmpty()) {
+                    try {
+                        boolean exito = reporteServicios.guardarReporte(texto, tipo, tipoObjeto, idObjeto, usuario);
+                        if (exito) {
+                            modelo.addAttribute("exito", "Reporte guardado exitosamente");
+                        } else {
+                            modelo.addAttribute("error", "Error al guardar el reporte");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        modelo.addAttribute("error", "Tipo de denuncia o tipo de objeto inválido");
+                    } catch (Exception e) {
                         modelo.addAttribute("error", "Error al guardar el reporte");
                     }
-                } catch (IllegalArgumentException e) {
-                    modelo.addAttribute("error", "Tipo de denuncia o tipo de objeto inválido");
-                } catch (Exception e) {
-                    modelo.addAttribute("error", "Error al guardar el reporte");
-                }
-            } else {
-                modelo.addAttribute("error", mensajeValidacion);
+                } else {
+                    modelo.addAttribute("error", mensajeValidacion);
 
+                }
+                return "redirect:/publicacionesSocialFashion";
+            } catch (Exception ex) {
+                modelo.addAttribute("error", ex.getMessage());
+                return "error.html";
             }
-            return "prueba_reportar.html";
-        } catch (Exception ex) {
-            modelo.addAttribute("error", ex.getMessage());
-            return "error.html";
         }
-    }
     
 
 }

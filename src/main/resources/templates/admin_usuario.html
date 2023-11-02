@@ -50,19 +50,19 @@
                     <th th:text="${usuario.tipo}"></th>
                     <th th:text="${usuario.tipoObjeto}"></th>
                     <th>
-                        <a th:href="@{/usuario/{idObjeto}(idObjeto=${usuario.idObjeto})}" class="btn btn-primary">Ver Usuario</a>
+                        <a th:href="@{/usuarios/perfil/{idObjeto}(idObjeto=${usuario.idObjeto})}" class="btn btn-outline-secondary"><i class="bi bi-search"></a>
                     </th>
                     <th>
                       <form th:action="@{/admin/usuario}" method="post">
                           <input type="hidden" name="idReporte" th:value="${usuario.idReporte}"/>
-                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-success">Desestimar</button>
+                          <button type="submit" name="estado" value="DESESTIMADO" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-down"></i></button>
                       </form>
 
                   </th>
                   <th>
                       <form th:action="@{/admin/usuario}" method="post">
                           <input type="hidden" name="idReporte" th:value="${usuario.idReporte}"/>
-                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-danger">Aceptar</button>
+                          <button type="submit" name="estado" value="ACEPTADO" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i></button>
                       </form>
                   </th>
                 </tr>

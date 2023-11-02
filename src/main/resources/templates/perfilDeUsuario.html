@@ -1,168 +1,280 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Social Fashion</title>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossorigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="../static/perfilDeUsuario.css">
+  <head>
+    <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Fashion</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+    <style>
+      * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-        />
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-      </head>
+.img-fondo {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.flex-container {
+  padding: 10px;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin: 30px;
+  gap: 24px;
+
+}
+
+.item-card-perfil {
+  background-image: url("https://img.freepik.com/foto-gratis/resumen-fondo-cubos-negros_1123-401.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1697587200&semt=ais");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-content: center;
+  min-width: 300px;
+  max-height: 450px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  border-radius: 10px;
+}
+
+.contenedor-de-datos-perfil {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  min-width: 280px;
+  margin: 50px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px 0px rgb(178, 178, 178);
+}
+
+.card-pefil-img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card-pefil-img-container img {
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.item-card-informacionContacto-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+
+.corazon-container {
+  display: flex;
+  margin-right: 24px;
+  flex-direction: column;
+}
+
+/* svg icon corazon*/
+.corazon-perfil {
+  width: 28px;
+  height: 28px;
+}
+
+.parrafo-corazon {
+  font-size: 13px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modificar-enlace{
+  color: white;
+  text-decoration: none;
+  transition: font-size 0.3s;
+}
+
+.modificar-enlace:hover{
+  font-size: 17px;
+  color: white;
+  text-decoration: none;
+}
+
+.button-container button {
+  margin-top: 32px;
+  border: none;
+  color: white;
+  margin-bottom: 12px;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #685aff;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.item-card-perfil-publicacion {
+  display: flex;
+  max-width: 400px;
+  max-height: 455px;
+  padding: 10px;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+  border-radius: 10px;
+  transition: background-color 2s;
+}
+
+.item-card-perfil-publicacion:hover {
+color: white;
+background-color: black;
+}
+
+.item-card-perfil-publicacion h4 {
+  text-align: center;
+  margin-top: 8px;
+}
+
+
+.img-publicacion-container {
+display: flex;
+}
+
+
+
+.img-publicacion {
+  border: 5px solid white;
+  border-radius: 10px;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 1px 15px 0px rgb(54, 54, 54);
+}
+
+.corazon-container-publicacion {
+  position: absolute;
+  padding: 10px;
+}
+
+.coment-container {
+  position: absolute;
+ align-self: flex-end;
+ background-color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.coment-img {
+  color: black !important;
+  padding: 10px;
+   width: 250px; /* Ancho del div */
+  height: 100px; /* Altura del div */
+  border-radius: 10px;
+  overflow: hidden; /* Oculta el contenido que se desborda del div */
+  white-space: pre-wrap; /* Permite saltos de línea y preserva espacios en blanco */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos (...) al final del texto desbordado */
+}
+
+.heart-icon {
+  fill: white;
+  align-self: flex-start;
+}
+
+.corazon-publicacion {
+  align-self: flex-end;
+  position: relative;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+}
+
+.button-container-publicacion {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.button-container-publicacion button {
+  width: 80%;
+  color: white;
+  margin-bottom: 12px;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #685aff;
+  box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
+}
+
+.div-a-container a:hover {
+  font-size: 18px;
+}
+
+    </style>
+  </head>
 <body>
-  
+  <nav th:replace="/template.fragments/navbar :: nav"> </nav>
   <img
   class="img-fondo"
   src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   alt="moda"
-/>
-
-    <nav
-    class="navbar container-fluid bg-dark border-bottom border-body"
-    data-bs-theme="dark"
-  >
-    <div class="container-fluid">
-      <a class="navbar-brand" href="http://localhost:8080/"
-        >Social Fashion
-        <img class="navbar_logo" src="../../static/img/logo.png" alt="logo" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-            Social Fashion
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-  
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a
-                th:if="${session.usuariosession == null}"
-                class="nav-link active"
-                aria-current="page"
-                th:href="@{/usuarios/login}"
-                >Iniciar Sesion</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                th:if="${session.usuariosession == null}"
-                class="nav-link"
-                th:href="@{/usuarios/registrar}"
-                >Registrarse</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Blog</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                th:href="@{/usuarios/lista}"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Usuarios
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" th:href="@{/usuarios/registrar}"
-                    >Registrar Usuario</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/usuarios/buscarpornombre}"
-                    >Buscar por nombre</a
-                  >
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex mt-3" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </nav>
-  
-
+/>    
 
 <div class="flex-container">
-<div class="item-card-perfil ">
+<div class="item-card-perfil container-fluid col-3">
   <div class="contenedor-de-datos-perfil">
   <div class="card-pefil-img-container">
-  <img class="card-perfil-img" src="https://media.c5n.com/p/23e83bbc00263816974509a0e7ca37e0/adjuntos/326/imagenes/000/045/0000045267/1200x675/smart/foto-perfil-facebook.png" alt="">
+  <img class="card-perfil-img" th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" alt="Foto perfil">
   </div>
  
   <div class="item-card-informacionContacto-container">
-  <h4>Mi Perfil</h4>
-<p class="item_parrafo">Nombre: Gustavo Rivero</p>
-<p class="item_parrafo">Email:  gustirivero@hotmail.com</p>
-</div>
+    <h4>Mi Perfil</h4>
+    <p class="item_parrafo"><span th:text="${usuarioPerfil.nombre}"></span></p>
+    <p class="item_parrafo"><span th:text="${usuarioPerfil.email}"></span></p>
+    <p class="item_parrafo"><span th:text="${usuarioPerfil.roles}"></span></p>
+  </div>
 <div class="corazon-container">
 <svg class="corazon-perfil" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
@@ -171,49 +283,39 @@
 </div>
 
 <div class="button-container">
-  <button>Modificar</button>
-  </div>
+  <a class="modificar-enlace" th:href="@{/usuarios/modificar/__${usuarioPerfil.idUsuario}__}">Modificar</a>
+</div>
+</div>
 </div>
 
-</div>
+<div th:each="publica : ${publicacionesUsuario}" class="item-card-perfil-publicacion">
+  <h4 th:text="${publica.titulo}"> Titulo Publicacion</h4>
 
-<div class="item-card-perfil-publicacion">
-
-  <h4> Titulo Publicacion</h4>
-<div class="img-publicacion-container">
-<img class="img-publicacion" src="../static/Imagenes/img1.jpg" alt="">
-
+  <div class="img-publicacion-container">
+  <img class="img-publicacion"
+  th:src="@{/imagen/publicacion/__${publica.idPublicacion}__}"
+  width="250"
+  />
+  <div class="corazon-container-publicacion like-button">
+    <svg class="corazon-publicacion" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
+    </svg>
+   </div>
 <div class="coment-container">    
- <p class="coment-img">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet sint quisquam consequatur non quam. Sint ipsum aut ducimus optio in quisquam ut ex esse, expedita quaerat, nihil ad, recusandae velit!</p>
+ <p th:text="${publica.contenido}" class="coment-img"></p>
 </div>
-<div class="corazon-container-publicacion like-button">
-  <svg class="corazon-publicacion" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
-    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
-  </svg>
  </div>
- </div>
-
-
-
  <div class="button-container-publicacion">
-  <button>Modificar</button>
+    <form th:action="@{'/publicacion/borrar/' + ${publica.idPublicacion}}"method="post">
+      <input type="hidden" name="publica.idPublicacion" th:value="${publica.idPublicacion}"/>
+      <button type="submit" class="button-container button">
+        Eliminar
+      </button>
+    </form>
  </div>
-
-
 </div>
 
-
-
-
-
-
-
-
-
-         <script src="../static/script/script.js"></script> 
-         <script src="../static/script/animacionesError.js"></script>            
-         <script src="../static/script/like.js"></script>     
-         <script src="../static/script/animacionExito.js"></script>
+          
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
