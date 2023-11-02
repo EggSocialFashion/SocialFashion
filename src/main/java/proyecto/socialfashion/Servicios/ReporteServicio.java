@@ -3,13 +3,12 @@ package proyecto.socialfashion.Servicios;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,7 @@ import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Estado;
 import proyecto.socialfashion.Enumeraciones.Tipo;
 import proyecto.socialfashion.Enumeraciones.TipoObjeto;
+import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Repositorios.ReporteRepositorio;
 
 @Service
@@ -35,9 +35,9 @@ public class ReporteServicio {
     private ReporteRepositorio reporteRepositorio;
     @Autowired
     private LikeServicio likeServicio;
-
-
-    // guardar una denuncia
+    @Autowired
+    private PublicacionRepositorio publicacionRepositorio;
+  
     @Transactional
     public boolean guardarReporte(String texto, String tipo, String tipoObjeto, String idObjeto, Usuario usuario) {
         // Valida que el tipo sea correcto(SPAM, CONTENIDO_OFENSIVO,
@@ -143,8 +143,7 @@ public class ReporteServicio {
         // Devuelve el reporte
         return reporte;
 
-    }
-
+    }   
 
     // lista de comentarios retortados
     @Transactional

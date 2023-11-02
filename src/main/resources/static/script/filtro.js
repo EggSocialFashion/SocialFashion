@@ -2,10 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const categoriaCheckboxes = document.querySelectorAll(".categoria");
   const diseinadoresSelect = document.getElementById("usuarios");
   const swiperContainer = document.querySelector(".mySwiper .swiper-wrapper"); // Contenedor del carrusel
-
   // Copia de seguridad de todos los elementos originales en el carrusel
   const originalDiseinadores = Array.from(swiperContainer.children);
-
   // Función para mostrar u ocultar elementos en función de las selecciones
   function filtrarLista() {
     const categoriaSeleccionada = Array.from(categoriaCheckboxes)
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (swiper) {
       swiper.destroy();
     }
-
     var swiper = new Swiper(".mySwiper", {
       effect: "coverflow",
       grabCursor: true,

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
@@ -15,5 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     loop: true,
   });
-
-})
+  const index = localStorage.getItem("indexpublicacion");
+  localStorage.setItem("indexswiper", swiper.activeIndex);
+  if (index) {
+    swiper.slideTo(index, 0);
+  }
+});
