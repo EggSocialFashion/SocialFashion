@@ -135,15 +135,12 @@ public class PublicacionControlador {
         }
          try {
              List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
-            modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            return"tendencias.html";
+             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
+             return"tendencias.html";
         } catch (Exception e) {
              modelo.addAttribute("error", "No hay publicaciones en tendencias ");
             return"tendencias.html";
-        }
-
-       
-    
+        }           
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -153,7 +150,6 @@ public class PublicacionControlador {
         System.out.println(logueado.toString());
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
-
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
                 if (publicacion.isEstado() == true) {
@@ -181,8 +177,7 @@ public class PublicacionControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
     public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-      
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");      
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 

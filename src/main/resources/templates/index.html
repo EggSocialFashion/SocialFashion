@@ -9,16 +9,16 @@
     <div th:if="${exito != null}" class="mensajeExito">
       <div class="card text-white bg-success mb-3 mt-3">
           <div class="card-body">
-              <h5 class="card-title">Éxito</h5>
-              <p class="card-text" th:text="${exito}"></p>
-          </div>    
+            <h5 class="card-title">Éxito</h5>
+            <p class="card-text" th:text="${exito}"></p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div
-      th:if="${error != null}"
-      class="card text-white bg-danger mb-3 mt-3 mensajeError"
-    >
+      <div
+        th:if="${error != null}"
+        class="card text-white bg-danger mb-3 mt-3 mensajeError"
+      >
         <div class="card-body">
           <h5 class="card-title">Error</h5>
           <p class="card-text" th:text="${error}"></p>
@@ -57,7 +57,11 @@
         <ul class="dropdown-menu dropdown-menu-dark">
           <li class="dropdown-item">
             <select class="form-control" name="usuarios" id="usuarios" multiple>
-                <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
+              <option
+                th:each="usuario : ${usuarios}"
+                th:value="${usuario.idUsuario}"
+                th:text="${usuario.nombre}"
+              ></option>
             </select>
           </li>
         </ul>      

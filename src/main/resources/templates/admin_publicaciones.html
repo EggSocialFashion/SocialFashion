@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head th:replace="/template.fragments/head :: head"> </head>
-<body>
-  
-  <nav th:replace="/template.fragments/navbar :: nav"> </nav>
-  <div
-  th:if="${error != null}"
-  class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <div class="card-body">
-    <h5 class="card-title">Error</h5>
-    <p class="card-text" th:text="${error}"></p>
-  </div>
-</div>
-
-<div th:if="${exito != null}" class="mensajeExito animate__animated animate__fadeInDown animate__faster">
-  <div class="card text-white bg-success mb-3 mt-3">
+  <head th:replace="/template.fragments/head :: head"> </head>
+  <body>
+    <nav th:replace="/template.fragments/navbar :: nav"></nav>
+    <div
+      th:if="${error != null}"
+      class="card text-white bg-danger mb-3 mt-3 mensajeError animate__animated animate__fadeInDown animate__faster"
+    >
       <div class="card-body">
+        <h5 class="card-title">Error</h5>
+        <p class="card-text" th:text="${error}"></p>
+      </div>
+    </div>
+
+    <div
+      th:if="${exito != null}"
+      class="mensajeExito animate__animated animate__fadeInDown animate__faster"
+    >
+      <div class="card text-white bg-success mb-3 mt-3">
+        <div class="card-body">
           <h5 class="card-title">Éxito</h5>
           <p class="card-text" th:text="${exito}"></p>
+        </div>
       </div>
-  </div>
-</div>
-  <div class="container-sm tabla-container">
-    <h3 class= "form-h3">Publicaciones Denunciados</h3>
-   
-    <div class="table-responsive">
+    </div>
+    <div class="container-sm tabla-container">
+      <h3 class="form-h3">Publicaciones Denunciados</h3>
+
+      <div class="table-responsive">
         <table class="table">
             <thead >
                 <tr>
@@ -64,6 +69,7 @@
                 </tr>
             </tbody>
         </table>
+      </div>
     </div>
     </div>
     <section th:replace="/template.fragments/sectionIcon :: section"></section>                  

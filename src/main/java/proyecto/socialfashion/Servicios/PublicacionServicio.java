@@ -1,5 +1,4 @@
 package proyecto.socialfashion.Servicios;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import proyecto.socialfashion.Entidades.Imagen;
-import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Categoria;
@@ -22,10 +20,11 @@ import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 public class PublicacionServicio {
 
     @Autowired
-    private PublicacionRepositorio publicacionRepositorio;
-
+     PublicacionRepositorio publicacionRepositorio;
     @Autowired
-    private ImagenServicio imagenServicio;
+     ImagenServicio imagenServicio;
+    @Autowired
+     LikeServicio likesServicio;
 
     @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
@@ -62,47 +61,44 @@ public class PublicacionServicio {
     public Publicacion getOne(String idPublicacion) {
         return publicacionRepositorio.getOne(idPublicacion);
     }
+       
     
-   
-
-    @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionOrdenadasPorLikes() {
-
         List<Publicacion> listaPublicacion = new ArrayList<>();
         listaPublicacion = publicacionRepositorio.buscarPublicacionPorFechaDeAlta(LocalDateTime.now());
-
         // Se crea una collection sort y se ordena por likes de noticia
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
-            public int compare(Publicacion publicacion1, Publicacion publicacion2) {
+            public int compare(Publicacion publicacion1, Publicacion publicacion2) {                
                 int likes1 = publicacion1.getLikes().size();
-                int likes2 = publicacion2.getLikes().size();
-                int comparandoLikes =  Integer.compare(likes2, likes1);
-                
+                int likes2 = publicacion2.getLikes().size();                            
+                int comparandoLikes =  Integer.compare(likes2, likes1); 
                 if (comparandoLikes != 0) {
                     return comparandoLikes;
                 } else {
                     return publicacion2.getAlta().compareTo(publicacion1.getAlta());
-                }
-                
-                
+                }                                
             }
         });
-
        //Creo una nueva lista para verificar que esten en alta  todas las publicaciones en el caso que alguna sea dada de baja por el admin
-        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);
-        
-        return listaVerificada;
+        List<Publicacion> listaVerificada = VerificarEstado(listaPublicacion);        
+        if (listaVerificada.size() < 10){
+            return listaVerificada;
+        } else {        
+            listaPublicacion.clear();
+            for (int i = 0; i < 10; i++) {                
+                listaPublicacion.add(listaVerificada.get(i));              
+            }            
+            return listaPublicacion;
+        }        
     }
- 
-   
+
+    
     @Transactional(readOnly = true)
-    public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta() {
-        
+    public List<Publicacion> listaPublicacionOrdenadasPorFechaAlta(){        
         //Creo lista para guardar las publicaciones
         List<Publicacion> listaPublicacion = new ArrayList<>();
-        listaPublicacion = publicacionRepositorio.findAll();
-        
+        listaPublicacion = publicacionRepositorio.findAll();        
         //Ordeno las publicaciones por fecha de Alta con el coleccionsSort
         Collections.sort(listaPublicacion, new Comparator<Publicacion>() {
             @Override
@@ -120,6 +116,9 @@ public class PublicacionServicio {
         return listaVerificada;
     }
     
+
+
+
     @Transactional(readOnly = true)
     public List<Publicacion> listaPublicacionGuest() {
         //Creo lista para guardar las publicaciones
