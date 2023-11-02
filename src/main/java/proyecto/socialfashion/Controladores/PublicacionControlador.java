@@ -1,12 +1,9 @@
 package proyecto.socialfashion.Controladores;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
@@ -28,6 +24,7 @@ import proyecto.socialfashion.Excepciones.Excepciones;
 import proyecto.socialfashion.Servicios.ComentarioServicio;
 import proyecto.socialfashion.Servicios.LikeServicio;
 import proyecto.socialfashion.Servicios.PublicacionServicio;
+import proyecto.socialfashion.Servicios.ReporteServicio;
 import proyecto.socialfashion.Servicios.UsuarioServicio;
 
 @Controller
@@ -46,6 +43,10 @@ public class PublicacionControlador {
     @Autowired 
     private LikeServicio likeServicio;
 
+    @Autowired
+    private ReporteServicio reporteServicios;
+
+
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
@@ -58,6 +59,7 @@ public class PublicacionControlador {
         // HTML con la pagina en donde se encuentran las publicaciones
         return "index.html";
     }
+ 
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacionesSocialFashion")
@@ -68,8 +70,7 @@ public class PublicacionControlador {
         }
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionOrdenadasPorFechaAlta();
         List<Usuario> usuarios = usuarioServicio.diseniadores();
-        List<Like> likes = likeServicio.likesUsuarios(logueado);
-        
+        List<Like> likes = likeServicio.likesUsuarios(logueado);        
         modelo.addAttribute("likes", likes); 
         modelo.addAttribute("usuarios",usuarios);
         modelo.addAttribute("logueado", logueado);
@@ -131,28 +132,32 @@ public class PublicacionControlador {
         }
          try {
              List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
-            modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-            return"tendencias.html";
+
+             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
+             return"tendencias.html";
         } catch (Exception e) {
              modelo.addAttribute("error", "No hay publicaciones en tendencias ");
             return"tendencias.html";
-        }
+        }           
 
-       
-    
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
-    public String mostrarPublicacion(@PathVariable String id, Model modelo) {
-
+    public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        System.out.println(logueado.toString());
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
-
             if (respuesta.isPresent()) {
                 Publicacion publicacion = respuesta.get();
                 if (publicacion.isEstado() == true) {
                     List<Comentario> comentarios = comentarioServicio.comentarioPorPublicacion(id);
+                    Integer totalLike = likeServicio.totalLike(id);
+                    Integer totalComentarios = comentarioServicio.totalComentariosPublicacion(id);
+                    modelo.addAttribute("logueado", logueado);
+                    modelo.addAttribute("totalLike",totalLike);
+                    modelo.addAttribute("totalComentarios", totalComentarios);
                     modelo.addAttribute("publicacion", publicacion);
                     modelo.addAttribute("comentarios", comentarios);
                 } else {
@@ -171,7 +176,7 @@ public class PublicacionControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/publicacion/borrar/{id}")
     public String borrarPublicacion(@PathVariable String id, Model modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");      
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
 
@@ -189,25 +194,19 @@ public class PublicacionControlador {
             modelo.addAttribute("error", ex.getMessage());
             return "error.html";
         }
-        
+
         return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
-
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-     @GetMapping("/publicaciones/usuario")
-    public String publicacionesPorUusario(HttpSession session, ModelMap modelo) {
+    
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/estadisticas")
+    public String estadisticasUsuario(HttpSession session, Model modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        try{
-            List<Publicacion> publicacionesUsuario = publicacionServicio.listadoPublicacionesPorUsuario(usuario);
-            modelo.addAttribute("publicacionesUsuario",publicacionesUsuario);
-            return "perfilDeUsuario.html";
 
-        }catch (Exception e) {
-            modelo.addAttribute("error",e.getMessage());
-            return "perfilDeUsuario.html";
-
-        }
-
+        List<Object[]> listado = reporteServicios.estadisticaPorUsuario(usuario);
+        modelo.addAttribute("listado", listado);
+        return "estadisticas.html";
     }
-
+   
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="/template.fragments/head :: head"> </head>
+  <body>
+    <nav th:replace="/template.fragments/navbar :: nav"></nav>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div
+          th:each="publicaciones : ${listaPorTendencias}"
+          class="swiper-slide"
+          th:attr="data-publicacion=${publicacion}"
+        >
+          <div data-publicacion="${publicaciones}">
+            <h4 th:text="${publicaciones.titulo}"></h4>
+            <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+              <img
+                th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}"
+                alt="Img de la publicacion"
+              />
+            </a>
+            <p
+              class="bg-white bg-opacity-75 text-black"
+              th:text="${publicaciones.contenido}"
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section th:replace="/template.fragments/sectionIcon :: section"></section>
+
+    <footer th:replace="/template.fragments/footer :: footer"></footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

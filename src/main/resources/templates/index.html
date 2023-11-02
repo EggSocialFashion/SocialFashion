@@ -1,159 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/template.fragments/head :: head"> </head>
+  <head th:replace="/template.fragments/head :: head"> 
+  </head>
+  <body>  
 
-    <body>
+  <nav th:replace="/template.fragments/navbar :: nav"> </nav>
+  <section>
+    <div th:if="${exito != null}" class="mensajeExito">
+      <div class="card text-white bg-success mb-3 mt-3">
+          <div class="card-body">
+            <h5 class="card-title">Éxito</h5>
+            <p class="card-text" th:text="${exito}"></p>
+          </div>
+        </div>
+      </div>
 
-        <nav th:replace="/template.fragments/navbar :: nav"> </nav>
-        <section>
-            <div th:if="${exito != null}" class="mensajeExito">
-                <div class="card text-white bg-success mb-3 mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Éxito</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>    
-                </div>
+      <div
+        th:if="${error != null}"
+        class="card text-white bg-danger mb-3 mt-3 mensajeError"
+      >
+        <div class="card-body">
+          <h5 class="card-title">Error</h5>
+          <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="search-txt justify-content-center">
+        <i class="fa-brands fa-pinterest"> </i>
+        <h2> Diseños de autores </h2>
+    </div>
+  </section>   
+
+  <section class="diseños container-fluid">        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label text-black">INDUMENTARIA</label>
+        <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
+    </div>
+    <div class="form-check form-check-inline">
+        <label class="form-check-label text-black">MAQUILLAJE</label>
+        <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
+    </div>        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label text-black">CALZADO</label>
+        <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
+    </div>        
+    <div class="form-check form-check-inline">
+        <label class="form-check-label text-black">MARROQUINERIA</label>
+        <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
+    </div>        
+    <div class="btn-group dropup dropdown-diseñadores-container">
+        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores text-black" data-bs-toggle="dropdown" aria-expanded="false">
+            Diseñadores:
+        </button>              
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li class="dropdown-item">
+            <select class="form-control" name="usuarios" id="usuarios" multiple>
+              <option
+                th:each="usuario : ${usuarios}"
+                th:value="${usuario.idUsuario}"
+                th:text="${usuario.nombre}"
+              ></option>
+            </select>
+          </li>
+        </ul>      
+        <div>
+          <div th:if="${logueado != null}">
+            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro text-black">Quitar Filtro</a>
+          </div>            
+          <div th:if="${logueado == null}">
+            <a th:href="@{/}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
+          </div>
+        </div>
+      </div>                
+  </section>     
+  <div class="swiper mySwiper container-fluid">        
+      <div class="swiper-wrapper container-fluid">         
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
+           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
+          <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
+
+          <div class="a-img-corazon-container">
+            <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+                <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+            </a>   
+
+            <div th:if="${logueado !=null}" class="like-button-dos container-corazon" onclick="toggleLike(this)">
+              <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
+                <button type="submit" class="like-button" th:attr="data-publicacion-id=${publicaciones.idPublicacion}, data-usuario-id=${logueado.idUsuario}">
+                  <div id="corazon-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                      <path th:classappend="${liked} ? 'heart-icon-liked' : 'heart-icon'" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z " class="heart-icon" />
+                    </svg>
+                  </div>
+                </button>
+              </form>
             </div>
-
-            <div
-                th:if="${error != null}"
-                class="card text-white bg-danger mb-3 mt-3 mensajeError"
-                >
-                <div class="card-body">
-                    <h5 class="card-title">Error</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
+                              
+            <div class="container-p-con-texto">
+              <p class="bg-white bg-opacity-75 text-black p-con-texto" th:text="${publicaciones.contenido}"></p>
             </div>
-
-        </section>
-        <section class="container">
-            <div class="search-txt">
-                <i class="fa-brands fa-pinterest"> </i>
-                <h2> Diseños de autores </h2>
-            </div>
-        </section>
-
-
-
-        <section class="diseños container">
-            <div class="filters">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">INDUMENTARIA</label>
-                    <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">MAQUILLAJE</label>
-                    <input type="checkbox" name="tipo" value="MAQUILLAJE" class="categoria">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">CALZADO</label>
-                    <input type="checkbox" name="tipo" value="CALZADO" class="categoria">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">MARROQUINERIA</label>
-                    <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
-                </div>
-                <div class="btn-group dropup">
-                    <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        DISEÑADORES:
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item">
-                            <select class="form-control" name="usuarios" id="usuarios" multiple>
-                                <option th:each="usuario : ${usuarios}" th:value="${usuario.idUsuario}" th:text="${usuario.nombre}"></option>
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <div th:if="${logueado != null}">
-                        <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary">Quitar Filtro</a>
-                    </div>
-                    <div th:if="${logueado == null}">
-                        <a th:href="@{/}" class="btn btn-secondary">Quitar Filtro</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide"  th:attr="data-publicacion=${publicacion}">
-                        <div data-publicacion="${publicaciones}">
-                        <h4 th:text="${publicaciones.titulo}"></h4>
-                        <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-                            <img th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
-                        </a>      
-                        
-                        <div class="likes-lista" th:attr="data-likes=${likes}">
-                        <form th:action="@{/likes/GenerandoLikes/__${publicaciones.idPublicacion}__}" method="POST">
-                           <div id="botonLike__${publicacion.idPublicacion}">
-                <!-- Aquí se agregará el contenido generado -->
-                           </div>
-                        </form> 
-                        </div>
-
-                        <p class="bg-white bg-opacity-75 text-black" th:text="${publicaciones.contenido}"></p>  
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-
-        </section>
-
-
-        <section class="icons container">
-            <i class="fa-solid fa-house"></i>
-            <i class="fa-solid fa-fire-flame-curved"></i>
-            <i class="fa-solid fa-folder"></i>
-            <a th:href="@{/registrarPubli}"> <i class="fa-solid fa-camera-retro"></i></a>
-        </section>
-
-
-        <div class="container">
-            <footer class="py-5">
-                <div class="row">
-                    <div class="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-5 offset-md-1 mb-3">
-                        <form>
-                            <h5>Subscribe to our newsletter</h5>
-                            <p>Monthly digest of what's new and exciting from us.</p>
-                            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label for="newsletter1" class="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                                <button class="btn btn-primary" type="button">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>  
-                    <div class="container">
-                        <footer class="py-3 my-4">
-                            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Hogar</font></font></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Características</font></font></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Precios</font></font></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Preguntas frecuentes</font></font></a></li>
-                                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Acerca de</font></font></a></li>
-                            </ul>
-                            <p class="text-center text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023 Compañía, Inc.</font></font></p>
-                        </footer>
-                    </div>
-                    <script  src="../static/script/filtro.js"></script>
-                    <script src="../static/script/script.js"></script>
-                    <script src="../static/script/animacionesError.js"></script>            
-                    <script src="../static/script/like.js"></script>     
-                    <script src="../static/script/animacionExito.js"></script> 
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-                    </body>
-                    </html>
+          </div>
+        </div>
+      </div>
+    </div>                
+    <section th:replace="/template.fragments/sectionIcon :: section"></section>                  
+    <footer th:replace="/template.fragments/footer :: footer"> </footer>                  
+          <script  src="../static/script/filtro.js"></script>
+         <script src="../static/script/script.js"></script> 
+         <script src="../static/script/animacionesError.js"></script>            
+         <script src="../static/script/like.js"></script>     
+         <script src="../static/script/animacionExito.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,7 +1,5 @@
-/*
 document.addEventListener("DOMContentLoaded", function () {
-  var swiper;
-  swiper = new Swiper(".mySwiper", {
+  var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,
     timeline: true,
@@ -16,4 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     loop: true
   });
-});*/
+  const index = localStorage.getItem("indexpublicacion");
+  localStorage.setItem("indexswiper", swiper.activeIndex);
+  if (index) {
+    swiper.slideTo(index, 0);
+  }
+});

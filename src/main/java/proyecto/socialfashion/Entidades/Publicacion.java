@@ -43,7 +43,6 @@ public class Publicacion {
     @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
     
-   
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes;
    
@@ -128,9 +127,7 @@ public class Publicacion {
         this.likes = likes;
     }
 
-
-
-
+    
     public Usuario getUsuario() {
         return usuario;
     }

@@ -25,6 +25,7 @@
 
 .item-card-perfil {
   background-image: url("https://img.freepik.com/foto-gratis/resumen-fondo-cubos-negros_1123-401.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1697587200&semt=ais");
+  background-color: #685aff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,12 +84,12 @@
   font-size: 13px;
 }
 
-/*.button-container {
+.button-container {
   display: flex;
   justify-content: space-around;
-}*/
+}
 
-/*.button-container button {
+.button-container button {
   margin-top: 32px;
   border: none;
   color: white;
@@ -98,7 +99,7 @@
   border-radius: 4px;
   background-color: #685aff;
   box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-}*/
+}
 
 .item-card-perfil-publicacion {
   display: flex;
@@ -166,7 +167,7 @@
   height: 28px;
 }
 
-/*.button-container-publicacion {
+.button-container-publicacion {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
@@ -174,9 +175,9 @@
   border: none;
   padding: 6px;
   border-radius: 4px;
-}*/
+}
 
-/*.button-container-publicacion button {
+.button-container-publicacion button {
   color: white;
   margin-bottom: 12px;
   border: none;
@@ -184,7 +185,7 @@
   border-radius: 4px;
   background-color: #685aff;
   box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-}*/
+}
 
 .div-a-container a:hover {
   font-size: 18px;

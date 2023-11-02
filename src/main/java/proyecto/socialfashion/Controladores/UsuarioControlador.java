@@ -63,7 +63,8 @@ public class UsuarioControlador {
             if (respuesta.isPresent()) {
                 Usuario usuarioPerfil = respuesta.get();
                 model.addAttribute("usuarioPerfil", usuarioPerfil);
-                System.out.println(usuarioPerfil);
+                List<Publicacion> publicacionesUsuario = publicacionServicio.listadoPublicacionesPorUsuario(usuarioPerfil);
+                model.addAttribute("publicacionesUsuario",publicacionesUsuario);
                 return "perfilDeUsuario.html";
             } else {
                 model.addAttribute("error", "Error en perfil de usuario");
@@ -150,7 +151,7 @@ public class UsuarioControlador {
     public String modificarUsuario(@PathVariable String idUsuario, ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if (usuario.getIdUsuario().toString().equals(idUsuario)) {
+        if (usuario.getIdUsuario().toString().equals(idUsuario)||usuario.getRoles().toString().equals(Roles.ADMIN.toString())) {
             modelo.put("usuario", usuarioServicio.getOne(idUsuario));
             return "usuario_modificar.html";
         } else {
@@ -167,7 +168,7 @@ public class UsuarioControlador {
             String password2, Roles roles, ModelMap modelo) {
         try {
             usuarioServicio.actualizar(archivo, idUsuario, nombre, email, password, password2, roles);
-            return "redirect:../lista";
+            return "redirect:/publicacionesSocialFashion";
         } catch (Excepciones ex) {
             modelo.put("error", ex.getMessage());
             return "index.html";

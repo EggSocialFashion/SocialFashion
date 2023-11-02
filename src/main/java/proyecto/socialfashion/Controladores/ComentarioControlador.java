@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -102,13 +101,17 @@ public class ComentarioControlador {
                 modelo.addAttribute("error", "Comentario inexistente");
                 return "index.html";
             }
-        } catch (Exception e) {
-            modelo.addAttribute(e.getMessage());
-            return "index.html";
-        }
+       
+} catch (Exception e) {
+        modelo.addAttribute(e.getMessage());
+        return "index.html";
     }
 
+    }
     // buscar lista de comentarios
+      
+
+ 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/comentarios/{idPublicacion}")
     public String publicacionComentarios(@PathVariable String idPublicacion, Model modelo) {

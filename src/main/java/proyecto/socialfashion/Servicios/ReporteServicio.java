@@ -1,12 +1,14 @@
 package proyecto.socialfashion.Servicios;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,9 @@ import proyecto.socialfashion.Entidades.Publicacion;
 import proyecto.socialfashion.Entidades.Reporte;
 import proyecto.socialfashion.Entidades.Usuario;
 import proyecto.socialfashion.Enumeraciones.Estado;
-import proyecto.socialfashion.Enumeraciones.Roles;
 import proyecto.socialfashion.Enumeraciones.Tipo;
 import proyecto.socialfashion.Enumeraciones.TipoObjeto;
+import proyecto.socialfashion.Repositorios.PublicacionRepositorio;
 import proyecto.socialfashion.Repositorios.ReporteRepositorio;
 
 @Service
@@ -31,9 +33,11 @@ public class ReporteServicio {
     private PublicacionServicio publicacionServicio;
     @Autowired
     private ReporteRepositorio reporteRepositorio;
-
-
-    // guardar una denuncia
+    @Autowired
+    private LikeServicio likeServicio;
+    @Autowired
+    private PublicacionRepositorio publicacionRepositorio;
+  
     @Transactional
     public boolean guardarReporte(String texto, String tipo, String tipoObjeto, String idObjeto, Usuario usuario) {
         // Valida que el tipo sea correcto(SPAM, CONTENIDO_OFENSIVO,
@@ -139,8 +143,7 @@ public class ReporteServicio {
         // Devuelve el reporte
         return reporte;
 
-    }
-
+    }   
 
     // lista de comentarios retortados
     @Transactional
@@ -265,5 +268,27 @@ public class ReporteServicio {
         return conteoPorIdObjeto;
 
     }
-    
+    @Transactional
+    public List<Object[]> estadisticaPorUsuario(Usuario usuario){
+        List<Publicacion> publicaciones = publicacionServicio.listadoPublicacionesPorUsuario(usuario);
+        List<Object[]> publicacionConLikesYComentarios = new ArrayList<>();
+        for (Publicacion publicacion : publicaciones) {
+            
+            int likes = likeServicio.totalLike(publicacion.getIdPublicacion());
+            int comentarios = comentarioServicio.totalComentariosPublicacion(publicacion.getIdPublicacion());
+            Object[] publicacionaux ={ publicacion, likes, comentarios};
+            publicacionConLikesYComentarios.add(publicacionaux);
+            
+        }
+        Collections.sort(publicacionConLikesYComentarios, (p1, p2) -> {
+            LocalDateTime fecha1 = ((Publicacion) p1[0]).getAlta();
+            LocalDateTime fecha2 = ((Publicacion) p2[0]).getAlta();
+            return fecha2.compareTo(fecha1);
+        });
+        return publicacionConLikesYComentarios;
+        
+
+
+
+    }
 }
