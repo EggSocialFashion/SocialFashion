@@ -41,6 +41,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 .img-fondo {
   display: flex;
   position: absolute;
@@ -49,15 +50,9 @@
 }
 
 .flex-container {
-  padding: 10px;
-  display: flex;
+  padding: 4px;
+  gap: 10px;
   position: relative;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: start;
-  margin: 30px;
-  gap: 24px;
-
 }
 
 .item-card-perfil {
@@ -153,10 +148,9 @@
 
 .item-card-perfil-publicacion {
   display: flex;
-  max-width: 400px;
+  justify-content: center;
+  max-width: 300px;
   max-height: 455px;
-  padding: 10px;
-  flex-direction: column;
   background-color: white;
   border: 1px solid black;
   box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
@@ -169,9 +163,16 @@ color: white;
 background-color: black;
 }
 
-.item-card-perfil-publicacion h4 {
+.item-card-perfil-publicacion a {
+  color: #000;
+  text-decoration: none;
   text-align: center;
   margin-top: 8px;
+}
+
+
+.item-card-perfil-publicacion a:hover {
+color: white;
 }
 
 
@@ -238,7 +239,6 @@ display: flex;
 }
 
 .button-container-publicacion button {
-  width: 80%;
   color: white;
   margin-bottom: 12px;
   border: none;
@@ -262,18 +262,19 @@ display: flex;
   alt="moda"
 />    
 
-<div class="flex-container">
-<div class="item-card-perfil container-fluid col-3">
+<div class="flex-container container-fluid row animate__animated animate__bounce">
+
+  <div class="item-card-perfil container-fluid col-3">
   <div class="contenedor-de-datos-perfil">
   <div class="card-pefil-img-container">
     <img th:src="@{/imagen/usuarios/__${usuarioPerfil.idUsuario}__}" onerror="this.onerror=null;this.src='../../static/img/perfil.png';" width="250" alt="Foto perfil">
   </div>
  
-  <div class="item-card-informacionContacto-container">
+  <div class="item-card-informacionContacto-container container">
     <h4>Mi Perfil</h4>
-    <p class="item_parrafo"><span th:text="${usuarioPerfil.nombre}"></span></p>
-    <p class="item_parrafo"><span th:text="${usuarioPerfil.email}"></span></p>
-    <p class="item_parrafo"><span th:text="${usuarioPerfil.roles}"></span></p>
+    <p class="item_parrafo "><span th:text="${usuarioPerfil.nombre}"></span></p>
+    <p class="item_parrafo "><span th:text="${usuarioPerfil.email}"></span></p>
+    <p class="item_parrafo "><span th:text="${usuarioPerfil.roles}"></span></p>
   </div>
 <div class="corazon-container">
 <svg class="corazon-perfil" id="corazon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
@@ -288,12 +289,12 @@ display: flex;
 </div>
 </div>
 
-<div th:each="publica : ${publicacionesUsuario}" class="item-card-perfil-publicacion">
-  <a th:href="@{/publicacion/__${publica.idPublicacion}__}">
+<div th:each="publica : ${publicacionesUsuario}" class="item-card-perfil-publicacion container col">
+  <a  th:href="@{/publicacion/__${publica.idPublicacion}__}">
     
       <h4 th:text="${publica.titulo}" clas="text-decoration-none"> Titulo Publicacion</h4>
 
-      <div class="img-publicacion-container">
+      <div class="img-publicacion-container container">
         <img class="img-publicacion" th:src="@{/imagen/publicacion/__${publica.idPublicacion}__}" width="250"   />
         <div class="coment-container">    
         <p th:text="${publica.contenido}" class="coment-img"></p>

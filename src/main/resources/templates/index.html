@@ -101,6 +101,14 @@
             >
           </div>
         </div>
+<<<<<<< HEAD
+      </div>                
+  </section>     
+  <div class="swiper mySwiper container-fluid ">        
+      <div class="swiper-wrapper container-fluid ">         
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide " 
+           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
+=======
       </div>
     </section>
     <div class="swiper mySwiper container-fluid">
@@ -110,16 +118,22 @@
           class="swiper-slide"
           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}"
         >
+>>>>>>> 800cb30b323109b7e78a94768e18a696640c675b
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
 
-          <div class="a-img-corazon-container">
+          <div class="a-img-corazon-container ">
             <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
+<<<<<<< HEAD
+                <img class="img-swiper "  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+            </a>   
+=======
               <img
                 class="img-swiper"
                 th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}"
                 alt="Img de la publicacion"
               />
             </a>
+>>>>>>> 800cb30b323109b7e78a94768e18a696640c675b
 
             <div
               th:if="${logueado !=null}"
