@@ -25,6 +25,7 @@
 
 .item-card-perfil {
   background-image: url("https://img.freepik.com/foto-gratis/resumen-fondo-cubos-negros_1123-401.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1697587200&semt=ais");
+  background-color: #685aff;
   display: flex;
   flex-direction: column;
   align-items: center;

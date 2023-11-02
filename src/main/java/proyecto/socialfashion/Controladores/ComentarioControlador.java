@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

@@ -4,88 +4,6 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head th:replace="/template.fragments/head :: head"> </head>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    .navbar_logo {
-      width: 36px;
-      border-radius: 50%;
-      filter: opacity(0.8);
-    }
-
-    .img-fondo {
-      width: 100%;
-      min-height: 100vh;
-      object-fit: cover;
-      position: absolute;
-    }
-
-    .login_2 {
-      position: relative; /* Ajusta este valor según tus necesidades */
-      margin-top: 24px;
-      height: auto;
-      min-width: 352px;
-      padding: 20px;
-      border-radius: 10px;
-      background: #ffffff;
-      box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-      text-align: center;
-      z-index: 150;
-    }
-
-    .login-form-2 {
-      display: grid;
-      gap: 20px;
-    }
-
-    .login-form-2 > input,
-    .login-form-2 > button {
-      height: 42px;
-      width: 100%;
-      outline: none;
-      padding: 0;
-      border-radius: 10px;
-      font-family: inherit;
-    }
-
-    .login-form-2 > input {
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid #685aff;
-      box-shadow: 0px 2px 4px 0px rgb(54, 54, 54);
-      opacity: 0.8;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    .login-form-2 > input:hover {
-      border-bottom: 3px solid #4e3eff;
-    }
-
-    .login-form-2 > input:hover {
-      height: 50px;
-    }
-
-    .login-form-2 > button {
-      cursor: pointer;
-      height: 46px;
-      background: #685aff;
-      color: #f9f9f9;
-      border: none;
-      box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    .login-form-2 > button:hover {
-      background: #4e3eff;
-    }
-  </style>
   <body>
     <nav th:replace="/template.fragments/navbar :: nav"></nav>
     <div class="message-container">
@@ -109,28 +27,70 @@
       </div>
     </div>
 
-    <div class="form-group my-3" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+    <div class="form-containerr">
       <h3 class="card-title">Formulario de Denuncia</h3>
       <form th:action="@{/reportar}" method="POST">
-        <textarea name="texto" id="texto" class="input-field" placeholder="Texto de la denuncia" style="resize: vertical; width: 100%; font-size: 23px"></textarea>
+        <textarea
+          name="texto"
+          id="texto"
+          class="input-field"
+          placeholder="Texto de la denuncia"
+          style="resize: vertical; width: 100%; font-size: 23px"
+        ></textarea>
         <select id="tipo" name="tipo" class="input-field">
-            <option value="SPAM">SPAM</option>
-            <option value="CONTENIDO_OFENSIVO">CONTENIDO OFENSIVO</option>
-            <option value="INCUMPLIMIENTO_DE_REGLAS">INCUMPLIMIENTO DE REGLAS</option>
+          <option value="SPAM">SPAM</option>
+          <option value="CONTENIDO_OFENSIVO">CONTENIDO OFENSIVO</option>
+          <option value="INCUMPLIMIENTO_DE_REGLAS">
+            INCUMPLIMIENTO DE REGLAS
+          </option>
+        </select>
+        <input type="hidden" name="tipoObjeto" th:value="${tipoObjeto}" />
+        <input type="hidden" name="idObjeto" th:value="${idObjeto}" />
+        <input type="submit" value="Denunciar" class="btnn" />
+      </form>
+      <div>
+        <p th:text="${mensaje}"></p>
+      </div>
+    </div>
+    <!-- <div
+      class="form-group my-3"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      "
+    >
+      <h3 class="card-title">Formulario de Denuncia</h3>
+      <form th:action="@{/reportar}" method="POST">
+        <textarea
+          name="texto"
+          id="texto"
+          class="input-field"
+          placeholder="Texto de la denuncia"
+          style="resize: vertical; width: 100%; font-size: 23px"
+        ></textarea>
+        <select id="tipo" name="tipo" class="input-field">
+          <option value="SPAM">SPAM</option>
+          <option value="CONTENIDO_OFENSIVO">CONTENIDO OFENSIVO</option>
+          <option value="INCUMPLIMIENTO_DE_REGLAS">
+            INCUMPLIMIENTO DE REGLAS
+          </option>
         </select>
         <input type="hidden" name="tipoObjeto" th:value="${tipoObjeto}" />
         <input type="hidden" name="idObjeto" th:value="${idObjeto}" />
         <input type="submit" value="Denunciar" class="btn" />
-    </form>
-    
-        <!--
+      </form>-->
+
+    <!--
         <select id="tipoObjeto" name="tipoObjeto" class="input-field">
           <option value="USUARIO">USUARIO</option>
           <option value="COMENTARIO">COMENTARIO</option>
           <option value="PUBLICACION">PUBLICACION</option>
         </select>
       -->
-      <!--
+    <!--
         <input
           type="text"
           name="idObjeto"
@@ -139,10 +99,8 @@
           placeholder="Código"
         />
       -->
-      <div>
-        <p th:text="${mensaje}"></p>
-      </div>
-    </div>
+      <section th:replace="/template.fragments/sectionIcon :: section"></section>                  
+
     <script src="../static/script/script.js"></script>
     <script src="../static/script/animacionesError.js"></script>
     <script src="../static/script/animacionExito.js"></script>

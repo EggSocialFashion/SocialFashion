@@ -4,8 +4,8 @@
   padding: 0;
 }
 
-body{
- background-image: url("https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); 
+body {
+  background-image: url("https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
 }
 
 
@@ -47,17 +47,18 @@ body{
   gap: 20px;
 }
 
-.login-form > input,
-.login-form > button {
+.form-group > input,
+.form-group > button {
   height: 42px;
   width: 100%;
   outline: none;
   padding: 0;
+  margin-top: 20px;
   border-radius: 10px;
   font-family: inherit;
 }
 
-.login-form > input {
+.form-group > input {
   background: transparent;
   border: none;
   border-bottom: 3px solid #685aff;
@@ -65,10 +66,22 @@ body{
   opacity: 0.8;
   font-size: 16px;
   text-align: center;
+<<<<<<< HEAD
   transition: height 1s;
+=======
 }
 
-.login-form > button {
+.form-group > input:hover {
+  border-bottom: 3px solid #4e3eff;
+}
+
+.form-group > input:hover {
+  height: 50px;
+  transition: height 0.2s;
+>>>>>>> f2ec38f8b3aab6146538731db9aee06d0f0473b4
+}
+
+.form-group > button {
   cursor: pointer;
   height: 46px;
   background: #685aff;
@@ -78,13 +91,13 @@ body{
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
-.login-form > button:hover {
+.form-group > button:hover {
   background: #4e3eff;
 }
 
-
-.footer-container{
+.footer-container {
   z-index: 120;
 }
