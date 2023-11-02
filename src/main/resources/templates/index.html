@@ -51,7 +51,7 @@
         <input type="checkbox" name="tipo" value="MARROQUINERIA" class="categoria">
     </div>        
     <div class="btn-group dropup dropdown-diseñadores-container">
-        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores text-black" data-bs-toggle="dropdown" aria-expanded="false">
+        <button for="usuarios" type="button" class="btn btn-secondary dropdown-toggle dropdown-diseñadores text-white" data-bs-toggle="dropdown" aria-expanded="false">
             Diseñadores:
         </button>              
         <ul class="dropdown-menu dropdown-menu-dark">
@@ -67,7 +67,7 @@
         </ul>      
         <div>
           <div th:if="${logueado != null}">
-            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro text-black">Quitar Filtro</a>
+            <a th:href="@{/publicacionesSocialFashion}" class="btn btn-secondary quitar-filtro text-white">Quitar Filtro</a>
           </div>            
           <div th:if="${logueado == null}">
             <a th:href="@{/}" class="btn btn-secondary quitar-filtro">Quitar Filtro</a>
