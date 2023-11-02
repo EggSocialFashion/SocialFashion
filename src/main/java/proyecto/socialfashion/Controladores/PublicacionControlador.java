@@ -1,11 +1,9 @@
 package proyecto.socialfashion.Controladores;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import proyecto.socialfashion.Entidades.Comentario;
 import proyecto.socialfashion.Entidades.Like;
 import proyecto.socialfashion.Entidades.Publicacion;
@@ -55,6 +52,7 @@ public class PublicacionControlador {
     @GetMapping("/")
     public String publicaciones(ModelMap modelo, HttpSession session) {
         List<Publicacion> publicacionesAlta = publicacionServicio.listaPublicacionGuest();
+        
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         List<Usuario> usuarios = usuarioServicio.diseniadores();
         modelo.addAttribute("usuarios",usuarios);
@@ -88,7 +86,7 @@ public class PublicacionControlador {
     @GetMapping("/registrarPubli")
     public String registrarPublicacion(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("usuario", logueado);
+        modelo.addAttribute("logueado", logueado);
 
         return "publicaciones.html";
 
@@ -133,8 +131,7 @@ public class PublicacionControlador {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario == null) {
             return "redirect:login.html";
-        }
-    
+        }    
         try {
             List<Object[]> publicacionesConLikeYComentarios = publicacionServicio.listaPublicacionOrdenadasPorLikes();
     
@@ -160,7 +157,7 @@ public class PublicacionControlador {
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        System.out.println(logueado.toString());
+        
         try {
             Optional<Publicacion> respuesta = publicacionServicio.buscarPublicacionPorId(id);
             if (respuesta.isPresent()) {
@@ -208,8 +205,11 @@ public class PublicacionControlador {
             modelo.addAttribute("error", ex.getMessage());
             return "error.html";
         }
+
         return "redirect:/usuarios/perfil/"+ usuario.getIdUsuario() ;
     }
+    
+    
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/estadisticas")
     public String estadisticasUsuario(HttpSession session, Model modelo) {
