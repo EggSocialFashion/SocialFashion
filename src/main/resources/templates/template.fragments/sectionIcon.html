@@ -5,7 +5,7 @@
   <a th:if="${session.usuariosession != null}" th:href="@{/tendencias}"
     ><i class="fa-solid fa-fire-flame-curved"></i
   ></a>
-    <a th:if="${session.usuariosession != null}" th:href="@{/usuarios/perfil/__${logueado.idUsuario}__}">
+    <a th:if="${session.usuariosession != null}" th:href="@{/usuarios/perfil/__${session.usuariosession.idUsuario}__}">
   <i class="fa-solid fa-folder"></i>
    </a>
   <a th:if="${session.usuariosession != null}" th:href="@{/registrarPubli}">
