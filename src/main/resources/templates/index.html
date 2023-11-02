@@ -29,12 +29,17 @@
 
     <section class="container">
       <div class="search-txt justify-content-center">
-        <i class="fa-brands fa-pinterest"> </i>
-        <h2>Diseños de autores</h2>
+        <i class="fa-brands fa-pinterest animate__animated animate__bounce">
+        </i>
+        <h2 class="animate__animated animate__lightSpeedInRight">
+          Diseños de autores
+        </h2>
       </div>
     </section>
 
-    <section class="diseños container-fluid">
+    <section
+      class="diseños container-fluid animate__animated animate__lightSpeedInLeft"
+    >
       <div class="form-check form-check-inline">
         <label class="form-check-label text-black">INDUMENTARIA</label>
         <input
@@ -88,27 +93,12 @@
           </li>
         </ul>
         <div>
-          <div th:if="${logueado != null}">
-            <a
-              th:href="@{/publicacionesSocialFashion}"
-              class="btn btn-secondary quitar-filtro text-white"
-              >Quitar Filtro</a
-            >
-          </div>
           <div th:if="${logueado == null}">
             <a th:href="@{/}" class="btn btn-secondary quitar-filtro"
               >Quitar Filtro</a
             >
           </div>
         </div>
-<<<<<<< HEAD
-      </div>                
-  </section>     
-  <div class="swiper mySwiper container-fluid ">        
-      <div class="swiper-wrapper container-fluid ">         
-        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide " 
-           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
-=======
       </div>
     </section>
     <div class="swiper mySwiper container-fluid">
@@ -118,22 +108,16 @@
           class="swiper-slide"
           th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}"
         >
->>>>>>> 800cb30b323109b7e78a94768e18a696640c675b
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
 
-          <div class="a-img-corazon-container ">
+          <div class="a-img-corazon-container">
             <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-<<<<<<< HEAD
-                <img class="img-swiper "  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
-            </a>   
-=======
               <img
-                class="img-swiper"
+                class="img-swiper animate__animated animate__zoomIn"
                 th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}"
                 alt="Img de la publicacion"
               />
             </a>
->>>>>>> 800cb30b323109b7e78a94768e18a696640c675b
 
             <div
               th:if="${logueado !=null}"
@@ -179,7 +163,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <section th:replace="/template.fragments/sectionIcon :: section"></section>
@@ -196,5 +179,3 @@
     ></script>
   </body>
 </html>
- 
-
