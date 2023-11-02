@@ -11,41 +11,8 @@
           <div class="card-body">
             <h5 class="card-title">Éxito</h5>
             <p class="card-text" th:text="${exito}"></p>
-<<<<<<< HEAD
-        </div>    
-    </div>
-  </div>
-
-  <div
-  th:if="${error != null}"
-  class="card text-white bg-danger mb-3 mt-3 mensajeError"
->
-  <div class="card-body">
-    <h5 class="card-title">Error</h5>
-    <p class="card-text" th:text="${error}"></p>
-  </div>
-</div>
-
-</section>
-    <section class="container">
-    <div class="search-txt justify-content-center">
-       <i class="fa-brands fa-pinterest animate__animated animate__wobble"> </i>
-      <h2 class="animate__animated animate__flash"> Diseños de autores </h2>
-     </div>
-    </section>
-
-   
-
-
-    <section class="diseños container-fluid animate__animated animate__lightSpeedInLeft">
-        
-      <div class="form-check form-check-inline">
-          <label class="form-check-label">INDUMENTARIA</label>
-          <input type="checkbox" name="tipo" value="INDUMENTARIA" class="categoria">
-=======
           </div>
         </div>
->>>>>>> f2ec38f8b3aab6146538731db9aee06d0f0473b4
       </div>
 
       <div
@@ -62,7 +29,7 @@
   <section class="container">
     <div class="search-txt justify-content-center">
         <i class="fa-brands fa-pinterest"> </i>
-        <h2> Diseños de autores </h2>
+        <h2 class=""> Diseños de autores </h2>
     </div>
   </section>   
 
@@ -108,15 +75,15 @@
         </div>
       </div>                
   </section>     
-  <div class="swiper mySwiper container-fluid">        
-      <div class="swiper-wrapper container-fluid">         
-        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide" 
+  <div class="swiper mySwiper container-fluid ">        
+      <div class="swiper-wrapper container-fluid ">         
+        <div th:each="publicaciones : ${publicacionesAlta}" class="swiper-slide " 
            th:attr="data-id=${publicaciones.idPublicacion}, data-tipo=${publicaciones.categoria}, data-usuario=${publicaciones.usuario.idUsuario}">
           <h4 class="h4-publi" th:text="${publicaciones.titulo}"></h4>
 
-          <div class="a-img-corazon-container">
+          <div class="a-img-corazon-container ">
             <a th:href="@{/publicacion/__${publicaciones.idPublicacion}__}">
-                <img class="img-swiper"  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
+                <img class="img-swiper "  th:src="@{/imagen/publicacion/__${publicaciones.idPublicacion}__}" alt="Img de la publicacion">
             </a>   
 
             <div th:if="${logueado !=null}" class="like-button-dos container-corazon" onclick="toggleLike(this)">

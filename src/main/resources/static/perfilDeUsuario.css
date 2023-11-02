@@ -15,10 +15,8 @@
 .flex-container {
   padding: 10px;
   display: flex;
-  position: relative;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: start;
+  position: relative;
   margin: 30px;
   gap: 24px;
 }
