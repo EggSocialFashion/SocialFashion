@@ -125,6 +125,7 @@ public class UsuarioControlador {
     @PostMapping("/buscarnombre")
     public String buscarnombre(@RequestParam String nombre, ModelMap modelo) throws Excepciones {
         // Usuario usuario = usuarioRepositorio.buscarPorNombre(nombre);
+        
         try {
             if (nombre.isEmpty()) {
                 modelo.addAttribute("error", "Debe ingresar un nombre");
