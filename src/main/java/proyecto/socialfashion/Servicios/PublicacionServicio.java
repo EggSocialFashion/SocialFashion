@@ -26,6 +26,8 @@ public class PublicacionServicio {
 
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ReporteServicio reporteServicio;
 
     @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
@@ -148,6 +150,7 @@ public class PublicacionServicio {
     public void BajaPublicacion(String idPublicacion) {
 
         Publicacion publicacion = publicacionRepositorio.getById(idPublicacion);
+        reporteServicio.bajaPublicacionReporte(publicacion);
         publicacion.setEstado(false);
 
     }
@@ -267,6 +270,29 @@ public class PublicacionServicio {
         }
         return listaFiltroDiseniador;
 
+    }
+
+    @Transactional
+    public void bajaPublicacionesDeUsuario(Usuario usuario){
+        List<Publicacion> publicaciones = listadoPublicacionesPorUsuario(usuario);
+
+        for (Publicacion publicacion : publicaciones) {
+            if(publicacion.isEstado()==true){
+                publicacion.setEstado(false);
+                publicacionRepositorio.save(publicacion);
+            }
+        }
+    }
+    @Transactional
+    public void altaPublicacionesDeUsuario(Usuario usuario){
+        List<Publicacion> publicaciones = publicacionRepositorio.findAll();
+
+        for (Publicacion publicacion : publicaciones) {
+            if(publicacion.isEstado()==false&&publicacion.getUsuario().equals(usuario)){
+                publicacion.setEstado(true);
+                publicacionRepositorio.save(publicacion);
+            }
+        }
     }
 
 }

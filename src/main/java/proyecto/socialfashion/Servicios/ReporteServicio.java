@@ -287,9 +287,41 @@ public class ReporteServicio {
             return fecha2.compareTo(fecha1);
         });
         return publicacionConLikesYComentarios;
+    }
+
+    @Transactional
+    public void bajaPublicacionReporte(Publicacion publicacion){
+        List<Reporte> reporte = reporteRepositorio.buscarPorIdObjeto(publicacion.getIdPublicacion());
+        for (Reporte reporte2 : reporte) {
+            if(reporte2.getTipoObjeto().equals(TipoObjeto.PUBLICACION)){
+            reporte2.setEstado(Estado.DESESTIMADO);
+            reporteRepositorio.save(reporte2);
+        }
+        }
         
+    }
+    @Transactional
+    public void bajaComentarioReporte(Comentario comentario){
+        List<Reporte> reporte = reporteRepositorio.buscarPorIdObjeto(comentario.getIdComentario());
+        for (Reporte reporte2 : reporte) {
+            if(reporte2.getTipoObjeto().equals(TipoObjeto.COMENTARIO)){
+            reporte2.setEstado(Estado.DESESTIMADO);
+            reporteRepositorio.save(reporte2);
+        }
+        }
+        
+    }
 
+    @Transactional
+    public void bajaUsuarioReporte(Usuario usuario){
+        List<Reporte> reporte = reporteRepositorio.buscarPorIdObjeto(usuario.getIdUsuario());
 
-
+        for (Reporte reporte2 : reporte) {
+            if(reporte2.getTipoObjeto().equals(TipoObjeto.USUARIO)){
+            reporte2.setEstado(Estado.DESESTIMADO);
+            reporteRepositorio.save(reporte2);
+        }
+        }
+        
     }
 }
