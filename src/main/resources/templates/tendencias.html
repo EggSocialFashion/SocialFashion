@@ -32,24 +32,24 @@
               class="card-title"
             ></h4>
             <div class="card-img-top d-flex justify-content-center">
-            <a
-              th:href="@{/publicacion/__${publicacionInfo[0].idPublicacion}__}"
-            >
-              <img
-                th:src="@{/imagen/publicacion/__${publicacionInfo[0].idPublicacion}__}"
-                alt="Img de la publicacion"
-                style="max-width: 100%; height: 300px; display: block"
-                class="img-fluid "
-              />
-            </a>
-          </div>
-          <div class="card-body">
-            <p
-              class="bg-white bg-opacity-75 text-black card-body"
-              th:text="${publicacionInfo[0].contenido}"
-              style="padding: 10px"
-            ></p>
-          </div>
+              <a
+                th:href="@{/publicacion/__${publicacionInfo[0].idPublicacion}__}"
+              >
+                <img
+                  th:src="@{/imagen/publicacion/__${publicacionInfo[0].idPublicacion}__}"
+                  alt="Img de la publicacion"
+                  style="max-width: 100%; height: 300px; display: block"
+                  class="img-fluid"
+                />
+              </a>
+            </div>
+            <div class="card-body">
+              <p
+                class="bg-white bg-opacity-75 text-black card-body"
+                th:text="${publicacionInfo[0].contenido}"
+                style="padding: 10px"
+              ></p>
+            </div>
             <div class="heart-iconn card-footer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
                 />
               </svg>
             </div>
-            <p style="color: white; font-weight: bold" class="card-footer">
+            <p class="l">
               Likes: <span th:text="${publicacionInfo[1]}"></span>
             </p>
           </div>
@@ -93,11 +93,18 @@
         font-size: 45px;
         transition: color 1s; /* Transición suave de 1 segundo para el color */
       }
-
+      .l {
+        color: #1602fc;
+        font-weight: bold;
+      }
+      .l:hover {
+        font-size: 20px;
+        animation: jump 0.5s infinite;
+      }
       .btn-grad:hover {
         animation: colorChange 1s infinite, jump 0.5s infinite; /* Aplicamos una animación suave de cambio de color al pasar el ratón y la repetimos infinitamente */
       }
-      
+
       @keyframes colorChange {
         0% {
           color: red;
