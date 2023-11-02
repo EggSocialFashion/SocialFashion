@@ -23,10 +23,13 @@ public class PublicacionServicio {
      PublicacionRepositorio publicacionRepositorio;
     @Autowired
      ImagenServicio imagenServicio;
+     @Autowired
+     private LikeServicio likeServicio;
+     @Autowired
+     private ComentarioServicio comentarioServicio;
     @Autowired
-     LikeServicio likesServicio;
-  @Autowired 
-  ComentarioServicio comentarioServicio;
+    private ReporteServicio reporteServicio;
+    
     @Transactional()
     public void CrearPublicacion(MultipartFile archivo,String titulo ,String contenido, LocalDateTime alta, String categoria, Usuario usuario) throws Excepciones {
 
@@ -83,7 +86,7 @@ public class PublicacionServicio {
         });
         List<Object[]> publicacionesConLikeYComentarios = new ArrayList<>();
         for (Publicacion publicacion : listaPublicacion) {
-            int likes = likesServicio.totalLike(publicacion.getIdPublicacion());
+            int likes = likeServicio.totalLike(publicacion.getIdPublicacion());
             int comentarios = comentarioServicio.totalComentariosPublicacion(publicacion.getIdPublicacion());
             Object[] publicacionaux = { publicacion, likes, comentarios };
             publicacionesConLikeYComentarios.add(publicacionaux);
@@ -149,6 +152,7 @@ public class PublicacionServicio {
     public void BajaPublicacion(String idPublicacion) {
 
         Publicacion publicacion = publicacionRepositorio.getById(idPublicacion);
+        reporteServicio.bajaPublicacionReporte(publicacion);
         publicacion.setEstado(false);
 
     }
@@ -268,6 +272,29 @@ public class PublicacionServicio {
         }
         return listaFiltroDiseniador;
 
+    }
+
+    @Transactional
+    public void bajaPublicacionesDeUsuario(Usuario usuario){
+        List<Publicacion> publicaciones = listadoPublicacionesPorUsuario(usuario);
+
+        for (Publicacion publicacion : publicaciones) {
+            if(publicacion.isEstado()==true){
+                publicacion.setEstado(false);
+                publicacionRepositorio.save(publicacion);
+            }
+        }
+    }
+    @Transactional
+    public void altaPublicacionesDeUsuario(Usuario usuario){
+        List<Publicacion> publicaciones = publicacionRepositorio.findAll();
+
+        for (Publicacion publicacion : publicaciones) {
+            if(publicacion.isEstado()==false&&publicacion.getUsuario().equals(usuario)){
+                publicacion.setEstado(true);
+                publicacionRepositorio.save(publicacion);
+            }
+        }
     }
 
 }

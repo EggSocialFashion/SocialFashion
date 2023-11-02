@@ -40,6 +40,8 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private PublicacionServicio publicacionServicio;
 
+    @Autowired
+    private ReporteServicio reporteServicio;
     @Transactional
     public void registrar(MultipartFile archivo, String nombre, String email, String password, String password2)
             throws Excepciones {
@@ -158,10 +160,13 @@ public class UsuarioServicio implements UserDetailsService {
             if (usuario.getEstado() == true) {
 
                 usuario.setEstado(false);
+                reporteServicio.bajaUsuarioReporte(usuario);
+                publicacionServicio.bajaPublicacionesDeUsuario(usuario);
 
             } else if (usuario.getEstado() == false) {
 
                 usuario.setEstado(true);
+                publicacionServicio.altaPublicacionesDeUsuario(usuario);
             }
         }
 

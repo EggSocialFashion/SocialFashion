@@ -19,7 +19,8 @@ public class ComentarioServicio {
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
 
-    
+    @Autowired
+    private ReporteServicio reporteServicio;
     
 
   
@@ -37,35 +38,18 @@ public class ComentarioServicio {
             Comentario comentario = comentarioOptional.get();
             comentario.setEstado(false);
             comentarioRepositorio.save(comentario);
+            reporteServicio.bajaComentarioReporte(comentario);
         }
+        
     }
-    @Transactional
-    public Optional<Comentario> buscarComentarioPorId(String idComentario) {
-        Optional<Comentario> comentario = comentarioRepositorio.findById(idComentario);
+    
 
-        return comentario;
-    }
-    /*
-    @Transactional
-    public void cambiarEstado(String idUsuario) {
-        Optional<Comentario> respuesta = comentarioRepositorio.findById(idUsuario);
+        @Transactional
+        public Optional<Comentario> buscarComentarioPorId(String idComentario) {
+            Optional<Comentario> comentario = comentarioRepositorio.findById(idComentario);
 
-        if (respuesta.isPresent()) {
-
-            Comentario comentario = respuesta.get();
-
-            if (comentario.getEstado() == true) {
-
-                comentario.setEstado(false);
-
-            } else if (comentario.getEstado() == false) {
-
-                comentario.setEstado(true);
-            }
+            return comentario;
         }
-
-    }
- */
     
     @Transactional
     public List<Comentario> comentarioPorPublicacion(String idPublicacion){
