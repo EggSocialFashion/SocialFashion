@@ -8,14 +8,20 @@ body {
   background-image: url("https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
 }
 
+
+
 .navbar_logo {
   width: 36px;
   border-radius: 50%;
   filter: opacity(0.8);
 }
 
+.card-login{
+}
+
 .login > img {
   width: 96px;
+  position: relative;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 20px;
@@ -24,16 +30,17 @@ body {
 
 .login {
   position: relative; /* Ajusta este valor según tus necesidades */
-  margin-top: 24px;
-  height: 500px;
+  height: auto;
+  top: 24px;
   min-width: 352px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   background: #ffffff;
   box-shadow: 0px 2px 8px 0px rgb(54, 54, 54);
   text-align: center;
   z-index: 150;
 }
+
 
 .login-form {
   display: grid;
@@ -59,6 +66,9 @@ body {
   opacity: 0.8;
   font-size: 16px;
   text-align: center;
+<<<<<<< HEAD
+  transition: height 1s;
+=======
 }
 
 .form-group > input:hover {
@@ -68,6 +78,7 @@ body {
 .form-group > input:hover {
   height: 50px;
   transition: height 0.2s;
+>>>>>>> f2ec38f8b3aab6146538731db9aee06d0f0473b4
 }
 
 .form-group > button {
