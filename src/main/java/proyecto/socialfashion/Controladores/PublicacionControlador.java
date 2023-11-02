@@ -2,11 +2,12 @@ package proyecto.socialfashion.Controladores;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
-
+import java.util.Comparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -128,21 +129,33 @@ public class PublicacionControlador {
  
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/tendencias")
-    public String Tendencias(ModelMap modelo, HttpSession session){
+    public String Tendencias(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-         if(usuario == null){
+        if (usuario == null) {
             return "redirect:login.html";
         }
-         try {
-             List<Publicacion>listaPorTendencias = (ArrayList<Publicacion>) publicacionServicio.listaPublicacionOrdenadasPorLikes();
-             modelo.addAttribute("listaPorTendencias", listaPorTendencias);
-             return"tendencias.html";
+    
+        try {
+            List<Object[]> publicacionesConLikeYComentarios = publicacionServicio.listaPublicacionOrdenadasPorLikes();
+    
+            // Ordenar la lista en orden descendente por la cantidad de "likes"
+            Collections.sort(publicacionesConLikeYComentarios, new Comparator<Object[]>() {
+                @Override
+                public int compare(Object[] o1, Object[] o2) {
+                    int likes1 = (int) o1[1];
+                    int likes2 = (int) o2[1];
+                    return Integer.compare(likes2, likes1);
+                }
+            });
+    
+            modelo.addAttribute("publicacionesConLikeYComentarios", publicacionesConLikeYComentarios);
+            return "tendencias.html";
         } catch (Exception e) {
-             modelo.addAttribute("error", "No hay publicaciones en tendencias ");
-            return"tendencias.html";
-        }           
+            modelo.addAttribute("error", "No hay publicaciones en tendencias ");
+            return "tendencias.html";
+        }
     }
-
+    
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/publicacion/{id}")
     public String mostrarPublicacion(@PathVariable String id, HttpSession session, Model modelo) {
